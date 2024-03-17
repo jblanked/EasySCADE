@@ -328,8 +328,8 @@ public func EasyAlert(title:String, message:String,action: @escaping () -> Void 
 // creates SCDImagelabels from urls
 public func EasySCDImageLabelURL(
 		path: String, 
-		height: Int = Int(screenInfo.screenSize.width) - 10,
-		width: Int = Int(screenInfo.screenSize.width) - 10,
+		height: Int = Int(screenInfo.screenSize.width),
+		width: Int = Int(screenInfo.screenSize.width),
 		location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: 0),
 		navigationAction: @escaping () -> Void = {  }) -> SCDWidgetsImage
 {	
@@ -355,7 +355,6 @@ public func EasySCDImageLabelURL(
 	size.width = width        
 	image.size = size  
 	image.location = location
-	image.paddingLeft = 10
 	
 	image.onClick { _ in navigationAction() }
 
@@ -365,8 +364,8 @@ public func EasySCDImageLabelURL(
 // creates SCDImagelabels from local paths
 public func EasySCDImageLabel(
 		path: String, 
-		height: Int = Int(screenInfo.screenSize.width) - 10,
-		width: Int = Int(screenInfo.screenSize.width) - 10,
+		height: Int = Int(screenInfo.screenSize.width),
+		width: Int = Int(screenInfo.screenSize.width),
 		location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: 0),
 		navigationAction: @escaping () -> Void = {
 			
@@ -384,12 +383,33 @@ public func EasySCDImageLabel(
         image.size = size  
 		image.location = location
 
-        image.paddingLeft = 10
 
         image.onClick { _ in navigationAction() }
 
         return image
     }
+
+// creates SCDButtons
+public func EasySCDButton(
+		text: String, 
+		font: String = "ArialMT",
+		color: SCDGraphicsRGB = EasyColor.blue,
+		height: Int = 50,
+		width: Int = Int(screenInfo.screenSize.width),
+		location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: 0),
+		action: @escaping () -> Void = {  }) -> SCDWidgetsButton
+	{	
+		let button = SCDWidgetsButton()
+		
+		button.text = text
+		button.font!.fontFamily = font
+		button.size = SCDGraphicsDimension(width: width, height: height)
+		button.location = location
+		button.font!.color = color
+		button.onClick { _ in action() }
+
+		return button
+	}
 
 // create dynamic SCDTextLabels
 public func EasySCDTextLabel(text: String, 
@@ -414,7 +434,6 @@ public func EasySCDTextLabel(text: String,
 			label.font!.fontFamily = font
 			label.font!.size = fontsize
 			label.font!.color = fontcolor
-			label.paddingLeft = 10
 			label.horizontalAlignment = SCDLayoutHorizontalAlignment.left    	
     		label.baselineAlignment = SCDWidgetsBaselineAlignment.middle
     		label.verticalAlignment = SCDLayoutVerticalAlignment.middle
