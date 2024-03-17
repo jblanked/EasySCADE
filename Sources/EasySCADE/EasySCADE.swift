@@ -18,8 +18,8 @@ import AndroidContent
 let easyProgress: ProgressDialog = ProgressDialog(context: Application.currentActivity!)
 #endif
 
-
-public class ScreenInfo: EObject {
+// class to store screen information
+public class EasyScreenInfo: EObject {
     public var screenSize: CGSize
     public var statusBarVisible: Bool
     public var statusBarsize: CGSize
@@ -31,20 +31,22 @@ public class ScreenInfo: EObject {
     }
 }
 
-private func getWindowScreenSize() -> ScreenInfo {
+private func getWindowScreenSize() -> EasyScreenInfo {
     let size = SCDRuntime.system.getScreenSize()
     let statusBarVisible = SCDRuntime.system.statusBarVisible
     let statusBarsize = SCDRuntime.system.getScreenSafeArea()
     
-    return ScreenInfo(
+    return EasyScreenInfo(
         screenSize: CGSize(width: size!.width, height: size!.height),
         statusBarVisible: statusBarVisible,
         statusBarsize: CGSize(width: statusBarsize!.bounds.width, height: statusBarsize!.bounds.height)
     )
 }
 
-public let screenInfo: ScreenInfo = getWindowScreenSize()
+// stores the screen information
+public let screenInfo: EasyScreenInfo = getWindowScreenSize()
 
+// creates a Loading Spinner
 public func EasySpinner(show: Bool) {
     #if os(iOS)
     DispatchQueue.main.async {
@@ -224,8 +226,8 @@ private func createBubbleContainer(text: String, color: SCDSvgRGBColor, yPos: In
     
     return bubbleContainer 
 }
-
-public func EasyBubbles(info: [EasyLayoutBubble], width: Int = Int(screenInfo.screenSize.width),location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: 0) ) -> SCDWidgetsContainer {
+// returns a SCDWidgetsContainer with the bubbles
+public func EasySCDBubbles(info: [EasySCDLayoutBubble], width: Int = Int(screenInfo.screenSize.width),location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: 0) ) -> SCDWidgetsContainer {
     let customElement = SCDWidgetsContainer()
     
     customElement.location = location
@@ -248,7 +250,7 @@ public func EasyBubbles(info: [EasyLayoutBubble], width: Int = Int(screenInfo.sc
    return customElement
 }
 
-public struct EasyLayoutBubble {
+public struct EasySCDLayoutBubble {
     public var text: String
     public var color: SCDSvgRGBColor
 
@@ -272,6 +274,7 @@ extension SCDApplication {
 }
 #endif
 
+// creates an alert 
 public func EasyAlert(title:String, message:String,action: @escaping () -> Void = { }) {
 
     #if !os(Android)
@@ -306,32 +309,30 @@ public func EasyAlert(title:String, message:String,action: @escaping () -> Void 
   
 
 // creates text labels from urls
-public func EasyImageLabelURL(path: String, height: Int, width: Int, navigationAction: @escaping () -> Void = { print("") }) -> SCDWidgetsImage
+public func EasySCDImageLabelURL(path: String, height: Int, width: Int, navigationAction: @escaping () -> Void = { print("") }) -> SCDWidgetsImage
 {	
 	let image = SCDWidgetsImage()
-	
-		
+			
 	// Create URL
-let url = URL(string: path)!
+	let url = URL(string: path)!
 
-DispatchQueue.main.async {
-	// Fetch Image Data
-	if let data = try? Data(contentsOf: url) {
-	
 	DispatchQueue.main.async {
-		// Create Image and Update Image Control
-		image.contentPriority = true
-		image.content = data
+		// Fetch Image Data
+		if let data = try? Data(contentsOf: url) {
+		
+		DispatchQueue.main.async {
+			// Create Image and Update Image Control
+			image.contentPriority = true
+			image.content = data
+		}
+		}
 	}
-	}
-}
-	
-	
+			
 	let size = SCDGraphicsDimension()
 	size.height = height
 	size.width = width        
 	image.size = size  
-	
+
 	image.paddingLeft = 10
 	
 	image.onClick { _ in navigationAction() }
