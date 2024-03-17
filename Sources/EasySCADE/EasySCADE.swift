@@ -226,7 +226,7 @@ private func createBubbleContainer(text: String, color: SCDSvgRGBColor, yPos: In
     return bubbleContainer 
 }
 
-public func EasyBubble(info: [EasyLayoutBubble], width: Int = Int(screenInfo.screenSize.width),location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: 0) ) -> SCDWidgetsContainer {
+public func EasyBubbles(info: [EasyLayoutBubbles], width: Int = Int(screenInfo.screenSize.width),location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: 0) ) -> SCDWidgetsContainer {
     let customElement = SCDWidgetsContainer()
     
     customElement.location = location
@@ -249,7 +249,7 @@ public func EasyBubble(info: [EasyLayoutBubble], width: Int = Int(screenInfo.scr
    return customElement
 }
 
-public struct EasyLayoutBubble
+public struct EasyLayoutBubbles
 {
 	var texts: String
 	var color: SCDSvgRGBColor = SCDSvgRGBColor.init(red: 10, green: 132, blue: 255)
