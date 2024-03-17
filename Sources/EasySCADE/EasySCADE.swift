@@ -418,7 +418,7 @@ public func EasySCDButton(
 		height: Int = 50,
 		width: Int = Int(screenInfo.screenSize.width),
 		paddingVertical: Int = 0,
-		paddingHorizontal: Int = 10,
+		paddingHorizontal: Int = 0,
 		location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: 0),
 		action: @escaping () -> Void = {  }) -> SCDWidgetsButton
 	{	
