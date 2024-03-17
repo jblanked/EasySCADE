@@ -328,8 +328,8 @@ public func EasyAlert(title:String, message:String,action: @escaping () -> Void 
 // creates SCDImagelabels from urls
 public func EasySCDImageLabelURL(
 		path: String, 
-		height: Int = Int(screenInfo.screenSize.width) - 20,
-		width: Int = Int(screenInfo.screenSize.width) - 20,
+		height: Int = Int(screenInfo.screenSize.width) - 10,
+		width: Int = Int(screenInfo.screenSize.width) - 10,
 		location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: 0),
 		navigationAction: @escaping () -> Void = {  }) -> SCDWidgetsImage
 {	
@@ -365,8 +365,8 @@ public func EasySCDImageLabelURL(
 // creates SCDImagelabels from local paths
 public func EasySCDImageLabel(
 		path: String, 
-		height: Int = Int(screenInfo.screenSize.width) - 20,
-		width: Int = Int(screenInfo.screenSize.width) - 20,
+		height: Int = Int(screenInfo.screenSize.width) - 10,
+		width: Int = Int(screenInfo.screenSize.width) - 10,
 		location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: 0),
 		navigationAction: @escaping () -> Void = {
 			
@@ -420,7 +420,7 @@ public func EasySCDTextLabel(text: String,
     		label.verticalAlignment = SCDLayoutVerticalAlignment.middle
 			label.layoutData = SCDLayoutAutoLayoutData()
 
-			label.size = SCDGraphicsDimension(width: Int(screenInfo.screenSize.width), height: fontsize)
+			label.size = SCDGraphicsDimension(width: Int(screenInfo.screenSize.width), height: fontsize + 5)
 
 			
 			
