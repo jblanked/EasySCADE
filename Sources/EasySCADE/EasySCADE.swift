@@ -475,7 +475,7 @@ public func EasySCDTextLabel(text: String,
 
 			if paddingHorizontal > 0 {
 			label.paddingLeft = paddingHorizontal
-			label.size.width = width - paddingHorizontal
+			label.size.width -= paddingHorizontal
 			}
 			if paddingVertical > 0 {
 				label.paddingTop = paddingVertical
