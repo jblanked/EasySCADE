@@ -428,10 +428,10 @@ public func EasySCDTextLabel(text: String,
 		}
         
 
-        return EasyVStack(elements: elements, location: SCDGraphicsPoint(x: x_location, y: y_location))
+        return EasyVStack2(elements: elements, location: SCDGraphicsPoint(x: x_location, y: y_location))
     }
 
-private func EasyVStack(elements: [SCDWidgetsWidget], location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: Int(screenInfo.statusBarsize.height) + 15)) -> SCDWidgetsContainer {
+private func EasyVStack2(elements: [SCDWidgetsWidget], location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: Int(screenInfo.statusBarsize.height) + 15)) -> SCDWidgetsContainer {
 	let container = SCDWidgetsContainer()
 	container.location = location
 	
