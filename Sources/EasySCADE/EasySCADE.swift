@@ -14,11 +14,12 @@ import AndroidView
 import Java
 #endif
 
-var test: String = "Hello World"
 
 // MARK: - EasySCADE
 
 public class EasySCADE {
+
+	public static var test: String = "Hello World"
 
     class ScreenInfo: EObject {
 	
