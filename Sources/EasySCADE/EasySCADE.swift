@@ -442,6 +442,48 @@ public func EasySCDButton(
 		return button
 	}
 
+// create SCDTextboxes
+public func EasySCDTextBox	(
+		placeholder: String,
+		secure: Bool = false, 
+		fontsize:Int = 20,
+		font: String = "ArialMT", 
+		fontcolor:SCDGraphicsRGB = EasyColor.black,
+		height: Int = Int(screenInfo.screenSize.width),
+		width: Int = Int(screenInfo.screenSize.width),
+		paddingVertical: Int = 0,
+		paddingHorizontal: Int = 10,
+		location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: 0)
+	) -> SCDWidgetsWidget
+	
+	{
+		let tBox = SCDWidgetsTextbox()
+		tBox.placeholder = placeholder
+		tBox.font!.fontFamily = font
+		tBox.horizontalAlignment = SCDLayoutHorizontalAlignment.center    	
+    	tBox.baselineAlignment = SCDWidgetsBaselineAlignment.middle
+    	tBox.verticalAlignment = SCDLayoutVerticalAlignment.middle
+    	tBox.keyboard = SCDWidgetsKeyboard.resize
+		tBox.keyboardType = SCDWidgetsKeyboardType.alphabetic
+    	tBox.secure = secure
+    	tBox.text = ""
+		tBox.size = SCDGraphicsDimension(width: width, height: height)
+		tBox.location = location
+		tBox.font!.size = fontsize
+		tBox.font!.color = fontcolor
+		tBox.multiline = true
+
+		if paddingHorizontal > 0 {
+			tBox.paddingLeft = paddingHorizontal
+			tBox.size.width = width - paddingHorizontal
+			}
+			if paddingVertical > 0 {
+				tBox.paddingTop = paddingVertical
+			}
+
+		return tBox
+	}
+
 // create SCDVideoViews
 public func EasySCDVideo(
 		url: String, 
@@ -453,9 +495,20 @@ public func EasySCDVideo(
   {
   	
   	let web = SCDWidgetsWebView()
-    web.load(url)
+    
     web.size = SCDGraphicsDimension(width: width, height: height)
     web.location = location
+	web.backgroundColor = EasyColor.black
+
+	if paddingHorizontal > 0 {
+		web.paddingLeft = paddingHorizontal
+		web.size.width = width - paddingHorizontal
+		}
+		if paddingVertical > 0 {
+			web.paddingTop = paddingVertical
+		}
+
+	web.load(url)
     
     
     // Add event when page loaded
