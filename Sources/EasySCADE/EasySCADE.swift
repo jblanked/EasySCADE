@@ -450,7 +450,7 @@ private func EasyVStack2(elements: [SCDWidgetsWidget], location: SCDGraphicsPoin
 	return container
 }
 
-public func EasyVStack(page: SCDWidgetsPage, elements: [SCDWidgetsWidget], location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: Int(screenInfo.statusBarsize.height) + 15)) -> SCDWidgetsContainer {
+public func EasyVStack(page: SCDWidgetsPage, elements: [SCDWidgetsWidget], location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: Int(screenInfo.statusBarsize.height) + 15))  {
 	let container = SCDWidgetsContainer()
 	container.location = location
 	
@@ -470,7 +470,7 @@ public func EasyVStack(page: SCDWidgetsPage, elements: [SCDWidgetsWidget], locat
 }
 
 public func EasyHStack(page: SCDWidgetsPage, elements: [SCDWidgetsWidget], location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: Int(screenInfo.statusBarsize.height) + 15)
-) -> SCDWidgetsContainer {
+)  {
 	let container = SCDWidgetsContainer()
 	container.location = location
 	
