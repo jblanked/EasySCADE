@@ -357,6 +357,33 @@ public func EasySCDImageLabelURL(path: String, height: Int, width: Int, navigati
 	return image
 }
 
+public func EasySCDTextLabel(text: String, 
+							fontsize:Int = 20,
+							font: String = "ArialMT", 
+							fontcolor:SCDGraphicsRGB = EasyColor.black,
+							x_location: 0, 
+							y_location: 0)
+							 -> SCDWidgetsLabel
+    {	
+    	let label = SCDWidgetsLabel()
+    	
+    	label.visible = true
+    	label.enable = true       
+   
+        label.text = text
+        label.font!.fontFamily = font
+        label.font!.size = fontsize
+        label.font!.color = fontcolor
+        label.paddingLeft = 10
+
+        label.location = SCDGraphicsPoint(x: x_location, y: y_location)
+        
+        label.size = SCDGraphicsDimension(width: Int(screenInfo.screenSize.width), height: fontsize)
+        
+
+        return label
+    }
+
 
 public func EasyVStack(elements: [SCDWidgetsWidget], location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: Int(screenInfo.statusBarsize.height) + 15)) -> SCDWidgetsContainer {
 	let container = SCDWidgetsContainer()
