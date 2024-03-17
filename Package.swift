@@ -28,7 +28,7 @@ let package = Package(
         .target(
             name: "EasySCADE",
             dependencies: ["ScadeExtensions"],
-            exclude: ["Sources/EasySCADE/Generated"]
+            exclude: ["Sources/EasySCADE/Generated"],
             swiftSettings: [
                 .unsafeFlags(["-F", SCADE_SDK], .when(platforms: [.macOS, .iOS])),
                 .unsafeFlags(["-I", "\(SCADE_SDK)/include"], .when(platforms: [.android])),
