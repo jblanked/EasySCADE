@@ -146,7 +146,7 @@ private func Bubble(text:String, color: SCDSvgRGBColor = SCDSvgRGBColor.init(red
         svgText.anchor = SCDSvgTextAnchor.start
         svgText.alignment = SCDSvgTextAlignment.left
         svgText.alignmentBaseline = SCDSvgTextAlignmentBaseline.auto
-        svgText.fontName = 	Arial
+        svgText.fontName = 	"ArialMT"
         height = Int(25 + (index * 30)) + 10
         group.children.append(svgText)
     }
