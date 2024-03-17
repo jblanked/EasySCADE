@@ -358,21 +358,41 @@ public func EasySCDImageLabelURL(path: String, height: Int, width: Int, navigati
 }
 
 
-public func EasyAdapter(elements: [SCDWidgetsWidget]) -> SCDWidgetsContainer {
+public func EasyVStack(elements: [SCDWidgetsWidget], location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: 0)) -> SCDWidgetsContainer {
 	let container = SCDWidgetsContainer()
-	container.location = SCDGraphicsPoint(x: 0, y: 0)
+	container.location = location
 	
 	var yOffset = 0
 	for element in elements {
 		let tempContainer = SCDWidgetsContainer()
 		tempContainer.location = SCDGraphicsPoint(x: 0, y: yOffset)
-		tempContainer.size = SCDGraphicsDimension(width: Int(screenInfo.screenSize.width), height: Int(element.size.height))
+		tempContainer.size = SCDGraphicsDimension(width: Int(element.size.width), height: Int(element.size.height))
 		yOffset += Int(element.size.height) + 10
 		tempContainer.children.append(element)
 		container.children.append(tempContainer)
 	}
 
 	container.size = SCDGraphicsDimension(width: Int(screenInfo.screenSize.width), height: yOffset)
+	
+	return container
+}
+
+public func EasyHStack(elements: [SCDWidgetsWidget], location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: 0)
+) -> SCDWidgetsContainer {
+	let container = SCDWidgetsContainer()
+	container.location = location
+	
+	var xOffset = 0
+	for element in elements {
+		let tempContainer = SCDWidgetsContainer()
+		tempContainer.location = SCDGraphicsPoint(x: xOffset, y: 0)
+		tempContainer.size = SCDGraphicsDimension(width: Int(element.size.width), height: Int(element.size.height))
+		xOffset += Int(element.size.width) + 10
+		tempContainer.children.append(element)
+		container.children.append(tempContainer)
+	}
+
+	container.size = SCDGraphicsDimension(width: xOffset, height: Int(screenInfo.screenSize.height))
 	
 	return container
 }
