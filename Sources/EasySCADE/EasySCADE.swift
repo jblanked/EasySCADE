@@ -32,7 +32,7 @@ public class EasySCADE {
 	}
 }
 
-    private static func getWindowScreenSize() -> ScreenInfo {
+    public static func getWindowScreenSize() -> ScreenInfo {
     
     let sizee = SCDRuntime.system.getScreenSize()
     let statusBarVisible = SCDRuntime.system.statusBarVisible
