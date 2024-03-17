@@ -4,7 +4,7 @@ import Dispatch
 import Foundation
 import ScadeUI
 
-#if !os(Android)
+#if os(iOS)
 import UIKit 
 import SwiftUI
 #endif
