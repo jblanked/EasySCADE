@@ -432,7 +432,7 @@ public func EasySCDTextLabel(text: String,
     }
 
 
-public func EasyVStack(elements: [SCDWidgetsWidget], location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: Int(screenInfo.statusBarsize.height) + 15)) -> SCDWidgetsContainer {
+public func EasyVStack(page: SCDWidgetsPage, elements: [SCDWidgetsWidget], location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: Int(screenInfo.statusBarsize.height) + 15)) -> SCDWidgetsContainer {
 	let container = SCDWidgetsContainer()
 	container.location = location
 	
@@ -448,10 +448,10 @@ public func EasyVStack(elements: [SCDWidgetsWidget], location: SCDGraphicsPoint 
 
 	container.size = SCDGraphicsDimension(width: Int(screenInfo.screenSize.width), height: yOffset)
 	
-	return container
+	page.children.append(container)
 }
 
-public func EasyHStack(elements: [SCDWidgetsWidget], location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: Int(screenInfo.statusBarsize.height) + 15)
+public func EasyHStack(page: SCDWidgetsPage, elements: [SCDWidgetsWidget], location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: Int(screenInfo.statusBarsize.height) + 15)
 ) -> SCDWidgetsContainer {
 	let container = SCDWidgetsContainer()
 	container.location = location
@@ -468,5 +468,5 @@ public func EasyHStack(elements: [SCDWidgetsWidget], location: SCDGraphicsPoint 
 
 	container.size = SCDGraphicsDimension(width: xOffset, height: Int(screenInfo.screenSize.height))
 	
-	return container
+	page.children.append(container)
 }
