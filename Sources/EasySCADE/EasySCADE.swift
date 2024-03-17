@@ -13,36 +13,29 @@ import AndroidView
 import Java
 #endif
 
-public class EasySCADE {
-
-    public static var test: String = "Hello World"
-
-    // Make ScreenInfo public and its properties as well
-    public class ScreenInfo: EObject {
-        public var screenSize: CGSize
-        public var statusBarVisible: Bool
-        public var statusBarsize: CGSize
-        
-        public init(screenSize: CGSize, statusBarVisible: Bool, statusBarsize: CGSize) {
-            self.screenSize = screenSize
-            self.statusBarsize = statusBarsize
-            self.statusBarVisible = statusBarVisible
-        }
-    }
-
-    public static func getWindowScreenSize() -> ScreenInfo {
-        let sizee = SCDRuntime.system.getScreenSize()
-        let statusBarVisible = SCDRuntime.system.statusBarVisible
-        let statusBarsize = SCDRuntime.system.getScreenSafeArea()
-        
-        let screenInfo = ScreenInfo(
-            screenSize: CGSize(width: sizee!.width, height: sizee!.height),
-            statusBarVisible: statusBarVisible,
-            statusBarsize: CGSize(width: statusBarsize!.bounds.width, height: statusBarsize!.bounds.height)
-        )
-        
-        return screenInfo
-    }
+// ScreenInfo class definition remains the same
+public class ScreenInfo: EObject {
+    public var screenSize: CGSize
+    public var statusBarVisible: Bool
+    public var statusBarsize: CGSize
     
-    public static var screenInfo: ScreenInfo = getWindowScreenSize()
+    public init(screenSize: CGSize, statusBarVisible: Bool, statusBarsize: CGSize) {
+        self.screenSize = screenSize
+        self.statusBarsize = statusBarsize
+        self.statusBarVisible = statusBarVisible
+    }
 }
+
+public func getWindowScreenSize() -> ScreenInfo {
+    let size = SCDRuntime.system.getScreenSize()
+    let statusBarVisible = SCDRuntime.system.statusBarVisible
+    let statusBarsize = SCDRuntime.system.getScreenSafeArea()
+    
+    return ScreenInfo(
+        screenSize: CGSize(width: size!.width, height: size!.height),
+        statusBarVisible: statusBarVisible,
+        statusBarsize: CGSize(width: statusBarsize!.bounds.width, height: statusBarsize!.bounds.height)
+    )
+}
+
+public var screenInfo: ScreenInfo = getWindowScreenSize()
