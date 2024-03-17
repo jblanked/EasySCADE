@@ -248,10 +248,14 @@ public func EasyBubbles(info: [EasyLayoutBubble], width: Int = Int(screenInfo.sc
    return customElement
 }
 
-public struct EasyLayoutBubble
-{
-	var text: String
-	var color: SCDSvgRGBColor = SCDSvgRGBColor.init(red: 10, green: 132, blue: 255)
+public struct EasyLayoutBubble {
+    public var text: String
+    public var color: SCDSvgRGBColor
+
+    public init(text: String, color: SCDSvgRGBColor = SCDSvgRGBColor(red: 10, green: 132, blue: 255)) {
+        self.text = text
+        self.color = color
+    }
 }
 
 
