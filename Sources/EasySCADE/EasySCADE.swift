@@ -272,7 +272,7 @@ extension SCDApplication {
 }
 #endif
 
-private func EasyAlert(title:String, message:String,action: @escaping () -> Void = { }) {
+public func EasyAlert(title:String, message:String,action: @escaping () -> Void = { }) {
 
     #if os(iOS)
 
