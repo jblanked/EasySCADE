@@ -366,6 +366,7 @@ public func EasyAdapter(elements: [SCDWidgetsWidget]) -> SCDWidgetsContainer {
 	for element in elements {
 		let tempContainer = SCDWidgetsContainer()
 		tempContainer.location = SCDGraphicsPoint(x: 0, y: yOffset)
+		print(element.size.height)
 		yOffset += Int(element.size.height) + 10
 		tempContainer.children.append(element)
 		container.children.append(tempContainer)
