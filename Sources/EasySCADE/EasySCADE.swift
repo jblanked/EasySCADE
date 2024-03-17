@@ -442,6 +442,42 @@ public func EasySCDButton(
 		return button
 	}
 
+// create SCDVideoViews
+public func EasyVideo(
+		url: String, 
+		height: Int = Int(screenInfo.screenSize.width),
+		width: Int = Int(screenInfo.screenSize.width),
+		paddingVertical: Int = 0,
+		paddingHorizontal: Int = 10,
+		location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: 0)) -> SCDWidgetsWidget
+  {
+  	
+  	let web = SCDWidgetsWebView()
+    web.load(url)
+    web.size = SCDGraphicsDimension(width: width, height: height)
+    web.location = location
+    
+    
+    // Add event when page loaded
+		web.onLoaded.append(SCDWidgetsLoadEventHandler{
+			(ev:SCDWidgetsLoadEvent?) in 
+			
+		
+			
+			})
+		
+		
+		// Add event when page failed to load
+		web.onLoadFailed.append(SCDWidgetsLoadFailedEventHandler{
+			(ev:SCDWidgetsLoadFailedEvent?) in 
+			
+			
+			})
+	
+	return web
+
+  }
+
 // create dynamic SCDTextLabels
 public func EasySCDTextLabel(text: String, 
 							fontsize:Int = 20,
