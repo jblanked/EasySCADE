@@ -46,6 +46,15 @@ private func getWindowScreenSize() -> EasyScreenInfo {
 // stores the screen information
 public let screenInfo: EasyScreenInfo = getWindowScreenSize()
 
+// colors
+public struct EasyColor {
+	public static let white = SCDGraphicsRGB(red: 255, green: 255, blue: 255)
+	public static let blue = SCDGraphicsRGB(red: 10, green: 132, blue: 255) // iOS blue
+	public static let black = SCDGraphicsRGB(red: 0, green: 0, blue: 0)
+	public static let green = SCDGraphicsRGB(red: 48, green: 209, blue: 88) // iOS green
+	public static let red = SCDGraphicsRGB(red: 215, green: 0, blue: 21) // iOS red
+}
+
 // creates a Loading Spinner
 public func EasySpinner(show: Bool) {
     #if os(iOS)
@@ -227,14 +236,14 @@ private func createBubbleContainer(text: String, color: SCDSvgRGBColor, yPos: In
     return bubbleContainer 
 }
 // returns a SCDWidgetsContainer with the bubbles
-public func EasySCDBubbles(info: [EasySCDLayoutBubble], width: Int = Int(screenInfo.screenSize.width),location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: 0) ) -> SCDWidgetsContainer {
+public func EasySCDBubbles(bubbles: [EasySCDLayoutBubble], width: Int = Int(screenInfo.screenSize.width),location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: 0) ) -> SCDWidgetsContainer {
     let customElement = SCDWidgetsContainer()
     
     customElement.location = location
 
 
     var yOffset = 0
-    for text in info {
+    for text in bubbles {
         let bubbleContainer = createBubbleContainer(text: text.text, color: text.color, yPos: yOffset)
         
         // Use the actual bubble height to adjust yOffset for the next container
@@ -258,6 +267,14 @@ public struct EasySCDLayoutBubble {
         self.text = text
         self.color = color
     }
+}
+
+public struct EasySCDLayoutBubbles {
+	public var bubbles: [EasySCDLayoutBubble]
+
+	public init(bubbles: [EasySCDLayoutBubble]) {
+		self.bubbles = bubbles
+	}
 }
 
 
