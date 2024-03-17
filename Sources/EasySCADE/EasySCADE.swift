@@ -13,7 +13,6 @@ import AndroidView
 import Java
 #endif
 
-// ScreenInfo class definition remains the same
 public class ScreenInfo: EObject {
     public var screenSize: CGSize
     public var statusBarVisible: Bool
@@ -26,7 +25,7 @@ public class ScreenInfo: EObject {
     }
 }
 
-public func getWindowScreenSize() -> ScreenInfo {
+private func getWindowScreenSize() -> ScreenInfo {
     let size = SCDRuntime.system.getScreenSize()
     let statusBarVisible = SCDRuntime.system.statusBarVisible
     let statusBarsize = SCDRuntime.system.getScreenSafeArea()
@@ -38,4 +37,4 @@ public func getWindowScreenSize() -> ScreenInfo {
     )
 }
 
-public var screenInfo: ScreenInfo = getWindowScreenSize()
+public let screenInfo: ScreenInfo = getWindowScreenSize()
