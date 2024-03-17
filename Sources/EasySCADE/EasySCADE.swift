@@ -253,3 +253,51 @@ public struct EasyLayoutBubble
 	var text: String
 	var color: SCDSvgRGBColor = SCDSvgRGBColor.init(red: 10, green: 132, blue: 255)
 }
+
+
+#if os(iOS) 
+
+extension SCDApplication {
+	
+	static var rootViewController : UIViewController? {
+		
+		get {
+			return UIApplication.shared.delegate?.window??.rootViewController
+		}
+	}
+}
+#endif
+
+private func EasyAlert(title:String, message:String,action: @escaping () -> Void = { }) {
+
+    #if os(iOS)
+
+      let alert = UIAlertController(
+        title: title,
+        message: message,
+        preferredStyle: .alert)
+      
+      alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in action() }))
+
+      SCDApplication.rootViewController?.present(alert, animated: true)
+
+	
+    #endif
+
+
+    #if os(Android)
+
+      let builder: AlertDialogBuilder = AlertDialogBuilder(context: Application.currentActivity!)
+      builder.setTitle(title: title)
+      builder.setMessage(message: message)
+      
+      builder.setPositiveButton(text: "OK", listener: nil)
+
+      let dialog: AlertDialog = builder.create()!
+
+      dialog.show()
+      
+    #endif
+  }
+  
+  
