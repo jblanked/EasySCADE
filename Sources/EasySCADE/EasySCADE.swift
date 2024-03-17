@@ -274,7 +274,7 @@ extension SCDApplication {
 
 public func EasyAlert(title:String, message:String,action: @escaping () -> Void = { }) {
 
-    #if os(iOS)
+    #if !os(Android)
 
       let alert = UIAlertController(
         title: title,
@@ -304,4 +304,37 @@ public func EasyAlert(title:String, message:String,action: @escaping () -> Void 
     #endif
   }
   
-  
+
+// creates text labels from urls
+public func EasyImageLabelURL(path: String, height: Int, width: Int, navigationAction: @escaping () -> Void = { print("") }) -> SCDWidgetsImage
+{	
+	let image = SCDWidgetsImage()
+	
+		
+	// Create URL
+let url = URL(string: path)!
+
+DispatchQueue.main.async {
+	// Fetch Image Data
+	if let data = try? Data(contentsOf: url) {
+	
+	DispatchQueue.main.async {
+		// Create Image and Update Image Control
+		image.contentPriority = true
+		image.content = data
+	}
+	}
+}
+	
+	
+	let size = SCDGraphicsDimension()
+	size.height = height
+	size.width = width        
+	image.size = size  
+	
+	image.paddingLeft = 10
+	
+	image.onClick { _ in navigationAction() }
+
+	return image
+}
