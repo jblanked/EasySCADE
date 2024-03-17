@@ -176,7 +176,6 @@ private func splitTextIntoLines(text: String) -> [String] {
     let components = text.components(separatedBy: .whitespacesAndNewlines)
 	let words = components.filter { !$0.isEmpty }
     let count = words.count
-    let _ = Int(screenInfo.screenSize.width)
     
     let maxWordsPerLine = ((Int(screenInfo.screenSize.width) / 10) * count)
     let maxLettersPerLine = (Int(screenInfo.screenSize.width) / 10)
@@ -226,7 +225,7 @@ private func createBubbleContainer(text: String, color: SCDSvgRGBColor, yPos: In
     return bubbleContainer 
 }
 
-public func EasyBubbles(info: [EasyLayoutBubbles], width: Int = Int(screenInfo.screenSize.width),location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: 0) ) -> SCDWidgetsContainer {
+public func EasyBubbles(info: [EasyLayoutBubble], width: Int = Int(screenInfo.screenSize.width),location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: 0) ) -> SCDWidgetsContainer {
     let customElement = SCDWidgetsContainer()
     
     customElement.location = location
@@ -234,7 +233,7 @@ public func EasyBubbles(info: [EasyLayoutBubbles], width: Int = Int(screenInfo.s
 
     var yOffset = 0
     for text in info {
-        let bubbleContainer = createBubbleContainer(text: text.texts, color: text.color, yPos: yOffset)
+        let bubbleContainer = createBubbleContainer(text: text.text, color: text.color, yPos: yOffset)
         
         // Use the actual bubble height to adjust yOffset for the next container
         yOffset += Int(bubbleContainer.size.height) + 10 // Add some space between bubbles
@@ -249,8 +248,8 @@ public func EasyBubbles(info: [EasyLayoutBubbles], width: Int = Int(screenInfo.s
    return customElement
 }
 
-public struct EasyLayoutBubbles
+public struct EasyLayoutBubble
 {
-	var texts: String
+	var text: String
 	var color: SCDSvgRGBColor = SCDSvgRGBColor.init(red: 10, green: 132, blue: 255)
 }
