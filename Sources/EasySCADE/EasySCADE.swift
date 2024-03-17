@@ -363,10 +363,10 @@ public func EasySCDTextLabel(text: String,
 							fontcolor:SCDGraphicsRGB = EasyColor.black,
 							x_location: Int = 0,
 							y_location: Int = 0)
-							 -> SCDWidgetsLabel
+							 -> SCDWidgetsContainer
     {	
 		let paragraph = splitTextIntoLines(text: text)
-		let elements = [SCDWidgetsWidget]
+		let elements = [SCDWidgetsWidget]()
 		var yOffset = y_location
 		for line in paragraph
 		{
