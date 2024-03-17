@@ -361,8 +361,8 @@ public func EasySCDTextLabel(text: String,
 							fontsize:Int = 20,
 							font: String = "ArialMT", 
 							fontcolor:SCDGraphicsRGB = EasyColor.black,
-							x_location: 0, 
-							y_location: 0)
+							x_location: Int = 0,
+							y_location: Int = 0)
 							 -> SCDWidgetsLabel
     {	
     	let label = SCDWidgetsLabel()
