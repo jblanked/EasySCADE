@@ -371,7 +371,7 @@ public func EasyAdapter(elements: [SCDWidgetsWidget]) -> SCDWidgetsContainer {
 		container.children.append(tempContainer)
 	}
 
-	container.size = SCDGraphicsDimension(width: Int(screenInfo.screenSize.width), height: yOffset)
+	container.size = SCDGraphicsDimension(width: Int(screenInfo.screenSize.width), height: 100)
 	
 	return container
 }
