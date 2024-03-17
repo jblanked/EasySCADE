@@ -358,7 +358,7 @@ public func EasySCDImageLabelURL(path: String, height: Int, width: Int, navigati
 }
 
 
-public func EasyVStack(elements: [SCDWidgetsWidget], location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: 0)) -> SCDWidgetsContainer {
+public func EasyVStack(elements: [SCDWidgetsWidget], location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: screenInfo.statusBarsize.height)) -> SCDWidgetsContainer {
 	let container = SCDWidgetsContainer()
 	container.location = location
 	
@@ -377,7 +377,7 @@ public func EasyVStack(elements: [SCDWidgetsWidget], location: SCDGraphicsPoint 
 	return container
 }
 
-public func EasyHStack(elements: [SCDWidgetsWidget], location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: 0)
+public func EasyHStack(elements: [SCDWidgetsWidget], location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: screenInfo.statusBarsize.height)
 ) -> SCDWidgetsContainer {
 	let container = SCDWidgetsContainer()
 	container.location = location
