@@ -2,6 +2,9 @@
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
+import Foundation
+
+let SCADE_SDK = ProcessInfo.processInfo.environment["SCADE_SDK"] ?? ""
 
 let package = Package(
     name: "EasySCADE",
@@ -26,7 +29,11 @@ let package = Package(
         .target(
             name: "EasySCADE",
             dependencies: ["ScadeExtensions", "SCADE"],
-            exclude: ["Sources/EasySCADE/Generated"]),
+            exclude: ["Sources/EasySCADE/Generated"]
+            swiftSettings: [
+                .unsafeFlags(["-F", SCADE_SDK], .when(platforms: [.macOS, .iOS])),
+                .unsafeFlags(["-I", "\(SCADE_SDK)/include"], .when(platforms: [.android])),
+            ]),
         .testTarget(
             name: "EasySCADETests",
             dependencies: ["EasySCADE"]),
