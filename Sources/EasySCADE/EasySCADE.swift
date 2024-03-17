@@ -443,7 +443,7 @@ public func EasySCDButton(
 	}
 
 // create SCDVideoViews
-public func EasyVideo(
+public func EasySCDVideo(
 		url: String, 
 		height: Int = Int(screenInfo.screenSize.width),
 		width: Int = Int(screenInfo.screenSize.width),
