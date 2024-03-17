@@ -328,6 +328,8 @@ public func EasyAlert(title:String, message:String,action: @escaping () -> Void 
 // creates SCDImagelabels from urls
 public func EasySCDImageLabelURL(
 		path: String, 
+		paddingVertical: Int = 0,
+		paddingHorizontal: Int = 10,
 		height: Int = Int(screenInfo.screenSize.width),
 		width: Int = Int(screenInfo.screenSize.width),
 		location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: 0),
@@ -355,6 +357,15 @@ public func EasySCDImageLabelURL(
 	size.width = width        
 	image.size = size  
 	image.location = location
+
+	if paddingHorizontal > 0 {
+		image.paddingLeft = paddingHorizontal
+		image.size.width = width - paddingHorizontal
+	}
+	if paddingVertical > 0 {
+		image.paddingTop = paddingVertical
+	}
+
 	
 	image.onClick { _ in navigationAction() }
 
@@ -364,6 +375,8 @@ public func EasySCDImageLabelURL(
 // creates SCDImagelabels from local paths
 public func EasySCDImageLabel(
 		path: String, 
+		paddingVertical: Int = 0,
+		paddingHorizontal: Int = 10,
 		height: Int = Int(screenInfo.screenSize.width),
 		width: Int = Int(screenInfo.screenSize.width),
 		location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: 0),
@@ -383,6 +396,14 @@ public func EasySCDImageLabel(
         image.size = size  
 		image.location = location
 
+		if paddingHorizontal > 0 {
+		image.paddingLeft = paddingHorizontal
+		image.size.width = width - paddingHorizontal
+		}
+		if paddingVertical > 0 {
+			image.paddingTop = paddingVertical
+		}
+
 
         image.onClick { _ in navigationAction() }
 
@@ -396,6 +417,8 @@ public func EasySCDButton(
 		color: SCDGraphicsRGB = EasyColor.blue,
 		height: Int = 50,
 		width: Int = Int(screenInfo.screenSize.width),
+		paddingVertical: Int = 0,
+		paddingHorizontal: Int = 10,
 		location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: 0),
 		action: @escaping () -> Void = {  }) -> SCDWidgetsButton
 	{	
@@ -408,6 +431,14 @@ public func EasySCDButton(
 		button.font!.color = color
 		button.onClick { _ in action() }
 
+		if paddingHorizontal > 0 {
+			button.paddingLeft = paddingHorizontal
+			button.size.width = width - paddingHorizontal
+			}
+			if paddingVertical > 0 {
+				button.paddingTop = paddingVertical
+			}
+
 		return button
 	}
 
@@ -416,6 +447,8 @@ public func EasySCDTextLabel(text: String,
 							fontsize:Int = 20,
 							font: String = "ArialMT", 
 							fontcolor:SCDGraphicsRGB = EasyColor.black,
+							paddingVertical: Int = 0,
+							paddingHorizontal: Int = 10,
 							x_location: Int = 0,
 							y_location: Int = 0)
 							 -> SCDWidgetsContainer
@@ -438,8 +471,16 @@ public func EasySCDTextLabel(text: String,
     		label.baselineAlignment = SCDWidgetsBaselineAlignment.middle
     		label.verticalAlignment = SCDLayoutVerticalAlignment.middle
 			label.layoutData = SCDLayoutAutoLayoutData()
-
 			label.size = SCDGraphicsDimension(width: Int(screenInfo.screenSize.width), height: fontsize + 5)
+
+			if paddingHorizontal > 0 {
+			label.paddingLeft = paddingHorizontal
+			label.size.width = width - paddingHorizontal
+			}
+			if paddingVertical > 0 {
+				label.paddingTop = paddingVertical
+			}
+
 
 			
 			
