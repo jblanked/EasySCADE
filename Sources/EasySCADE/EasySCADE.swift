@@ -366,7 +366,7 @@ public func EasySCDTextLabel(text: String,
 							 -> SCDWidgetsContainer
     {	
 		let paragraph = splitTextIntoLines(text: text)
-		let elements = [SCDWidgetsWidget]()
+		var elements = [SCDWidgetsWidget]()
 		var yOffset = y_location
 		for line in paragraph
 		{
