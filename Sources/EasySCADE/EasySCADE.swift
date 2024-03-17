@@ -382,8 +382,10 @@ public func EasySCDTextLabel(text: String,
 			label.paddingLeft = 10
 
 			label.location = SCDGraphicsPoint(x: x_location, y: yOffset)
-			
 			label.size = SCDGraphicsDimension(width: Int(screenInfo.screenSize.width), height: fontsize)
+
+			yOffset += fontsize + 10
+			
 			elements.append(label)
 		}
         
