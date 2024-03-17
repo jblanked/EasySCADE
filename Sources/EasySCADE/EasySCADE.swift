@@ -331,7 +331,7 @@ public func EasySCDImageLabelURL(
 		height: Int = Int(screenInfo.screenSize.width) - 20,
 		width: Int = Int(screenInfo.screenSize.width) - 20,
 		location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: 0),
-		navigationAction: @escaping () -> Void = { print("") }) -> SCDWidgetsImage
+		navigationAction: @escaping () -> Void = {  }) -> SCDWidgetsImage
 {	
 	let image = SCDWidgetsImage()
 			
@@ -368,7 +368,10 @@ public func EasySCDImageLabel(
 		height: Int = Int(screenInfo.screenSize.width) - 20,
 		width: Int = Int(screenInfo.screenSize.width) - 20,
 		location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: 0),
-		navigationAction: @escaping () -> Void) -> SCDWidgetsImage
+		navigationAction: @escaping () -> Void = {
+			
+		
+		}) -> SCDWidgetsImage
     {	
     	let image = SCDWidgetsImage()
         
