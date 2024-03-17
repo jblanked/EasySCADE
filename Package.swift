@@ -21,14 +21,13 @@ let package = Package(
     dependencies: [
         .package(url: "https://github.com/scade-platform/ScadeExtensions", branch: "main"),
         .package(url: "https://github.com/scade-platform/swift-android.git", branch: "android/24"),
-        .package(url: "https://github.com/scade-platform/SCADE", branch: "main"),
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
         // Targets can depend on other targets in this package and products from dependencies.
         .target(
             name: "EasySCADE",
-            dependencies: ["ScadeExtensions", "SCADE"],
+            dependencies: ["ScadeExtensions"],
             exclude: ["Sources/EasySCADE/Generated"]
             swiftSettings: [
                 .unsafeFlags(["-F", SCADE_SDK], .when(platforms: [.macOS, .iOS])),
