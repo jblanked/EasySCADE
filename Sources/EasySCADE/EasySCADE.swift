@@ -361,8 +361,8 @@ public func EasySCDImageLabelURL(path: String, height: Int, width: Int, navigati
 public func EasyAdapter(elements: [SCDWidgetsWidget]) -> SCDWidgetsContainer {
 	let container = SCDWidgetsContainer()
 	container.size = SCDGraphicsDimension(width: Int(screenInfo.screenSize.width), height: Int(screenInfo.screenSize.height))
-	container.location = SCDGraphicsPoint(x: 0, y: 0)
-
+	container.location = SCDGraphicsPoint(x: 0, y: )
+	
 	var yOffset = 0
 	for element in elements {
 		let tempContainer = SCDWidgetsContainer()
@@ -371,6 +371,8 @@ public func EasyAdapter(elements: [SCDWidgetsWidget]) -> SCDWidgetsContainer {
 		tempContainer.children.append(element)
 		container.children.append(tempContainer)
 	}
+
+	container.size = SCDGraphicsDimension(width: Int(screenInfo.screenSize.width), height: yOffset)
 	
 	return container
 }
