@@ -27,7 +27,7 @@ let package = Package(
         // Targets can depend on other targets in this package and products from dependencies.
         .target(
             name: "EasySCADE",
-            dependencies: ["ScadeExtensions", "EasySCADE",
+            dependencies: ["ScadeExtensions",
             .product(name: "Android", package: "swift-android", condition: .when(platforms: [.android])),
                  .product(name: "AndroidOS", package: "swift-android", condition: .when(platforms: [.android])),
                   .product(name: "AndroidApp", package: "swift-android", condition: .when(platforms: [.android])),
