@@ -367,7 +367,7 @@ public func EasySCDTextLabel(text: String,
     {	
 		let paragraph = splitTextIntoLines(text: text)
 		var elements = [SCDWidgetsWidget]()
-		var yOffset = y_location
+		
 		for line in paragraph
 		{
 			let label = SCDWidgetsLabel()
@@ -381,10 +381,10 @@ public func EasySCDTextLabel(text: String,
 			label.font!.color = fontcolor
 			label.paddingLeft = 10
 
-			label.location = SCDGraphicsPoint(x: x_location, y: yOffset)
+			
 			label.size = SCDGraphicsDimension(width: Int(screenInfo.screenSize.width), height: fontsize)
 
-			yOffset += fontsize + 10
+			
 			
 			elements.append(label)
 		}
