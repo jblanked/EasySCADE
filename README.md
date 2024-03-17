@@ -1,2 +1,2 @@
 # EasySCADE
- Simplifies SCADE mobile development.
+ Simplifies SCADE mobile app development.
