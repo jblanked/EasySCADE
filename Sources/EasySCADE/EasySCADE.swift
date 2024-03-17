@@ -14,6 +14,8 @@ import AndroidView
 import Java
 #endif
 
+var test: String = "Hello World"
+
 // MARK: - EasySCADE
 
 public class EasySCADE {
