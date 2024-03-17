@@ -449,7 +449,6 @@ public func EasySCDTextBox	(
 		fontsize:Int = 20,
 		font: String = "ArialMT", 
 		fontcolor:SCDGraphicsRGB = EasyColor.black,
-		height: Int = Int(screenInfo.screenSize.width),
 		width: Int = Int(screenInfo.screenSize.width),
 		paddingVertical: Int = 0,
 		paddingHorizontal: Int = 10,
@@ -467,7 +466,7 @@ public func EasySCDTextBox	(
 		tBox.keyboardType = SCDWidgetsKeyboardType.alphabetic
     	tBox.secure = secure
     	tBox.text = ""
-		tBox.size = SCDGraphicsDimension(width: width, height: height)
+		tBox.size = SCDGraphicsDimension(width: width, height: fontsize + 5)
 		tBox.location = location
 		tBox.font!.size = fontsize
 		tBox.font!.color = fontcolor
