@@ -380,6 +380,10 @@ public func EasySCDTextLabel(text: String,
 			label.font!.size = fontsize
 			label.font!.color = fontcolor
 			label.paddingLeft = 10
+			label.horizontalAlignment = SCDLayoutHorizontalAlignment.left    	
+    		label.baselineAlignment = SCDWidgetsBaselineAlignment.middle
+    		label.verticalAlignment = SCDLayoutVerticalAlignment.middle
+			label.layoutData = SCDLayoutAutoLayoutData()
 
 			
 			label.size = SCDGraphicsDimension(width: Int(screenInfo.screenSize.width), height: fontsize)
