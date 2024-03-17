@@ -9,7 +9,7 @@ import UIKit
 import SwiftUI
 #endif
 
-#else
+#if os(Android)
 import AndroidView
 import Java
 import Android
