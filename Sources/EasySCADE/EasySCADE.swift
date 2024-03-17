@@ -375,7 +375,7 @@ public func EasySCDTextLabel(text: String,
 			label.visible = true
 			label.enable = true       
 	
-			label.text = text
+			label.text = line
 			label.font!.fontFamily = font
 			label.font!.size = fontsize
 			label.font!.color = fontcolor
