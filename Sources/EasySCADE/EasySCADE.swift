@@ -325,7 +325,7 @@ public func EasyAlert(title:String, message:String,action: @escaping () -> Void 
   }
   
 
-// creates text labels from urls
+// creates SCDImagelabels from urls
 public func EasySCDImageLabelURL(path: String, height: Int, width: Int, navigationAction: @escaping () -> Void = { print("") }) -> SCDWidgetsImage
 {	
 	let image = SCDWidgetsImage()
@@ -355,4 +355,22 @@ public func EasySCDImageLabelURL(path: String, height: Int, width: Int, navigati
 	image.onClick { _ in navigationAction() }
 
 	return image
+}
+
+
+public func EasyAdapter(elements: [SCDWidgetsWidget]) -> SCDWidgetsContainer {
+	let container = SCDWidgetsContainer()
+	container.size = SCDGraphicsDimension(width: Int(screenInfo.screenSize.width), height: Int(screenInfo.screenSize.height))
+	container.location = SCDGraphicsPoint(x: 0, y: 0)
+
+	var yOffset = 0
+	for element in elements {
+		let tempContainer = SCDWidgetsContainer()
+		tempContainer.location = SCDGraphicsPoint(x: 0, y: yOffset)
+		yOffset += Int(element.size.height) + 10
+		tempContainer.children.append(element)
+		container.children.append(tempContainer)
+	}
+	
+	return container
 }
