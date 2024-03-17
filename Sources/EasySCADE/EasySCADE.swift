@@ -365,23 +365,30 @@ public func EasySCDTextLabel(text: String,
 							y_location: Int = 0)
 							 -> SCDWidgetsLabel
     {	
-    	let label = SCDWidgetsLabel()
-    	
-    	label.visible = true
-    	label.enable = true       
-   
-        label.text = text
-        label.font!.fontFamily = font
-        label.font!.size = fontsize
-        label.font!.color = fontcolor
-        label.paddingLeft = 10
+		let paragraph = splitTextIntoLines(text: text)
+		let elements = [SCDWidgetsWidget]
+		var yOffset = y_location
+		for line in paragraph
+		{
+			let label = SCDWidgetsLabel()
+			
+			label.visible = true
+			label.enable = true       
+	
+			label.text = text
+			label.font!.fontFamily = font
+			label.font!.size = fontsize
+			label.font!.color = fontcolor
+			label.paddingLeft = 10
 
-        label.location = SCDGraphicsPoint(x: x_location, y: y_location)
-        
-        label.size = SCDGraphicsDimension(width: Int(screenInfo.screenSize.width), height: fontsize)
+			label.location = SCDGraphicsPoint(x: x_location, y: yOffset)
+			
+			label.size = SCDGraphicsDimension(width: Int(screenInfo.screenSize.width), height: fontsize)
+			elements.append(label)
+		}
         
 
-        return label
+        return EasyVStack(elements: elements, location: SCDGraphicsPoint(x: x_location, y: y_location))
     }
 
 
