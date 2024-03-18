@@ -542,7 +542,7 @@ public func EasySCDTextForm(
 				width: width - 10,
 				paddingVertical: 0,
 				paddingHorizontal: 10,
-				location: SCDGraphicsPoint(x: 10, y: label.size.height + 10)
+				location: SCDGraphicsPoint(x: 10, y: label.size.height + 5)
 			)
 
 		
