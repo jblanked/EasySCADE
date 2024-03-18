@@ -130,7 +130,7 @@ private func Rectangle(
 
 		let group = SCDSvgGroup()
 
-		group.children.append(rectangle)
+		//group.children.append(rectangle)
 
 		// create image from path
 		let image = SCDSvgImage()
