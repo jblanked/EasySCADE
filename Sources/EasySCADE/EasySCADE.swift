@@ -503,7 +503,7 @@ public func EasySCDTextForm(
 		font: String = "ArialMT", 
 		fontcolor:SCDGraphicsRGB = EasyColor.black,
 		width: Int = Int(screenInfo.screenSize.width),
-		paddingVertical: Int = 10,
+		paddingVertical: Int = 20,
 		paddingHorizontal: Int = 10,
 		location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: 0)
 	) -> SCDWidgetsWidget
