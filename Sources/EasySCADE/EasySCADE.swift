@@ -633,7 +633,7 @@ public struct EasySCDTextBoxForm {
 	
 	public init	(
 			placeholder: String, 
-			variable: String,
+			variable: inout String,
 			secure: Bool = false, 
 			title: String = ""
 		) {
