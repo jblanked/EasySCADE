@@ -609,9 +609,9 @@ public func EasySCDTextBox	(
 		tBox.backgroundColor = EasyColor.gray
 		tBox.cornerRadius = 5
 
-		tBox.onTextChange.append(SCDWidgetsTextChangeEventHandler{
-			ev in form.variable = ev!.newValue			
-		})
+		// tBox.onTextChange.append(SCDWidgetsTextChangeEventHandler{
+		// 	ev in form.variable = ev!.newValue			
+		// })
 
 		if paddingHorizontal > 0 {
 			tBox.paddingLeft = paddingHorizontal
@@ -625,7 +625,7 @@ public func EasySCDTextBox	(
 	}
 public class EasySCDTextBoxForm {
 	public var placeholder: String
-	@Published public var variable: String
+	//@Published public var variable: String
 	public var secure: Bool
 	public var title: String
 	
@@ -638,7 +638,7 @@ public class EasySCDTextBoxForm {
 		self.placeholder = placeholder
 		self.secure = secure
 		self.title = title
-		self.variable = variable
+		//self.variable = variable
 	}
 }
 // create TextForms
@@ -776,7 +776,7 @@ public func EasySCDTextLabel(text: String,
 			label.font!.color = fontcolor
 			label.font!.bold = bold
 			label.font!.underline = underline
-			label.horizontalAlignment = SCDLayoutHorizontalAlignment.left    	
+			label.horizontalAlignment = SCDLayoutHorizontalAlignment.left    
     		label.baselineAlignment = SCDWidgetsBaselineAlignment.middle
     		label.verticalAlignment = SCDLayoutVerticalAlignment.middle
 			label.layoutData = SCDLayoutAutoLayoutData()
