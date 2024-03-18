@@ -109,6 +109,61 @@ public func EasySpinner(show: Bool) {
     #endif
 }
 
+
+
+private func Rectangle(
+		text: String,
+		font: String = "ArialMT",
+		fontColor: SCDGraphicsRGB = EasyColor.blue,
+		width: Int = Int(screenInfo.screenSize.width),
+		height: Int = Int(screenInfo.screenSize.width),
+		cardColor: SCDGraphicsRGB = EasyColor.black,
+		location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: 0)
+	) -> BubbleInfo
+	{
+		// Create a rectangle
+		let rectangle = SCDSvgRect()
+		rectangle.rx = 10 // Radius for x-axis corners
+		rectangle.ry = 10 // Radius for y-axis corners
+		rectangle.width = SCDSvgUnit(integerLiteral: width)
+		rectangle.height = SCDSvgUnit(integerLiteral: height)
+		rectangle.fill = color
+		let group = SCDSvgGroup()
+
+		group.children.append(rectangle)
+	
+    let lines = splitTextIntoLines(text: text)
+
+    // Create and add each line of text to the group
+    for (index, line) in lines.enumerated() {
+        let svgText = SCDSvgText()
+        svgText.text = line
+        svgText.x = 10 // Adjust as needed
+        svgText.y = SCDSvgUnit(integerLiteral: Int(25 + (index * 30))) // Adjust y based on line number
+        svgText.fill = SCDSvgColor.white
+        svgText.fontSize = 20
+        svgText.anchor = SCDSvgTextAnchor.start
+        svgText.alignment = SCDSvgTextAlignment.left
+        svgText.alignmentBaseline = SCDSvgTextAlignmentBaseline.auto
+        svgText.fontName = 	"ArialMT"
+        height = Int(25 + (index * 30)) + 10
+        group.children.append(svgText)
+    }
+
+	// translate width/height into SCDSvgUnits
+    let widthEdit = SCDSvgUnit.init(integerLiteral: width)
+    let heightEdit = SCDSvgUnit.init(integerLiteral: height)
+    
+    // set width, height, and color
+    rectangle.width = widthEdit
+    rectangle.height = heightEdit
+    rectangle.fill = color
+	
+	return BubbleInfo.init(group: group, size: SCDSize(width: Double(width), height: Double(height)))
+
+	}
+
+
 private func Bubble(text:String, color: SCDSvgRGBColor = SCDSvgRGBColor.init(red: 10, green: 132, blue: 255)) -> BubbleInfo
 {
 	 // Create a rectangle
@@ -228,7 +283,21 @@ private func splitTextIntoLines(text: String) -> [String] {
 
 private func createBubbleContainer(text: String, color: SCDSvgRGBColor, yPos: Int) -> SCDWidgetsContainer {
     let bubbleContainer = SCDWidgetsContainer()
-    let bubbleDrawing = Bubble(text: text, color: color) // Assuming this returns your custom object with 'group' and 'size'
+    let bubbleDrawing = Bubble(text: text, color: color) 
+    
+    let label = SCDWidgetsLabel()
+    label.drawing = bubbleDrawing.group // Set the SVG drawing
+    
+    // Use the bubble size directly from bubbleDrawing.size
+    bubbleContainer.children.append(label)
+    bubbleContainer.size = SCDGraphicsDimension(width: Int(bubbleDrawing.size.width), height: Int(bubbleDrawing.size.height)) // Use the actual size of the bubble
+    bubbleContainer.location = SCDGraphicsPoint(x: 0, y: yPos)
+    
+    return bubbleContainer 
+}
+private func createCardContainer(text: String, color: SCDSvgRGBColor, yPos: Int) -> SCDWidgetsContainer {
+    let bubbleContainer = SCDWidgetsContainer()
+    let bubbleDrawing = Rectangle(text: text) 
     
     let label = SCDWidgetsLabel()
     label.drawing = bubbleDrawing.group // Set the SVG drawing
@@ -250,6 +319,30 @@ public func EasySCDBubbles(bubbles: [EasySCDLayoutBubble], width: Int = Int(scre
     var yOffset = 0
     for text in bubbles {
         let bubbleContainer = createBubbleContainer(text: text.text, color: text.color, yPos: yOffset)
+        
+        // Use the actual bubble height to adjust yOffset for the next container
+        yOffset += Int(bubbleContainer.size.height) + 10 // Add some space between bubbles
+        
+        // add a SCDSvgText that says the user's name (appending it first will put the username on above the bubblw)
+        
+        customElement.children.append(bubbleContainer)
+    }
+    
+    customElement.size = SCDGraphicsDimension(width: width, height: yOffset)
+
+   return customElement
+}
+
+// returns a SCDWidgetsContainer with the Card
+public func EasySCDCard(text: String, width: Int = Int(screenInfo.screenSize.width),location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: 0) ) -> SCDWidgetsContainer {
+    let customElement = SCDWidgetsContainer()
+    
+    customElement.location = location
+
+
+    var yOffset = 0
+    for text in bubbles {
+        let bubbleContainer = createCardContainer(text: text.text, color: text.color, yPos: yOffset)
         
         // Use the actual bubble height to adjust yOffset for the next container
         yOffset += Int(bubbleContainer.size.height) + 10 // Add some space between bubbles
