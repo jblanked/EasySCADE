@@ -503,7 +503,7 @@ public func EasySCDTextForm(
 		font: String = "ArialMT", 
 		fontcolor:SCDGraphicsRGB = EasyColor.black,
 		width: Int = Int(screenInfo.screenSize.width),
-		paddingVertical: Int = 20,
+		paddingVertical: Int = 10,
 		paddingHorizontal: Int = 10,
 		location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: 0)
 	) -> SCDWidgetsWidget
@@ -536,7 +536,7 @@ public func EasySCDTextForm(
 			)
 
 			container.location = location
-			container.size = SCDGraphicsDimension(width: width, height: fontsize + 10 + fontsize + 10)
+			container.size = SCDGraphicsDimension(width: width, height: fontsize + 5 + fontsize + 10)
 			container.children.append(label)
 			container.children.append(tBox)
 
