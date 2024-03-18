@@ -114,7 +114,7 @@ public func EasySpinner(show: Bool) {
 private func Rectangle(
 		path: String,
 		text: String,
-		description: String = "Rectangle",
+		description: String,
 		font: String = "ArialMT",
 		fontColor: SCDGraphicsRGB = EasyColor.blue,
 		width: Int = Int(screenInfo.screenSize.width),
@@ -158,9 +158,9 @@ private func Rectangle(
         let svgText = SCDSvgText()
         svgText.text = line
         svgText.x = 10
-        svgText.y = SCDSvgUnit(integerLiteral: Int(25 + ((index+1) * 30))) // Adjust y based on line number
+        svgText.y = SCDSvgUnit(integerLiteral: Int(100 + ((index+1) * 30))) // Adjust y based on line number
         svgText.fill = SCDSvgColor.white
-        svgText.fontSize = 20
+        svgText.fontSize = 12
         svgText.anchor = SCDSvgTextAnchor.start
         svgText.alignment = SCDSvgTextAlignment.center
         svgText.alignmentBaseline = SCDSvgTextAlignmentBaseline.middle
