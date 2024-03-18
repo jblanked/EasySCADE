@@ -834,6 +834,7 @@ public func EasyVStack(page: SCDWidgetsPage, elements: [SCDWidgetsWidget], locat
 	container.size = SCDGraphicsDimension(width: Int(screenInfo.screenSize.width), height: yOffset)
 	
 	page.children.append(container)
+	page.useSafeArea = false
 }
 
 public func EasyHStack(page: SCDWidgetsPage, elements: [SCDWidgetsWidget], location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: Int(screenInfo.statusBarsize.height) + 15)
@@ -854,4 +855,48 @@ public func EasyHStack(page: SCDWidgetsPage, elements: [SCDWidgetsWidget], locat
 	container.size = SCDGraphicsDimension(width: xOffset, height: Int(screenInfo.screenSize.height))
 	
 	page.children.append(container)
+	page.useSafeArea = false
+}
+
+public func EasySCDPage(
+		name: String,
+		children: [SCDWidgetsWidget],
+		useSafeArea: Bool = false,
+		backgroundColor: SCDGraphicsRGB = EasyColor.white,
+		backgroundImage: String = "",
+		onEnter: @escaping () -> Void = { },
+		onExit: @escaping () -> Void = { },
+		) -> SCDWidgetsPage
+	{
+		let page = SCDWidgetsPage()
+		page.name = name
+		page.children = children
+		page.useSafeArea = useSafeArea
+		page.backgroundColor = backgroundColor
+		page.location = SCDGraphicsPoint(x: 0, y: 0)
+		page.size = SCDGraphicsDimension(width: Int(screenInfo.screenSize.width), height: Int(screenInfo.screenSize.height))
+		page.onEnter.append(SCDWidgetsEnterEventHandler{ _ in onEnter() })
+		page.onExit.append(SCDWidgetsExitEventHandler{ _ in onExit() })
+
+		if !backgroundImage.isEmpty {
+			page.backgroundImage = backgroundImage
+		}
+
+		return page
+	}
+
+public func EasySCDScrollbar() -> SCDWidgetsWidget
+{
+	let scroll = SCDSvgScrollGroup()
+    scroll.type = SCDSvgScrollType.vertical
+    scroll.setScrollBarEnabled(true)
+    scroll.height = Int(screenInfo.screenSize.height)
+    scroll.width = 20
+
+
+	let image = SCDWidgetsImage()
+    image.drawing = scroll  
+
+	return image 
+
 }
