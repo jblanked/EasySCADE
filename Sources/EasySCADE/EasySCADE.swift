@@ -640,6 +640,7 @@ public class EasySCDTextBoxForm {
 		self.placeholder = placeholder
 		self.secure = secure
 		self.title = title
+		self.variable = variable
 	}
 }
 // create TextForms
