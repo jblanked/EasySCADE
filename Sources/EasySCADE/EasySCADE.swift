@@ -562,7 +562,7 @@ public func EasySCDTextForm(
 
 
 // create SCDVideoViews
-public func EasySCDVideo(
+public func EasySCDWebView(
 		url: String, 
 		height: Int = Int(screenInfo.screenSize.width),
 		width: Int = Int(screenInfo.screenSize.width),
