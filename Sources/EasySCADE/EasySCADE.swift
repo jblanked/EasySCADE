@@ -612,7 +612,7 @@ public func EasySCDTextBox	(
 		tBox.cornerRadius = 5
 
 		tBox.onTextChange.append(SCDWidgetsTextChangeEventHandler{
-			//ev in variable = ev!.newValue			
+			_ in //variable = ev!.newValue			
 		})
 
 		if paddingHorizontal > 0 {
@@ -625,7 +625,7 @@ public func EasySCDTextBox	(
 
 		return tBox
 	}
-public struct EasySCDTextBoxForm: Equatable {
+public class EasySCDTextBoxForm: Equatable {
 	public var placeholder: String
 	@Published public var variable: String
 	public var secure: Bool
