@@ -519,7 +519,7 @@ public func EasySCDTextForm(
 				font: font,
 				fontcolor: fontcolor,
 				paddingVertical: paddingVertical,
-				paddingHorizontal: paddingHorizontal,
+				paddingHorizontal: paddingHorizontal + 5,
 				x_location: 0,
 				y_location: 0
 			)
@@ -532,7 +532,8 @@ public func EasySCDTextForm(
 				width: width,
 				paddingVertical: paddingVertical,
 				paddingHorizontal: paddingHorizontal,
-				location: SCDGraphicsPoint(x: 0, y: fontsize + 10)
+				location: SCDGraphicsPoint(x: 0, y: fontsize + 5)
+				 
 			)
 
 			container.location = location
