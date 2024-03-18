@@ -625,7 +625,7 @@ public func EasySCDTextBox	(
 
 		return tBox
 	}
-public struct EasySCDTextBoxForm {
+public struct EasySCDTextBoxForm: Equatable {
 	public var placeholder: String
 	public var secure: Bool
 	public var title: String
