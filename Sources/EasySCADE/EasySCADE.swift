@@ -670,7 +670,7 @@ public func EasySCDTextForm(
 			tBox.location = SCDGraphicsPoint(x: 10, y: label.size.height + 5)
 			tBox.size = SCDGraphicsDimension(width: width - 20, height: tBox.size.height)
 			tBox.font!.size = fontsize
-			tBox.font!.color = fontcolor
+			tBox.font!.color = EasyColor.black
 
 
 			container.location = location
