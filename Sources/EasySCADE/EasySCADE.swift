@@ -147,7 +147,7 @@ private func Rectangle(
         svgText.alignment = SCDSvgTextAlignment.center
         svgText.alignmentBaseline = SCDSvgTextAlignmentBaseline.middle
         svgText.fontName = 	"ArialMT"
-		svgText.weight = 10
+		svgText.weight = 100
         
         group.children.append(svgText)
     
@@ -165,7 +165,7 @@ private func Rectangle(
 			integerLiteral: Int(divider)
 		) // Adjust y based on line number
         svgText.fill = SCDSvgColor.white
-        svgText.fontSize = 15
+        svgText.fontSize = 20
         svgText.anchor = SCDSvgTextAnchor.start
         svgText.alignment = SCDSvgTextAlignment.center
         svgText.alignmentBaseline = SCDSvgTextAlignmentBaseline.middle
