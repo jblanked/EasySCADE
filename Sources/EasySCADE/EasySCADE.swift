@@ -475,7 +475,7 @@ public func EasySCDTextBox	(
     	tBox.secure = secure
     	tBox.text = ""
 		tBox.size = SCDGraphicsDimension(width: width, height: fontsize + 10)
-		tBox.contentSize = SCDGraphicsDimension(width: width, height: fontsize + 10)
+		//tBox.contentSize = SCDGraphicsDimension(width: width, height: fontsize + 10)
 		tBox.location = location
 		tBox.font!.size = fontsize
 		tBox.font!.color = fontcolor
@@ -550,7 +550,7 @@ public func EasySCDTextForm(
 
 
 			container.location = location
-			container.size = SCDGraphicsDimension(width: width, height: label.size.height + tBox.size.height + 5)
+			container.size = SCDGraphicsDimension(width: width, height: label.size.height + tBox.size.height + 10)
 			container.children.append(label)
 			container.children.append(tBox)
 
