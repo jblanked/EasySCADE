@@ -141,13 +141,13 @@ private func Rectangle(
     for (index, line) in lines.enumerated() {
         let svgText = SCDSvgText()
         svgText.text = line
-        svgText.x = 10 // Adjust as needed
+        svgText.x = 0
         svgText.y = SCDSvgUnit(integerLiteral: Int(25 + (index * 30))) // Adjust y based on line number
         svgText.fill = SCDSvgColor.white
         svgText.fontSize = 20
-        svgText.anchor = SCDSvgTextAnchor.start
-        svgText.alignment = SCDSvgTextAlignment.left
-        svgText.alignmentBaseline = SCDSvgTextAlignmentBaseline.auto
+        svgText.anchor = SCDSvgTextAnchor.middle
+        svgText.alignment = SCDSvgTextAlignment.center
+        svgText.alignmentBaseline = SCDSvgTextAlignmentBaseline.middle
         svgText.fontName = 	"ArialMT"
         //height = Int(25 + (index * 30)) + 10
         group.children.append(svgText)
@@ -205,13 +205,13 @@ private func Bubble(text:String, color: SCDSvgRGBColor = SCDSvgRGBColor.init(red
     for (index, line) in lines.enumerated() {
         let svgText = SCDSvgText()
         svgText.text = line
-        svgText.x = 0
+        svgText.x = 10 // Adjust as needed
         svgText.y = SCDSvgUnit(integerLiteral: Int(25 + (index * 30))) // Adjust y based on line number
         svgText.fill = SCDSvgColor.white
         svgText.fontSize = 20
-        svgText.anchor = SCDSvgTextAnchor.middle
-        svgText.alignment = SCDSvgTextAlignment.center
-        svgText.alignmentBaseline = SCDSvgTextAlignmentBaseline.middle
+        svgText.anchor = SCDSvgTextAnchor.start
+        svgText.alignment = SCDSvgTextAlignment.left
+        svgText.alignmentBaseline = SCDSvgTextAlignmentBaseline.auto
         svgText.fontName = 	"ArialMT"
         height = Int(25 + (index * 30)) + 10
         group.children.append(svgText)
@@ -352,7 +352,6 @@ public func EasySCDCard(path: String, title: String, width: Int = Int(screenInfo
     
     
     customElement.size = SCDGraphicsDimension(width: width - 10, height: width - 10)
-	customElement.cornerRadius = 10
 
 
    return customElement
