@@ -474,7 +474,8 @@ public func EasySCDTextBox	(
 		tBox.keyboardType = SCDWidgetsKeyboardType.alphabetic
     	tBox.secure = secure
     	tBox.text = ""
-		tBox.size = SCDGraphicsDimension(width: width, height: fontsize + 5)
+		tBox.size = SCDGraphicsDimension(width: width, height: fontsize + 10)
+		tBox.contentSize = SCDGraphicsDimension(width: width, height: fontsize + 10)
 		tBox.location = location
 		tBox.font!.size = fontsize
 		tBox.font!.color = fontcolor
@@ -542,11 +543,11 @@ public func EasySCDTextForm(
 				width: width,
 				paddingVertical: paddingVertical,
 				paddingHorizontal: paddingHorizontal,
-				location: SCDGraphicsPoint(x: 10, y: label.size.height + 10)
+				location: SCDGraphicsPoint(x: 0, y: label.size.height + 10)
 			)
 
 			tBox.backgroundColor = EasyColor.gray
-			tBox.cornerRadius = 10
+			tBox.cornerRadius = 5
 				 
 			
 
