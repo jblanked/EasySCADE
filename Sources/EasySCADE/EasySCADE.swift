@@ -124,8 +124,8 @@ private func Rectangle(
 	{
 		// Create a rectangle
 		let rectangle = SCDSvgRect()
-		rectangle.rx = 10 // Radius for x-axis corners
-		rectangle.ry = 10 // Radius for y-axis corners
+		rectangle.rx = 20 // Radius for x-axis corners
+		rectangle.ry = 20 // Radius for y-axis corners
 
 
 		let group = SCDSvgGroup()
@@ -356,7 +356,7 @@ public func EasySCDCard(path: String, text: String, width: Int = Int(screenInfo.
 				red: 255,
 				green: 255,
 				blue: 255
-			), // iOS back
+			), 
 			yPos: 0
 		)
 
