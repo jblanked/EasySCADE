@@ -578,7 +578,7 @@ public func EasySCDButton(
 // create SCDTextboxes
 public func EasySCDTextBox	(
 		placeholder: String,
-		variable: inout String,
+		variable: String,
 		secure: Bool = false, 
 		fontsize:Int = 20,
 		font: String = "ArialMT", 
@@ -627,6 +627,7 @@ public func EasySCDTextBox	(
 	}
 public struct EasySCDTextBoxForm: Equatable {
 	public var placeholder: String
+	@Binding public var variable: String
 	public var secure: Bool
 	public var title: String
 	
@@ -644,7 +645,6 @@ public struct EasySCDTextBoxForm: Equatable {
 // create TextForms
 public func EasySCDTextForm(
 	forms: [EasySCDTextBoxForm],
-	variables: inout [String],
 	fontsize:Int = 20,
 		font: String = "ArialMT", 
 		fontcolor:SCDGraphicsRGB = EasyColor.black,
@@ -674,7 +674,7 @@ public func EasySCDTextForm(
 
 			var tBox = EasySCDTextBox(
 				placeholder: form.placeholder,
-				variable: &variables[forms.firstIndex(of: form)!],
+				variable: form.variable,
 				secure: form.secure,
 				fontsize: fontsize,
 				font: font,
