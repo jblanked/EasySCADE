@@ -631,7 +631,7 @@ public class EasySCDTextBoxForm {
 	
 	public init	(
 			placeholder: String, 
-			variable: String,
+			
 			secure: Bool = false, 
 			title: String = ""
 		) {
