@@ -122,23 +122,17 @@ private func Rectangle(
 		location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: 0)
 	) -> BubbleInfo
 	{
-		// Create a rectangle
-		let rectangle = SCDSvgRect()
-		rectangle.rx = 20 // Radius for x-axis corners
-		rectangle.ry = 20 // Radius for y-axis corners
 
 
 		let group = SCDSvgGroup()
 
-		group.children.append(rectangle)
-
 		// create image from path
 		let image = SCDSvgImage()
 		image.xhref = path
-		image.x = 10
-		image.y = 10
-		image.width = SCDSvgUnit.init(integerLiteral: width - 20)
-		image.height = SCDSvgUnit.init(integerLiteral: height - 20)
+		image.x = 0
+		image.y = 0
+		image.width = SCDSvgUnit.init(integerLiteral: width)
+		image.height = SCDSvgUnit.init(integerLiteral: height)
 		group.children.append(image)
 	
     let lines = splitTextIntoLines(text: text)
@@ -159,14 +153,6 @@ private func Rectangle(
         group.children.append(svgText)
     }
 
-	// translate width/height into SCDSvgUnits
-    let widthEdit = SCDSvgUnit.init(integerLiteral: width)
-    let heightEdit = SCDSvgUnit.init(integerLiteral: height)
-    
-    // set width, height, and color
-    rectangle.width = widthEdit
-    rectangle.height = heightEdit
-    rectangle.fill = SCDSvgColor.black
 	
 	return BubbleInfo.init(group: group, size: SCDSize(width: Double(width), height: Double(height)))
 
