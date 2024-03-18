@@ -577,9 +577,7 @@ public func EasySCDButton(
 
 // create SCDTextboxes
 public func EasySCDTextBox	(
-		placeholder: String,
-		variable: String,
-		secure: Bool = false, 
+		form: EasySCDTextBoxForm,
 		fontsize:Int = 20,
 		font: String = "ArialMT", 
 		fontcolor:SCDGraphicsRGB = EasyColor.black,
@@ -593,12 +591,12 @@ public func EasySCDTextBox	(
 		var tBox = SCDWidgetsTextbox()
 		tBox.visible = true
 		tBox.enable = true  
-		tBox.placeholder = placeholder
+		tBox.placeholder = form.placeholder
 		tBox.font!.fontFamily = font
 
     	tBox.keyboard = SCDWidgetsKeyboard.resize
 		tBox.keyboardType = SCDWidgetsKeyboardType.alphabetic
-    	tBox.secure = secure 
+    	tBox.secure = form.secure
     	tBox.text = ""
 		tBox.horizontalAlignment = SCDLayoutHorizontalAlignment.left    	
     	tBox.baselineAlignment = SCDWidgetsBaselineAlignment.middle
@@ -612,7 +610,7 @@ public func EasySCDTextBox	(
 		tBox.cornerRadius = 5
 
 		tBox.onTextChange.append(SCDWidgetsTextChangeEventHandler{
-			_ in //variable = ev!.newValue			
+			ev in variable = ev!.newValue			
 		})
 
 		if paddingHorizontal > 0 {
