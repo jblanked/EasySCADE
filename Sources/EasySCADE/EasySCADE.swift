@@ -366,7 +366,7 @@ public func EasySCDCard(path: String, text: String, width: Int = Int(screenInfo.
     
     
     customElement.size = SCDGraphicsDimension(width: width - 10, height: width - 10)
-	customElement.paddingLeft = 10
+
 
    return customElement
 }
