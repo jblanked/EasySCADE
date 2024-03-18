@@ -475,11 +475,13 @@ public func EasySCDTextBox	(
     	tBox.secure = secure
     	tBox.text = ""
 		tBox.size = SCDGraphicsDimension(width: width, height: fontsize + 10)
-		//tBox.contentSize = SCDGraphicsDimension(width: width, height: fontsize + 10)
+		tBox.contentSize = SCDGraphicsDimension(width: width, height: fontsize + 10)
 		tBox.location = location
 		tBox.font!.size = fontsize
 		tBox.font!.color = fontcolor
 		tBox.multiline = true
+		tBox.backgroundColor = EasyColor.gray
+		tBox.cornerRadius = 5
 
 		if paddingHorizontal > 0 {
 			tBox.paddingLeft = paddingHorizontal
@@ -545,8 +547,7 @@ public func EasySCDTextForm(
 				location: SCDGraphicsPoint(x: 0, y: label.size.height + 10)
 			)
 
-			tBox.backgroundColor = EasyColor.gray
-			tBox.cornerRadius = 5
+			
 
 
 			container.location = location
