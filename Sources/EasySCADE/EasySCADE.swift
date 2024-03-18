@@ -125,9 +125,8 @@ private func Rectangle(
 		let rectangle = SCDSvgRect()
 		rectangle.rx = 10 // Radius for x-axis corners
 		rectangle.ry = 10 // Radius for y-axis corners
-		rectangle.width = SCDSvgUnit(integerLiteral: width)
-		rectangle.height = SCDSvgUnit(integerLiteral: height)
-		rectangle.fill = color
+
+
 		let group = SCDSvgGroup()
 
 		group.children.append(rectangle)
@@ -146,7 +145,7 @@ private func Rectangle(
         svgText.alignment = SCDSvgTextAlignment.left
         svgText.alignmentBaseline = SCDSvgTextAlignmentBaseline.auto
         svgText.fontName = 	"ArialMT"
-        height = Int(25 + (index * 30)) + 10
+        //height = Int(25 + (index * 30)) + 10
         group.children.append(svgText)
     }
 
@@ -157,7 +156,7 @@ private func Rectangle(
     // set width, height, and color
     rectangle.width = widthEdit
     rectangle.height = heightEdit
-    rectangle.fill = color
+    rectangle.fill = cardColor
 	
 	return BubbleInfo.init(group: group, size: SCDSize(width: Double(width), height: Double(height)))
 
@@ -341,7 +340,7 @@ public func EasySCDCard(text: String, width: Int = Int(screenInfo.screenSize.wid
 
 
     var yOffset = 0
-    for text in bubbles {
+    
         let bubbleContainer = createCardContainer(text: text.text, color: text.color, yPos: yOffset)
         
         // Use the actual bubble height to adjust yOffset for the next container
@@ -350,7 +349,7 @@ public func EasySCDCard(text: String, width: Int = Int(screenInfo.screenSize.wid
         // add a SCDSvgText that says the user's name (appending it first will put the username on above the bubblw)
         
         customElement.children.append(bubbleContainer)
-    }
+    
     
     customElement.size = SCDGraphicsDimension(width: width, height: yOffset)
 
