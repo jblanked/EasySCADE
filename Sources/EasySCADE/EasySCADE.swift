@@ -444,9 +444,9 @@ public func EasyAlert(title:String, message:String,action: @escaping () -> Void 
       builder.setMessage(message: message)
       
 
-	  builder.setPositiveButton(text: "OK", listener: DialogInterfaceOnClickListener {
-		(dialog, which) in action()
-		})
+	builder.setPositiveButton(text: "OK") { dialog, which in
+		action()
+	}
 
       let dialog: AlertDialog = builder.create()!
 
@@ -625,7 +625,7 @@ public func EasySCDTextBox	(
 	}
 public struct EasySCDTextBoxForm {
 	public var placeholder: String
-	public var variable: inout String
+	public var variable: String
 	public var secure: Bool
 	public var title: String
 	
@@ -673,7 +673,7 @@ public func EasySCDTextForm(
 
 			let tBox = EasySCDTextBox(
 				placeholder: form.placeholder,
-				variable: form.variable,
+				variable: form.variable&,
 				secure: form.secure,
 				fontsize: fontsize,
 				font: font,
