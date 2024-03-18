@@ -53,6 +53,11 @@ public struct EasyColor {
 	public static let black = SCDGraphicsRGB(red: 0, green: 0, blue: 0)
 	public static let green = SCDGraphicsRGB(red: 48, green: 209, blue: 88) // iOS green
 	public static let red = SCDGraphicsRGB(red: 215, green: 0, blue: 21) // iOS red
+	public static let gray = SCDGraphicsRGB(red: 142, green: 142, blue: 147) // iOS gray
+	public static let yellow = SCDGraphicsRGB(red: 255, green: 214, blue: 10) // iOS yellow
+	public static let orange = SCDGraphicsRGB(red: 255, green: 159, blue: 10) // iOS orange
+	public static let purple = SCDGraphicsRGB(red: 191, green: 90, blue: 242) // iOS purple
+	public static let pink = SCDGraphicsRGB(red: 255, green: 55, blue: 95) // iOS pink
 }
 
 // creates a Loading Spinner
@@ -515,7 +520,7 @@ public func EasySCDTextForm(
 			let container = SCDWidgetsContainer()
 			let label = EasySCDTextLabel(
 				text: form.title,
-				fontsize: fontsize,
+				fontsize: fontsize - 5,
 				font: font,
 				fontcolor: fontcolor,
 				paddingVertical: paddingVertical,
@@ -523,6 +528,10 @@ public func EasySCDTextForm(
 				x_location: 0,
 				y_location: 0
 			)
+			// bold and underscore
+			label.font!.bold = true
+			label.font!.underline = true
+
 			let tBox = EasySCDTextBox(
 				placeholder: form.placeholder,
 				secure: form.secure,
@@ -534,6 +543,8 @@ public func EasySCDTextForm(
 				paddingHorizontal: paddingHorizontal,
 				location: SCDGraphicsPoint(x: 0, y: label.size.height + 10)
 			)
+
+			tBox.backgroundColor = EasyColor.gray
 				 
 			
 
