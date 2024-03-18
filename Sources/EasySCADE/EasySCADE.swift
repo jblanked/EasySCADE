@@ -885,18 +885,12 @@ public func EasySCDPage(
 		return page
 	}
 
-public func EasySCDScrollbar() -> SCDWidgetsWidget
+public func EasySCDScrollbar() -> SCDSvgScrollGroup
 {
 	let scroll = SCDSvgScrollGroup()
     scroll.type = SCDSvgScrollType.vertical
     scroll.setScrollBarEnabled(true)
-    scroll.height = Int(screenInfo.screenSize.height)
-    scroll.width = 20
-
-
-	let image = SCDWidgetsImage()
-    image.drawing = scroll  
-
-	return image 
-
+    scroll.height = Int(screenInfo.screenSize.height / 2)
+    scroll.width = 5
+	return scroll
 }
