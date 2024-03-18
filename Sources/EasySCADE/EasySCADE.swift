@@ -140,7 +140,7 @@ private func Rectangle(
         let svgText = SCDSvgText()
         svgText.text = text
         svgText.x = SCDSvgUnit(integerLiteral:Int(screenInfo.screenSize.width) / 2)
-        svgText.y = SCDSvgUnit(integerLiteral: Int(25 + (index * 30))) // Adjust y based on line number
+        svgText.y = SCDSvgUnit(integerLiteral: Int(25)) // Adjust y based on line number
         svgText.fill = SCDSvgColor.white
         svgText.fontSize = 20
         svgText.anchor = SCDSvgTextAnchor.middle
