@@ -588,7 +588,7 @@ public func EasySCDTextBox	(
 	) -> SCDWidgetsTextbox
 	
 	{
-		var tBox = SCDWidgetsTextbox()
+		let tBox = SCDWidgetsTextbox()
 		tBox.visible = true
 		tBox.enable = true  
 		tBox.placeholder = form.placeholder
@@ -610,7 +610,7 @@ public func EasySCDTextBox	(
 		tBox.cornerRadius = 5
 
 		tBox.onTextChange.append(SCDWidgetsTextChangeEventHandler{
-			ev in variable = ev!.newValue			
+			ev in form.variable = ev!.newValue			
 		})
 
 		if paddingHorizontal > 0 {
@@ -672,9 +672,7 @@ public func EasySCDTextForm(
 
 
 			var tBox = EasySCDTextBox(
-				placeholder: form.placeholder,
-				variable: form.variable,
-				secure: form.secure,
+				form: form,
 				fontsize: fontsize,
 				font: font,
 				fontcolor: fontcolor,
