@@ -112,6 +112,7 @@ public func EasySpinner(show: Bool) {
 
 
 private func Rectangle(
+		path: String,
 		text: String,
 		font: String = "ArialMT",
 		fontColor: SCDGraphicsRGB = EasyColor.blue,
@@ -130,6 +131,15 @@ private func Rectangle(
 		let group = SCDSvgGroup()
 
 		group.children.append(rectangle)
+
+		// create image from path
+		let image = SCDSvgImage()
+		image.xref = path
+		image.x = 10
+		image.y = 10
+		image.width = width - 20
+		image.height = height - 20
+		group.children.append(image)
 	
     let lines = splitTextIntoLines(text: text)
 
@@ -333,7 +343,7 @@ public func EasySCDBubbles(bubbles: [EasySCDLayoutBubble], width: Int = Int(scre
 }
 
 // returns a SCDWidgetsContainer with the Card
-public func EasySCDCard(text: String, width: Int = Int(screenInfo.screenSize.width),location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: 0) ) -> SCDWidgetsContainer {
+public func EasySCDCard(text: String, width: Int = Int(screenInfo.screenSize.width) - 10,location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: 0) ) -> SCDWidgetsContainer {
     let customElement = SCDWidgetsContainer()
     
     customElement.location = location
@@ -355,6 +365,7 @@ public func EasySCDCard(text: String, width: Int = Int(screenInfo.screenSize.wid
     
     
     customElement.size = SCDGraphicsDimension(width: width, height: width)
+	customElement.paddingLeft = 10
 
    return customElement
 }
