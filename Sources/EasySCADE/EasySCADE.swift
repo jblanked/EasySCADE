@@ -518,8 +518,8 @@ public func EasySCDTextForm(
 				fontsize: fontsize,
 				font: font,
 				fontcolor: fontcolor,
-				paddingVertical: paddingVertical,
-				paddingHorizontal: paddingHorizontal + 5,
+				paddingVertical: paddingVertical + 5,
+				paddingHorizontal: paddingHorizontal,
 				x_location: 0,
 				y_location: 0
 			)
