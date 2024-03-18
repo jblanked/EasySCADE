@@ -476,7 +476,6 @@ public func EasySCDTextBox	(
 		tBox.location = location
 		tBox.font!.size = fontsize
 		tBox.font!.color = fontcolor
-		tBox.multiline = true
 		tBox.backgroundColor = EasyColor.gray
 		tBox.cornerRadius = 5
 
