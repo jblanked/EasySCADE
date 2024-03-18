@@ -625,7 +625,7 @@ public func EasySCDTextBox	(
 
 		return tBox
 	}
-public class EasySCDTextBoxForm: Equatable {
+public class EasySCDTextBoxForm {
 	public var placeholder: String
 	@Published public var variable: String
 	public var secure: Bool
