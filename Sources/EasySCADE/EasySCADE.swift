@@ -156,7 +156,7 @@ private func Rectangle(
     // set width, height, and color
     rectangle.width = widthEdit
     rectangle.height = heightEdit
-    rectangle.fill = cardColor
+    rectangle.fill = SCDSvgColor.black
 	
 	return BubbleInfo.init(group: group, size: SCDSize(width: Double(width), height: Double(height)))
 
@@ -338,17 +338,11 @@ public func EasySCDCard(text: String, width: Int = Int(screenInfo.screenSize.wid
     
     customElement.location = location
 
-
-    var yOffset = 0
     
-        let bubbleContainer = createCardContainer(text: text.text, color: text.color, yPos: yOffset)
+    let bubbleContainer = createCardContainer(text: text, yPos: yOffset)
+
         
-        // Use the actual bubble height to adjust yOffset for the next container
-        yOffset += Int(bubbleContainer.size.height) + 10 // Add some space between bubbles
-        
-        // add a SCDSvgText that says the user's name (appending it first will put the username on above the bubblw)
-        
-        customElement.children.append(bubbleContainer)
+    customElement.children.append(bubbleContainer)
     
     
     customElement.size = SCDGraphicsDimension(width: width, height: yOffset)
