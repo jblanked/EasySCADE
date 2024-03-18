@@ -354,7 +354,7 @@ public func EasySCDCard(text: String, width: Int = Int(screenInfo.screenSize.wid
     customElement.children.append(bubbleContainer)
     
     
-    customElement.size = SCDGraphicsDimension(width: width, height: 0)
+    customElement.size = SCDGraphicsDimension(width: width, height: width)
 
    return customElement
 }
