@@ -205,12 +205,12 @@ private func Bubble(text:String, color: SCDSvgRGBColor = SCDSvgRGBColor.init(red
     for (index, line) in lines.enumerated() {
         let svgText = SCDSvgText()
         svgText.text = line
-        svgText.x = 10 // Adjust as needed
+        svgText.x = 0
         svgText.y = SCDSvgUnit(integerLiteral: Int(25 + (index * 30))) // Adjust y based on line number
         svgText.fill = SCDSvgColor.white
         svgText.fontSize = 20
         svgText.anchor = SCDSvgTextAnchor.start
-        svgText.alignment = SCDSvgTextAlignment.left
+        svgText.alignment = SCDSvgTextAlignment.center
         svgText.alignmentBaseline = SCDSvgTextAlignmentBaseline.auto
         svgText.fontName = 	"ArialMT"
         height = Int(25 + (index * 30)) + 10
@@ -329,7 +329,7 @@ public func EasySCDBubbles(bubbles: [EasySCDLayoutBubble], width: Int = Int(scre
 }
 
 // returns a SCDWidgetsContainer with the Card
-public func EasySCDCard(path: String, text: String, width: Int = Int(screenInfo.screenSize.width),location: SCDGraphicsPoint = SCDGraphicsPoint(x: 10, y: 0) ) -> SCDWidgetsContainer {
+public func EasySCDCard(path: String, title: String, width: Int = Int(screenInfo.screenSize.width),location: SCDGraphicsPoint = SCDGraphicsPoint(x: 10, y: 0) ) -> SCDWidgetsContainer {
     let customElement = SCDWidgetsContainer()
     
     customElement.location = location
@@ -337,7 +337,7 @@ public func EasySCDCard(path: String, text: String, width: Int = Int(screenInfo.
     
     let bubbleContainer = createCardContainer(
 			path: path,
-			text: text, 
+			text: title, 
 			color: SCDSvgRGBColor(
 				red: 255,
 				green: 255,
@@ -352,6 +352,7 @@ public func EasySCDCard(path: String, text: String, width: Int = Int(screenInfo.
     
     
     customElement.size = SCDGraphicsDimension(width: width - 10, height: width - 10)
+	customElement.cornerRadius = 10
 
 
    return customElement
