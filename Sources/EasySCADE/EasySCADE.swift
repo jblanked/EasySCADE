@@ -339,13 +339,13 @@ public func EasySCDCard(text: String, width: Int = Int(screenInfo.screenSize.wid
     customElement.location = location
 
     
-    let bubbleContainer = createCardContainer(text: text, yPos: yOffset)
+    let bubbleContainer = createCardContainer(text: text, yPos: 0)
 
         
     customElement.children.append(bubbleContainer)
     
     
-    customElement.size = SCDGraphicsDimension(width: width, height: yOffset)
+    customElement.size = SCDGraphicsDimension(width: width, height: 0)
 
    return customElement
 }
