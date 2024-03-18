@@ -341,7 +341,11 @@ public func EasySCDCard(text: String, width: Int = Int(screenInfo.screenSize.wid
     
     let bubbleContainer = createCardContainer(
 			text: text, 
-			color: EasyColor.black,
+			color: SCDSvgRGBColor(
+				red: 255,
+				green: 255,
+				blue: 255
+			), // iOS back
 			yPos: 0
 		)
 
