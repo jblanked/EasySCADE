@@ -157,15 +157,15 @@ private func Rectangle(
     for (index, line) in lines.enumerated() {
         let svgText = SCDSvgText()
         svgText.text = line
-        svgText.x = 10
+        svgText.x = SCDSvgUnit(integerLiteral:Int(screenInfo.screenSize.width) / 2)
 		let divider = width - Int(30 * (lines.count - index))
 		// lines before the end
         svgText.y = SCDSvgUnit	(
 			integerLiteral: Int(divider)
 		) // Adjust y based on line number
         svgText.fill = SCDSvgColor.white
-        svgText.fontSize = 20
-        svgText.anchor = SCDSvgTextAnchor.start
+        svgText.fontSize = 15
+        svgText.anchor = SCDSvgTextAnchor.middle
         svgText.alignment = SCDSvgTextAlignment.center
         svgText.alignmentBaseline = SCDSvgTextAlignmentBaseline.middle
         svgText.fontName = 	"ArialMT"
