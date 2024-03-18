@@ -443,10 +443,10 @@ public func EasyAlert(title:String, message:String,action: @escaping () -> Void 
       builder.setTitle(title: title)
       builder.setMessage(message: message)
 
-	  let listener = DialogInterfaceOnClickListener {
-		(dialog, which) in action()
-		}
-	  builder.setPositiveButton(text: "OK", listener: listener)
+	//   let listener = DialogInterfaceOnClickListener {
+	// 	(dialog, which) in action()
+	// 	}
+	  builder.setPositiveButton(text: "OK", listener: nil)
 
 	  let dialog: AlertDialog = builder.create()!
 
@@ -590,7 +590,7 @@ public func EasySCDTextBox	(
 	) -> SCDWidgetsTextbox
 	
 	{
-		let tBox = SCDWidgetsTextbox()
+		var tBox = SCDWidgetsTextbox()
 		tBox.visible = true
 		tBox.enable = true  
 		tBox.placeholder = placeholder
@@ -673,7 +673,7 @@ public func EasySCDTextForm(
 			)
 
 
-			let tBox = EasySCDTextBox(
+			var tBox = EasySCDTextBox(
 				placeholder: form.placeholder,
 				variable: form.variable,
 				secure: form.secure,
