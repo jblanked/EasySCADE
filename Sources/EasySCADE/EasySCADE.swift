@@ -626,11 +626,11 @@ public func EasySCDTextBox	(
 	}
 public class EasySCDTextBoxForm {
 	public var title: String
-	public var textbox: EasySCDTextBox
+	public var textbox: SCDWidgetsTextbox
 	
 	public init	(
 			title: String,
-			textbox: EasySCDTextBox
+			textbox: SCDWidgetsTextbox
 		) {
 
 		self.title = title
