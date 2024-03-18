@@ -577,7 +577,8 @@ public func EasySCDButton(
 
 // create SCDTextboxes
 public func EasySCDTextBox	(
-		form: EasySCDTextBoxForm,
+		placeholder: String,
+		secure: Bool = false,
 		fontsize:Int = 20,
 		font: String = "ArialMT", 
 		fontcolor:SCDGraphicsRGB = EasyColor.black,
@@ -591,12 +592,12 @@ public func EasySCDTextBox	(
 		let tBox = SCDWidgetsTextbox()
 		tBox.visible = true
 		tBox.enable = true  
-		tBox.placeholder = form.placeholder
+		tBox.placeholder = placeholder
 		tBox.font!.fontFamily = font
 
     	tBox.keyboard = SCDWidgetsKeyboard.resize
 		tBox.keyboardType = SCDWidgetsKeyboardType.alphabetic
-    	tBox.secure = form.secure
+    	tBox.secure = secure
     	tBox.text = ""
 		tBox.horizontalAlignment = SCDLayoutHorizontalAlignment.left    	
     	tBox.baselineAlignment = SCDWidgetsBaselineAlignment.middle
@@ -624,21 +625,16 @@ public func EasySCDTextBox	(
 		return tBox
 	}
 public class EasySCDTextBoxForm {
-	public var placeholder: String
-	//@Published public var variable: String
-	public var secure: Bool
 	public var title: String
+	public var textbox: EasySCDTextBox
 	
 	public init	(
-			placeholder: String, 
-			
-			secure: Bool = false, 
-			title: String = ""
+			title: String,
+			textbox: EasySCDTextBox,
 		) {
-		self.placeholder = placeholder
-		self.secure = secure
+
 		self.title = title
-		//self.variable = variable
+		self.textbox = textbox
 	}
 }
 // create TextForms
@@ -670,21 +666,13 @@ public func EasySCDTextForm(
 
 			)
 
-
-			var tBox = EasySCDTextBox(
-				form: form,
-				fontsize: fontsize,
-				font: font,
-				fontcolor: fontcolor,
-				width: width - 10,
-				paddingVertical: 0,
-				paddingHorizontal: 10,
-				location: SCDGraphicsPoint(x: 10, y: label.size.height + 5)
-			)
-
-		
-
-			
+			let tBox = form.textbox
+			tBox.location = SCDGraphicsPoint(x: 10, y: label.size.height + 5)
+			tBox.size = SCDGraphicsDimension(width: width - 10, height: tBox.size.height)
+			tBox.paddingVertical = 0
+			tBox.paddingHorizontal = 10
+			tBox.font!.size = fontsize
+			tBox.font!.color = fontcolor
 
 
 			container.location = location
