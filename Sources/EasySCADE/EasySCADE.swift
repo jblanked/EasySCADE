@@ -454,10 +454,10 @@ public func EasySCDTextBox	(
 		fontsize:Int = 20,
 		font: String = "ArialMT", 
 		fontcolor:SCDGraphicsRGB = EasyColor.black,
-		width: Int = Int(screenInfo.screenSize.width) - 10,
+		width: Int = Int(screenInfo.screenSize.width) + 10,
 		paddingVertical: Int = 10,
 		paddingHorizontal: Int = 10,
-		location: SCDGraphicsPoint = SCDGraphicsPoint(x: 10, y: 0)
+		location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: 0)
 	) -> SCDWidgetsWidget
 	
 	{
