@@ -520,7 +520,7 @@ public func EasySCDTextForm(
 			let container = SCDWidgetsContainer()
 			let label = EasySCDTextLabel(
 				text: form.title,
-				fontsize: fontsize - 5,
+				fontsize: fontsize,
 				font: font,
 				fontcolor: fontcolor,
 				paddingVertical: paddingVertical,
@@ -542,10 +542,11 @@ public func EasySCDTextForm(
 				width: width,
 				paddingVertical: paddingVertical,
 				paddingHorizontal: paddingHorizontal,
-				location: SCDGraphicsPoint(x: 0, y: label.size.height + 10)
+				location: SCDGraphicsPoint(x: 10, y: label.size.height + 10)
 			)
 
 			tBox.backgroundColor = EasyColor.gray
+			tBox.cornerRadius = 10
 				 
 			
 
