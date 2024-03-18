@@ -130,7 +130,7 @@ private func Rectangle(
 
 		let group = SCDSvgGroup()
 
-		//group.children.append(rectangle)
+		group.children.append(rectangle)
 
 		// create image from path
 		let image = SCDSvgImage()
@@ -365,7 +365,7 @@ public func EasySCDCard(path: String, text: String, width: Int = Int(screenInfo.
     customElement.children.append(bubbleContainer)
     
     
-    customElement.size = SCDGraphicsDimension(width: width, height: width)
+    customElement.size = SCDGraphicsDimension(width: width - 10, height: width - 10)
 	customElement.paddingLeft = 10
 
    return customElement
