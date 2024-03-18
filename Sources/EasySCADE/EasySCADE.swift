@@ -343,7 +343,7 @@ public func EasySCDBubbles(bubbles: [EasySCDLayoutBubble], width: Int = Int(scre
 }
 
 // returns a SCDWidgetsContainer with the Card
-public func EasySCDCard(path: String, text: String, width: Int = Int(screenInfo.screenSize.width) - 10,location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: 0) ) -> SCDWidgetsContainer {
+public func EasySCDCard(path: String, text: String, width: Int = Int(screenInfo.screenSize.width) - 10,location: SCDGraphicsPoint = SCDGraphicsPoint(x: 10, y: 0) ) -> SCDWidgetsContainer {
     let customElement = SCDWidgetsContainer()
     
     customElement.location = location
