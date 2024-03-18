@@ -159,12 +159,12 @@ private func Rectangle(
         svgText.text = line
         svgText.x = SCDSvgUnit(integerLiteral:Int(screenInfo.screenSize.width) / 2)
 		let divider = width - Int(30 * (lines.count - index))
-		// lines before the end
+
         svgText.y = SCDSvgUnit	(
 			integerLiteral: Int(divider)
-		) // Adjust y based on line number
+		) 
         svgText.fill = SCDSvgColor.white
-        svgText.fontSize = 15
+        svgText.fontSize = 17
         svgText.anchor = SCDSvgTextAnchor.middle
         svgText.alignment = SCDSvgTextAlignment.center
         svgText.alignmentBaseline = SCDSvgTextAlignmentBaseline.middle
@@ -348,7 +348,15 @@ public func EasySCDBubbles(bubbles: [EasySCDLayoutBubble], width: Int = Int(scre
 }
 
 // returns a SCDWidgetsContainer with the Card
-public func EasySCDCard(path: String, title: String, description: String, width: Int = Int(screenInfo.screenSize.width),location: SCDGraphicsPoint = SCDGraphicsPoint(x: 10, y: 0) ) -> SCDWidgetsContainer {
+public func EasySCDCard	(
+		path: String, 
+		title: String, 
+		description: String, 
+		action: @escaping () -> Void = {  },
+		width: Int = Int(screenInfo.screenSize.width),
+		location: SCDGraphicsPoint = SCDGraphicsPoint(x: 10, y: 0) 
+	) -> SCDWidgetsContainer {
+
     let customElement = SCDWidgetsContainer()
     
     customElement.location = location
@@ -372,6 +380,8 @@ public func EasySCDCard(path: String, title: String, description: String, width:
     
     
     customElement.size = SCDGraphicsDimension(width: width - 10, height: width - 10)
+
+	customElement.onClick { _ in action() }
 
 
    return customElement
@@ -433,7 +443,10 @@ public func EasyAlert(title:String, message:String,action: @escaping () -> Void 
       builder.setTitle(title: title)
       builder.setMessage(message: message)
       
-      builder.setPositiveButton(text: "OK", listener: nil)
+
+	  builder.setPositiveButton(text: "OK", listener: DialogInterfaceOnClickListener {
+		(dialog, which) in action()
+		})
 
       let dialog: AlertDialog = builder.create()!
 
@@ -563,6 +576,7 @@ public func EasySCDButton(
 // create SCDTextboxes
 public func EasySCDTextBox	(
 		placeholder: String,
+		variable: inout String,
 		secure: Bool = false, 
 		fontsize:Int = 20,
 		font: String = "ArialMT", 
@@ -571,7 +585,7 @@ public func EasySCDTextBox	(
 		paddingVertical: Int = 10,
 		paddingHorizontal: Int = 10,
 		location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: 0)
-	) -> SCDWidgetsWidget
+	) -> SCDWidgetsTextbox
 	
 	{
 		let tBox = SCDWidgetsTextbox()
@@ -595,6 +609,10 @@ public func EasySCDTextBox	(
 		tBox.backgroundColor = EasyColor.gray
 		tBox.cornerRadius = 5
 
+		tBox.onTextChange.append(SCDWidgetsTextChangeEventHandler{
+			ev in variable = ev!.newValue			
+		})
+
 		if paddingHorizontal > 0 {
 			tBox.paddingLeft = paddingHorizontal
 			tBox.size.width = width - paddingHorizontal
@@ -607,11 +625,18 @@ public func EasySCDTextBox	(
 	}
 public struct EasySCDTextBoxForm {
 	public var placeholder: String
+	public var variable: inout String
 	public var secure: Bool
 	public var title: String
 	
-	public init(placeholder: String, secure: Bool = false, title: String = "") {
+	public init	(
+			placeholder: String, 
+			variable: inout String,
+			secure: Bool = false, 
+			title: String = ""
+		) {
 		self.placeholder = placeholder
+		self.variable = variable
 		self.secure = secure
 		self.title = title
 	}
@@ -648,6 +673,7 @@ public func EasySCDTextForm(
 
 			let tBox = EasySCDTextBox(
 				placeholder: form.placeholder,
+				variable: form.variable,
 				secure: form.secure,
 				fontsize: fontsize,
 				font: font,
@@ -681,7 +707,7 @@ public func EasySCDWebView(
 		width: Int = Int(screenInfo.screenSize.width),
 		paddingVertical: Int = 0,
 		paddingHorizontal: Int = 10,
-		location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: 0)) -> SCDWidgetsWidget
+		location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: 0)) -> SCDWidgetsWebView
   {
   	
   	let web = SCDWidgetsWebView()
@@ -731,7 +757,9 @@ public func EasySCDTextLabel(text: String,
 							x_location: Int = 0,
 							y_location: Int = 0,
 							bold: Bool = false,
-							underline: Bool = false) 
+							underline: Bool = false,
+							action: @escaping () -> Void = { }
+							) 
 							 -> SCDWidgetsContainer
     {	
 		let paragraph = splitTextIntoLines(text: text)
@@ -764,14 +792,12 @@ public func EasySCDTextLabel(text: String,
 				label.paddingTop = paddingVertical
 			}
 
-
-			
-			
 			elements.append(label)
 		}
         
-
-        return EasyVStack2(elements: elements, location: SCDGraphicsPoint(x: x_location, y: y_location))
+		let stack = EasyVStack2(elements: elements, location: SCDGraphicsPoint(x: x_location, y: y_location))
+		stack.onClick { _ in action() }
+        return stack
     }
 
 private func EasyVStack2(elements: [SCDWidgetsWidget], location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: Int(screenInfo.statusBarsize.height) + 15)) -> SCDWidgetsContainer {
