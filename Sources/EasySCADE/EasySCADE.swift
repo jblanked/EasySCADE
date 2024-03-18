@@ -526,11 +526,12 @@ public func EasySCDTextForm(
 				paddingVertical: paddingVertical,
 				paddingHorizontal: paddingHorizontal,
 				x_location: 0,
-				y_location: 0
+				y_location: 0,
+				bold: true,
+				underline: true
+
 			)
-			// bold and underscore
-			label.font!.bold = true
-			label.font!.underline = true
+
 
 			let tBox = EasySCDTextBox(
 				placeholder: form.placeholder,
@@ -614,7 +615,9 @@ public func EasySCDTextLabel(text: String,
 							paddingVertical: Int = 0,
 							paddingHorizontal: Int = 10,
 							x_location: Int = 0,
-							y_location: Int = 0)
+							y_location: Int = 0,
+							bold: Bool = false,
+							underline: Bool = false) 
 							 -> SCDWidgetsContainer
     {	
 		let paragraph = splitTextIntoLines(text: text)
@@ -631,6 +634,8 @@ public func EasySCDTextLabel(text: String,
 			label.font!.fontFamily = font
 			label.font!.size = fontsize
 			label.font!.color = fontcolor
+			label.font!.bold = bold
+			label.font!.underline = underline
 			label.horizontalAlignment = SCDLayoutHorizontalAlignment.left    	
     		label.baselineAlignment = SCDWidgetsBaselineAlignment.middle
     		label.verticalAlignment = SCDLayoutVerticalAlignment.middle
