@@ -865,7 +865,7 @@ public func EasySCDPage(
 		backgroundColor: SCDGraphicsRGB = EasyColor.white,
 		backgroundImage: String = "",
 		onEnter: @escaping () -> Void = { },
-		onExit: @escaping () -> Void = { },
+		onExit: @escaping () -> Void = { }
 		) -> SCDWidgetsPage
 	{
 		let page = SCDWidgetsPage()
