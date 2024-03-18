@@ -680,7 +680,7 @@ public func EasySCDTextForm(
 
 			elements.append(container)
 		}
-		return EasyVStack2(elements: elements, location: location)
+		return EasyVStack(elements: elements, location: location)
 	}
 
 
@@ -779,7 +779,7 @@ public func EasySCDTextLabel(text: String,
 			elements.append(label)
 		}
         
-		let stack = EasyVStack2(elements: elements, location: SCDGraphicsPoint(x: x_location, y: y_location))
+		let stack = EasyVStack(elements: elements, location: SCDGraphicsPoint(x: x_location, y: y_location))
 		stack.onClick { _ in action() }
         return stack
     }
