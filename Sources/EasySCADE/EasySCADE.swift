@@ -454,10 +454,10 @@ public func EasySCDTextBox	(
 		fontsize:Int = 20,
 		font: String = "ArialMT", 
 		fontcolor:SCDGraphicsRGB = EasyColor.black,
-		width: Int = Int(screenInfo.screenSize.width) - 20,
+		width: Int = Int(screenInfo.screenSize.width),
 		paddingVertical: Int = 10,
 		paddingHorizontal: Int = 0,
-		location: SCDGraphicsPoint = SCDGraphicsPoint(x: 10, y: 0)
+		location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: 0)
 	) -> SCDWidgetsWidget
 	
 	{
@@ -510,7 +510,6 @@ public func EasySCDTextForm(
 		font: String = "ArialMT", 
 		fontcolor:SCDGraphicsRGB = EasyColor.black,
 		width: Int = Int(screenInfo.screenSize.width),
-		paddingHorizontal: Int = 10,
 		location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: 0)
 	) -> SCDWidgetsWidget
 	{
@@ -525,7 +524,7 @@ public func EasySCDTextForm(
 				font: font,
 				fontcolor: fontcolor,
 				paddingVertical: 0,
-				paddingHorizontal: paddingHorizontal,
+				paddingHorizontal: 0,
 				x_location: 0,
 				y_location: 0,
 				bold: true,
@@ -542,7 +541,7 @@ public func EasySCDTextForm(
 				fontcolor: fontcolor,
 				width: width,
 				paddingVertical: 0,
-				paddingHorizontal: paddingHorizontal,
+				paddingHorizontal: 0,
 				location: SCDGraphicsPoint(x: 0, y: label.size.height + 10)
 			)
 
