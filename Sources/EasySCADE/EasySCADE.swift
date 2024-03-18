@@ -306,9 +306,9 @@ private func createBubbleContainer(text: String, color: SCDSvgRGBColor, yPos: In
     
     return bubbleContainer 
 }
-private func createCardContainer(path: String, text: String, color: SCDSvgRGBColor, yPos: Int) -> SCDWidgetsContainer {
+private func createCardContainer(path: String, text: String, description: String, color: SCDSvgRGBColor, yPos: Int) -> SCDWidgetsContainer {
     let bubbleContainer = SCDWidgetsContainer()
-    let bubbleDrawing = Rectangle(path: path, text: text) 
+    let bubbleDrawing = Rectangle(path: path, text: text, description: description) 
     
     let label = SCDWidgetsLabel()
     label.drawing = bubbleDrawing.group // Set the SVG drawing
@@ -345,7 +345,7 @@ public func EasySCDBubbles(bubbles: [EasySCDLayoutBubble], width: Int = Int(scre
 }
 
 // returns a SCDWidgetsContainer with the Card
-public func EasySCDCard(path: String, title: String, width: Int = Int(screenInfo.screenSize.width),location: SCDGraphicsPoint = SCDGraphicsPoint(x: 10, y: 0) ) -> SCDWidgetsContainer {
+public func EasySCDCard(path: String, title: String, description: String, width: Int = Int(screenInfo.screenSize.width),location: SCDGraphicsPoint = SCDGraphicsPoint(x: 10, y: 0) ) -> SCDWidgetsContainer {
     let customElement = SCDWidgetsContainer()
     
     customElement.location = location
@@ -354,6 +354,7 @@ public func EasySCDCard(path: String, title: String, width: Int = Int(screenInfo
     let bubbleContainer = createCardContainer(
 			path: path,
 			text: title, 
+			description: description,
 			color: SCDSvgRGBColor(
 				red: 255,
 				green: 255,
