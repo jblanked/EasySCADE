@@ -627,18 +627,16 @@ public func EasySCDTextBox	(
 	}
 public struct EasySCDTextBoxForm {
 	public var placeholder: String
-	public var variable: String
 	public var secure: Bool
 	public var title: String
 	
 	public init	(
 			placeholder: String, 
-			variable: inout String,
+			variable: String,
 			secure: Bool = false, 
 			title: String = ""
 		) {
 		self.placeholder = placeholder
-		self.variable = variable
 		self.secure = secure
 		self.title = title
 	}
@@ -646,6 +644,7 @@ public struct EasySCDTextBoxForm {
 // create TextForms
 public func EasySCDTextForm(
 	forms: [EasySCDTextBoxForm],
+	variables: inout [String],
 	fontsize:Int = 20,
 		font: String = "ArialMT", 
 		fontcolor:SCDGraphicsRGB = EasyColor.black,
@@ -675,7 +674,7 @@ public func EasySCDTextForm(
 
 			var tBox = EasySCDTextBox(
 				placeholder: form.placeholder,
-				variable: form.variable,
+				variable: &variables[forms.firstIndex(of: form)!],
 				secure: form.secure,
 				fontsize: fontsize,
 				font: font,
