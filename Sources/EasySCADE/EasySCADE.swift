@@ -532,11 +532,11 @@ public func EasySCDTextForm(
 				width: width,
 				paddingVertical: paddingVertical,
 				paddingHorizontal: paddingHorizontal,
-				location: SCDGraphicsPoint(x: 0, y: fontsize + 5)
+				location: SCDGraphicsPoint(x: 0, y: fontsize + 10)
 			)
 
 			container.location = location
-			container.size = SCDGraphicsDimension(width: width, height: fontsize + 5 + fontsize + 5)
+			container.size = SCDGraphicsDimension(width: width, height: fontsize + 10 + fontsize + 10)
 			container.children.append(label)
 			container.children.append(tBox)
 
