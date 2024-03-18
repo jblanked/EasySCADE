@@ -457,11 +457,14 @@ public func EasySCDTextBox	(
 	
 	{
 		let tBox = SCDWidgetsTextbox()
+		tBox.visible = true
+		tBox.enable = true  
 		tBox.placeholder = placeholder
 		tBox.font!.fontFamily = font
 		tBox.horizontalAlignment = SCDLayoutHorizontalAlignment.center    	
     	tBox.baselineAlignment = SCDWidgetsBaselineAlignment.middle
     	tBox.verticalAlignment = SCDLayoutVerticalAlignment.middle
+		tBox.layoutData = SCDLayoutAutoLayoutData()
     	tBox.keyboard = SCDWidgetsKeyboard.resize
 		tBox.keyboardType = SCDWidgetsKeyboardType.alphabetic
     	tBox.secure = secure
@@ -482,6 +485,66 @@ public func EasySCDTextBox	(
 
 		return tBox
 	}
+public struct EasySCDTextBoxForm {
+	public var placeholder: String
+	public var secure: Bool
+	public var title: String
+	
+	public init(placeholder: String, secure: Bool = false, title: String = "") {
+		self.placeholder = placeholder
+		self.secure = secure
+		self.title = title
+	}
+}
+// create TextForms
+public func EasySCDTextForm(
+	forms: [EasySCDTextBoxForm],
+	fontsize:Int = 20,
+		font: String = "ArialMT", 
+		fontcolor:SCDGraphicsRGB = EasyColor.black,
+		width: Int = Int(screenInfo.screenSize.width),
+		paddingVertical: Int = 10,
+		paddingHorizontal: Int = 10,
+		location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: 0)
+	) -> SCDWidgetsWidget
+	{
+		var elements = [SCDWidgetsWidget]()
+		
+		for form in forms
+		{
+			let container = SCDWidgetsContainer()
+			let label = EasySCDTextLabel(
+				text: form.title,
+				fontsize: fontsize,
+				font: font,
+				fontcolor: fontcolor,
+				paddingVertical: paddingVertical,
+				paddingHorizontal: paddingHorizontal,
+				x_location: 0,
+				y_location: 0
+			)
+			let tBox = EasySCDTextBox(
+				placeholder: form.placeholder,
+				secure: form.secure,
+				fontsize: fontsize,
+				font: font,
+				fontcolor: fontcolor,
+				width: width,
+				paddingVertical: paddingVertical,
+				paddingHorizontal: paddingHorizontal,
+				location: SCDGraphicsPoint(x: 0, y: fontsize + 5)
+			)
+
+			container.location = location
+			container.size = SCDGraphicsDimension(width: width, height: fontsize + 5 + fontsize + 5)
+			container.children.append(label)
+			container.children.append(tBox)
+
+			elements.append(container)
+		}
+		return EasyVStack2(elements: elements, location: location)
+	}
+
 
 // create SCDVideoViews
 public func EasySCDVideo(
