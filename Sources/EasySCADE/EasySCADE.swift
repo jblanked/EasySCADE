@@ -471,8 +471,8 @@ public func EasySCDTextBox	(
 		tBox.keyboardType = SCDWidgetsKeyboardType.alphabetic
     	tBox.secure = secure
     	tBox.text = ""
-		tBox.size = SCDGraphicsDimension(width: width, height: fontsize + 10)
-		tBox.contentSize = SCDGraphicsDimension(width: width, height: fontsize + 10)
+		tBox.size = SCDGraphicsDimension(width: width, height: fontsize + 15)
+		tBox.contentSize = SCDGraphicsDimension(width: width, height: fontsize + 15)
 		tBox.location = location
 		tBox.font!.size = fontsize
 		tBox.font!.color = fontcolor
