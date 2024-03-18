@@ -158,7 +158,7 @@ private func Rectangle(
         let svgText = SCDSvgText()
         svgText.text = line
         svgText.x = 10
-		let divider = width - Int(30 * (line.count - index))
+		let divider = width - Int(30 * (lines.count - index))
 		// lines before the end
         svgText.y = SCDSvgUnit	(
 			integerLiteral: Int(divider)
