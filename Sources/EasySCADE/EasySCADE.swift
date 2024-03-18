@@ -442,17 +442,19 @@ public func EasyAlert(title:String, message:String,action: @escaping () -> Void 
       let builder: AlertDialogBuilder = AlertDialogBuilder(context: Application.currentActivity!)
       builder.setTitle(title: title)
       builder.setMessage(message: message)
-      
 
-	  builder.setPositiveButton(text: "OK", listener: DialogInterfaceOnClickListener {
+	  let listener = DialogInterfaceOnClickListener {
 		(dialog, which) in action()
-		})
+		}
+	  builder.setPositiveButton(text: "OK", listener: listener)
 
-      let dialog: AlertDialog = builder.create()!
+	  let dialog: AlertDialog = builder.create()!
 
-      dialog.show()
+	  dialog.show()
+	  
+	#endif
       
-    #endif
+
   }
   
 
@@ -631,7 +633,7 @@ public struct EasySCDTextBoxForm {
 	
 	public init	(
 			placeholder: String, 
-			variable: inout String,
+			variable: String,
 			secure: Bool = false, 
 			title: String = ""
 		) {
