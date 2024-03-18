@@ -630,7 +630,7 @@ public class EasySCDTextBoxForm {
 	
 	public init	(
 			title: String,
-			textbox: EasySCDTextBox,
+			textbox: EasySCDTextBox
 		) {
 
 		self.title = title
