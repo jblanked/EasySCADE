@@ -114,6 +114,7 @@ public func EasySpinner(show: Bool) {
 private func Rectangle(
 		path: String,
 		text: String,
+		description: String = "Rectangle",
 		font: String = "ArialMT",
 		fontColor: SCDGraphicsRGB = EasyColor.blue,
 		width: Int = Int(screenInfo.screenSize.width),
@@ -135,17 +136,32 @@ private func Rectangle(
 		image.height = SCDSvgUnit.init(integerLiteral: height)
 		group.children.append(image)
 	
-    let lines = splitTextIntoLines(text: text)
 
-    // Create and add each line of text to the group
-    for (index, line) in lines.enumerated() {
         let svgText = SCDSvgText()
-        svgText.text = line
+        svgText.text = text
         svgText.x = SCDSvgUnit(integerLiteral:Int(screenInfo.screenSize.width) / 2)
         svgText.y = SCDSvgUnit(integerLiteral: Int(25 + (index * 30))) // Adjust y based on line number
         svgText.fill = SCDSvgColor.white
         svgText.fontSize = 20
         svgText.anchor = SCDSvgTextAnchor.middle
+        svgText.alignment = SCDSvgTextAlignment.center
+        svgText.alignmentBaseline = SCDSvgTextAlignmentBaseline.middle
+        svgText.fontName = 	"ArialMT"
+        
+        group.children.append(svgText)
+    
+
+	let lines = splitTextIntoLines(text: description)
+
+    // Create and add each line of text to the group
+    for (index, line) in lines.enumerated() {
+        let svgText = SCDSvgText()
+        svgText.text = line
+        svgText.x = 10
+        svgText.y = SCDSvgUnit(integerLiteral: Int(25 + ((index+1) * 30))) // Adjust y based on line number
+        svgText.fill = SCDSvgColor.white
+        svgText.fontSize = 20
+        svgText.anchor = SCDSvgTextAnchor.start
         svgText.alignment = SCDSvgTextAlignment.center
         svgText.alignmentBaseline = SCDSvgTextAlignmentBaseline.middle
         svgText.fontName = 	"ArialMT"
