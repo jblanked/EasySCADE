@@ -142,12 +142,11 @@ private func Rectangle(
         svgText.x = SCDSvgUnit(integerLiteral:Int(screenInfo.screenSize.width) / 2)
         svgText.y = SCDSvgUnit(integerLiteral: Int(25)) // Adjust y based on line number
         svgText.fill = SCDSvgColor.white
-        svgText.fontSize = 20
+        svgText.fontSize = 25
         svgText.anchor = SCDSvgTextAnchor.middle
         svgText.alignment = SCDSvgTextAlignment.center
         svgText.alignmentBaseline = SCDSvgTextAlignmentBaseline.middle
         svgText.fontName = 	"ArialMT"
-		svgText.weight = 100
         
         group.children.append(svgText)
     
