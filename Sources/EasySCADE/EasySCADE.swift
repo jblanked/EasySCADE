@@ -471,6 +471,9 @@ public func EasySCDTextBox	(
 		tBox.keyboardType = SCDWidgetsKeyboardType.alphabetic
     	tBox.secure = secure 
     	tBox.text = ""
+		tBox.horizontalAlignment = SCDLayoutHorizontalAlignment.left    	
+    	tBox.baselineAlignment = SCDWidgetsBaselineAlignment.middle
+    	tBox.verticalAlignment = SCDLayoutVerticalAlignment.middle
 		tBox.size = SCDGraphicsDimension(width: width, height: Int(fontsize * 2) + paddingVertical)
 		tBox.contentSize = SCDGraphicsDimension(width: width, height: Int(fontsize * 2) + paddingVertical)
 		tBox.location = location
