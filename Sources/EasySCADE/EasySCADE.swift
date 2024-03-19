@@ -356,7 +356,7 @@ public func EasySCDCard	(
 		description: String, 
 		action: @escaping () -> Void = {  },
 		width: Int = Int(screenInfo.screenSize.width),
-		location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: 0) 
+		location: SCDGraphicsPoint = SCDGraphicsPoint(x: 10, y: 0) 
 	) -> SCDWidgetsContainer {
 
     let customElement = SCDWidgetsContainer()
@@ -381,8 +381,8 @@ public func EasySCDCard	(
     customElement.children.append(bubbleContainer)
     
     
-    customElement.size = SCDGraphicsDimension(width: width - 10, height: width - 10)
-	customElement.paddingLeft = 10
+    customElement.size = SCDGraphicsDimension(width: width - 20, height: width - 20)
+	
 
 	customElement.onClick { _ in action() }
 
