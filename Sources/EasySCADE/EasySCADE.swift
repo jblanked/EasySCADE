@@ -812,7 +812,7 @@ public func EasySCDCheckbox(
 public func EasySCDCheckboxElement(text: String, fontColor: SCDGraphicsRGB = EasyColor.black, checked: Bool = false, height: Int = 50, action: @escaping () -> Void = { }) -> SCDWidgetsContainer
   {
   	let container = SCDWidgetsContainer()
-  	let label = EasySCDTextLabel(text: text, fontsize: 20, font: "ArialMT", fontcolor: fontColor, paddingVertical: 0, paddingHorizontal: 10, x_location: 0, y_location: 5)
+  	let label = EasySCDTextLabel(text: text, fontsize: 20, font: "ArialMT", fontcolor: fontColor, paddingVertical: 0, paddingHorizontal: 10, x_location: 0, y_location: 10)
   	let checkbox = EasySCDCheckbox(checked: checked, height: height)
 	checkbox.location = SCDGraphicsPoint(x: Int(screenInfo.screenSize.width) - height - 20, y: 0)
 	checkbox.size = SCDGraphicsDimension(width: Int(screenInfo.screenSize.width), height: height)
