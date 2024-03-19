@@ -140,7 +140,7 @@ private func Rectangle(
 
         let svgText = SCDSvgText()
         svgText.text = text
-        svgText.x = SCDSvgUnit(integerLiteral:Int(width) / 2)
+        svgText.x = SCDSvgUnit(integerLiteral:Int(width + 10) / 2)
         svgText.y = SCDSvgUnit(integerLiteral: Int(25)) // Adjust y based on line number
         svgText.fill = SCDSvgColor.white
         svgText.fontSize = 25
@@ -158,7 +158,7 @@ private func Rectangle(
     for (index, line) in lines.enumerated() {
         let svgText = SCDSvgText()
         svgText.text = line
-        svgText.x = SCDSvgUnit(integerLiteral:Int(width) / 2)
+        svgText.x = SCDSvgUnit(integerLiteral:Int(width + 10) / 2)
 		let divider = width - Int(30 * (lines.count - index))
 
         svgText.y = SCDSvgUnit	(
