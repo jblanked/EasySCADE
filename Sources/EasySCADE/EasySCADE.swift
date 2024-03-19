@@ -496,6 +496,7 @@ public func EasySCDImageLabelURL(
 	size.width = width        
 	image.size = size  
 	image.location = location
+	image.name = path
 
 	if paddingHorizontal > 0 {
 		image.paddingLeft = paddingHorizontal
@@ -534,6 +535,7 @@ public func EasySCDImageLabel(
         size.width = width        
         image.size = size  
 		image.location = location
+		image.name = path
 
 		if paddingHorizontal > 0 {
 		image.paddingLeft = paddingHorizontal
