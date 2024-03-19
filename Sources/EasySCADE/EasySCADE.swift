@@ -790,6 +790,34 @@ public func EasySCDTextLabel(text: String,
         return stack
     }
 
+// creates a SCDCheckbox
+public func EasySCDCheckbox(checked: Bool = false, height: Int = 50) -> SCDWidgetsCheckbox
+  {
+  	let checkbox = SCDWidgetsCheckbox()
+  	checkbox.checked = checked
+  	checkbox.enable = true
+  	checkbox.visible = true
+  	checkbox.size = SCDGraphicsDimension(width: Int(screenInfo.screenSize.width), height: height)
+  	checkbox.location = SCDGraphicsPoint(x: Int(screenInfo.screenSize.width / 2.5), y: 0)
+  	checkbox.cornerRadius = 5
+
+  	return checkbox
+  }
+
+// creates a SCDCheckboxElement (label + checkbox)
+public func EasySCDCheckboxElement(text: String, checked: Bool = false, height: Int = 50, action: @escaping () -> Void = { }) -> SCDWidgetsContainer
+  {
+  	let container = SCDWidgetsContainer()
+  	let label = EasySCDTextLabel(text: text, fontsize: height, font: "ArialMT", fontcolor: EasyColor.black, paddingVertical: 0, paddingHorizontal: 10, x_location: 0, y_location: 0)
+  	let checkbox = EasySCDCheckbox(checked: checked, height: height)
+  	container.children.append(label)
+  	container.children.append(checkbox)
+  	container.size = SCDGraphicsDimension(width: Int(screenInfo.screenSize.width), height: height)
+  	container.onClick { _ in action() }
+  	return container
+  }
+
+// dynamic vertical arrangement of widgets
 public func EasyVStack(elements: [SCDWidgetsWidget], location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: Int(screenInfo.statusBarsize.height) + 15)) -> SCDWidgetsContainer {
 	let container = SCDWidgetsContainer()
 	container.location = location
@@ -808,7 +836,7 @@ public func EasyVStack(elements: [SCDWidgetsWidget], location: SCDGraphicsPoint 
 	
 	return container
 }
-
+// dynamic vertical arrangement of widgets
 public func EasyVStack(page: SCDWidgetsPage, elements: [SCDWidgetsWidget], location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: Int(screenInfo.statusBarsize.height) + 15))  {
 	let container = SCDWidgetsContainer()
 	container.location = location
