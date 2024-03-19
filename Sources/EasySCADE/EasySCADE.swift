@@ -122,7 +122,6 @@ private func Rectangle(
 		width: Int = Int(screenInfo.screenSize.width - 10),
 		height: Int = Int(screenInfo.screenSize.width - 10),
 		cardColor: SCDGraphicsRGB = EasyColor.black,
-		location: SCDGraphicsPoint = SCDGraphicsPoint(x: 10, y: 0)
 	) -> BubbleInfo
 	{
 
@@ -132,7 +131,7 @@ private func Rectangle(
 		// create image from path
 		let image = SCDSvgImage()
 		image.xhref = path
-		image.x = 0
+		image.x = 10
 		image.y = 0
 		image.width = SCDSvgUnit.init(integerLiteral: width)
 		image.height = SCDSvgUnit.init(integerLiteral: height)
