@@ -119,8 +119,8 @@ private func Rectangle(
 		description: String,
 		font: String = "ArialMT",
 		fontColor: SCDGraphicsRGB = EasyColor.blue,
-		width: Int = Int(screenInfo.screenSize.width),
-		height: Int = Int(screenInfo.screenSize.width),
+		width: Int = Int(screenInfo.screenSize.width - 10),
+		height: Int = Int(screenInfo.screenSize.width - 10),
 		cardColor: SCDGraphicsRGB = EasyColor.black,
 		location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: 0)
 	) -> BubbleInfo
@@ -141,7 +141,7 @@ private func Rectangle(
 
         let svgText = SCDSvgText()
         svgText.text = text
-        svgText.x = SCDSvgUnit(integerLiteral:Int(screenInfo.screenSize.width) / 2)
+        svgText.x = SCDSvgUnit(integerLiteral:Int(width) / 2)
         svgText.y = SCDSvgUnit(integerLiteral: Int(25)) // Adjust y based on line number
         svgText.fill = SCDSvgColor.white
         svgText.fontSize = 25
@@ -159,7 +159,7 @@ private func Rectangle(
     for (index, line) in lines.enumerated() {
         let svgText = SCDSvgText()
         svgText.text = line
-        svgText.x = SCDSvgUnit(integerLiteral:Int(screenInfo.screenSize.width) / 2)
+        svgText.x = SCDSvgUnit(integerLiteral:Int(width) / 2)
 		let divider = width - Int(30 * (lines.count - index))
 
         svgText.y = SCDSvgUnit	(
@@ -175,7 +175,7 @@ private func Rectangle(
     }
 
 	
-	return BubbleInfo.init(group: group, size: SCDSize(width: Double(width), height: Double(height)))
+	return BubbleInfo.init(group: group, size: SCDSize(width: Double(width), height: Double(height)))  
 
 	}
 
@@ -322,6 +322,7 @@ private func createCardContainer(path: String, text: String, description: String
     bubbleContainer.children.append(label)
     bubbleContainer.size = SCDGraphicsDimension(width: Int(bubbleDrawing.size.width), height: Int(bubbleDrawing.size.height)) // Use the actual size of the bubble
     bubbleContainer.location = SCDGraphicsPoint(x: 0, y: yPos)
+	bubbleContainer.paddingTop = 10
     
     return bubbleContainer 
 }
@@ -355,13 +356,11 @@ public func EasySCDCard	(
 		title: String, 
 		description: String, 
 		action: @escaping () -> Void = {  },
-		width: Int = Int(screenInfo.screenSize.width),
-		location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: 0) 
 	) -> SCDWidgetsContainer {
 
     let customElement = SCDWidgetsContainer()
     
-    customElement.location = location
+    
    
     let bubbleContainer = createCardContainer(
 			path: path,
@@ -375,23 +374,17 @@ public func EasySCDCard	(
 			yPos: 0
 		)
 
-	bubbleContainer.size = SCDGraphicsDimension(
-			width: Int(bubbleContainer.size.width - 10), 
-			height: Int(bubbleContainer.size.height - 10)
-		)
-	
-	bubbleContainer.paddingLeft = 10
         
     customElement.children.append(bubbleContainer)
     
 	customElement.onClick { _ in action() }
 
 	customElement.size = SCDGraphicsDimension(
-			width: Int(bubbleContainer.size.width - 10), 
-			height: Int(bubbleContainer.size.height - 10)
+			width: Int(bubbleContainer.size.width), 
+			height: Int(bubbleContainer.size.height)
 		)
 	
-	customElement.paddingLeft = 10
+	customElement.location = SCDGraphicsPoint(x: 0, y: 0)
 
 
    return customElement
