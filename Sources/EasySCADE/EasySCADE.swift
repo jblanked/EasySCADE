@@ -62,8 +62,8 @@ public struct EasyColor {
 
 // creates a Loading Spinner
 public func EasySpinner(show: Bool) {
+	DispatchQueue.main.async {
     #if os(iOS)
-    DispatchQueue.main.async {
         guard let rootView = SCDApplication.rootViewController?.view else { return }
 
         // Look for an existing spinner
@@ -91,7 +91,7 @@ public func EasySpinner(show: Bool) {
             spinner.backgroundColor = UIColor(white: 0, alpha: 0.6)         
             spinner.layer.cornerRadius = 10
         }
-    }
+    
     #endif
 
     #if os(Android)
@@ -107,6 +107,8 @@ public func EasySpinner(show: Bool) {
     }
      
     #endif
+
+	}
 }
 
 
@@ -422,6 +424,8 @@ extension SCDApplication {
 // creates an alert 
 public func EasyAlert(title:String, message:String,action: @escaping () -> Void = { }) {
 
+	DispatchQueue.main.async {
+
     #if !os(Android)
 
       let alert = UIAlertController(
@@ -443,10 +447,8 @@ public func EasyAlert(title:String, message:String,action: @escaping () -> Void 
       builder.setTitle(title: title)
       builder.setMessage(message: message)
 
-	//   let listener = DialogInterfaceOnClickListener {
-	// 	(dialog, which) in action()
-	// 	}
-	  builder.setPositiveButton(text: "OK", listener: nil)
+	
+	 builder.setPositiveButton(text: "OK", listener: { dialog, which in action() })
 
 	  let dialog: AlertDialog = builder.create()!
 
@@ -454,6 +456,8 @@ public func EasyAlert(title:String, message:String,action: @escaping () -> Void 
 	  
 	#endif
       
+	
+	}
 
   }
   
@@ -842,6 +846,25 @@ public func EasyHStack(page: SCDWidgetsPage, elements: [SCDWidgetsWidget], locat
 	
 	page.children.append(container)
 	page.useSafeArea = false
+}
+public func EasyHStack(elements: [SCDWidgetsWidget], location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: Int(screenInfo.statusBarsize.height) + 15)) -> SCDWidgetsContainer
+{
+	let container = SCDWidgetsContainer()
+	container.location = location
+	
+	var xOffset = 0
+	for element in elements {
+		let tempContainer = SCDWidgetsContainer()
+		tempContainer.location = SCDGraphicsPoint(x: xOffset, y: 0)
+		tempContainer.size = SCDGraphicsDimension(width: Int(element.size.width), height: Int(element.size.height))
+		xOffset += Int(element.size.width) + 10
+		tempContainer.children.append(element)
+		container.children.append(tempContainer)
+	}
+
+	container.size = SCDGraphicsDimension(width: xOffset, height: Int(screenInfo.screenSize.height))
+	
+	return container
 }
 
 public func EasySCDPage(
