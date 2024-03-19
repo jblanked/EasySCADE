@@ -356,14 +356,13 @@ public func EasySCDCard	(
 		description: String, 
 		action: @escaping () -> Void = {  },
 		width: Int = Int(screenInfo.screenSize.width),
-		location: SCDGraphicsPoint = SCDGraphicsPoint(x: 10, y: 0) 
+		location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: 0) 
 	) -> SCDWidgetsContainer {
 
     let customElement = SCDWidgetsContainer()
     
     customElement.location = location
-
-    
+   
     let bubbleContainer = createCardContainer(
 			path: path,
 			text: title, 
@@ -377,19 +376,22 @@ public func EasySCDCard	(
 		)
 
 	bubbleContainer.size = SCDGraphicsDimension(
-			width: Int(bubbleContainer.size.width - (location.x * 2)), 
-			height: Int(bubbleContainer.size.height - (location.x * 2))
+			width: Int(bubbleContainer.size.width - 10), 
+			height: Int(bubbleContainer.size.height - 10)
 		)
-
+	
+	bubbleContainer.paddingLeft = 10
         
     customElement.children.append(bubbleContainer)
     
-	
-    
-    customElement.size = SCDGraphicsDimension(width: Int(bubbleContainer.size.width), height: Int(bubbleContainer.size.height))
-	
-
 	customElement.onClick { _ in action() }
+
+	customElement.size = SCDGraphicsDimension(
+			width: Int(bubbleContainer.size.width - 10), 
+			height: Int(bubbleContainer.size.height - 10)
+		)
+	
+	customElement.paddingLeft = 10
 
 
    return customElement
