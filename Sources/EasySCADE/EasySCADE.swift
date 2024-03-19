@@ -797,7 +797,7 @@ public func EasyVStack(elements: [SCDWidgetsWidget], location: SCDGraphicsPoint 
 	var yOffset = 0
 	for element in elements {
 		let tempContainer = SCDWidgetsContainer()
-		tempContainer.location = SCDGraphicsPoint(x: 0, y: yOffset)
+		tempContainer.location = SCDGraphicsPoint(x: Int(element.location.x), y: yOffset)
 		tempContainer.size = SCDGraphicsDimension(width: Int(element.size.width), height: Int(element.size.height))
 		yOffset += Int(element.size.height) + 10
 		tempContainer.children.append(element)
@@ -816,7 +816,7 @@ public func EasyVStack(page: SCDWidgetsPage, elements: [SCDWidgetsWidget], locat
 	var yOffset = 0
 	for element in elements {
 		let tempContainer = SCDWidgetsContainer()
-		tempContainer.location = SCDGraphicsPoint(x: 0, y: yOffset)
+		tempContainer.location = SCDGraphicsPoint(x: Int(element.location.x), y: yOffset)
 		tempContainer.size = SCDGraphicsDimension(width: Int(element.size.width), height: Int(element.size.height))
 		yOffset += Int(element.size.height) + 10
 		tempContainer.children.append(element)
@@ -837,7 +837,7 @@ public func EasyHStack(page: SCDWidgetsPage, elements: [SCDWidgetsWidget], locat
 	var xOffset = 0
 	for element in elements {
 		let tempContainer = SCDWidgetsContainer()
-		tempContainer.location = SCDGraphicsPoint(x: xOffset, y: 0)
+		tempContainer.location = SCDGraphicsPoint(x: xOffset, y: Int(element.location.y))
 		tempContainer.size = SCDGraphicsDimension(width: Int(element.size.width), height: Int(element.size.height))
 		xOffset += Int(element.size.width) + 10
 		tempContainer.children.append(element)
@@ -857,7 +857,7 @@ public func EasyHStack(elements: [SCDWidgetsWidget], location: SCDGraphicsPoint 
 	var xOffset = 0
 	for element in elements {
 		let tempContainer = SCDWidgetsContainer()
-		tempContainer.location = SCDGraphicsPoint(x: xOffset, y: 0)
+		tempContainer.location = SCDGraphicsPoint(x: xOffset, y: Int(element.location.y))
 		tempContainer.size = SCDGraphicsDimension(width: Int(element.size.width), height: Int(element.size.height))
 		xOffset += Int(element.size.width) + 10
 		tempContainer.children.append(element)
