@@ -808,10 +808,10 @@ public func EasySCDCheckbox(checked: Bool = false, height: Int = 50) -> SCDWidge
 public func EasySCDCheckboxElement(text: String, checked: Bool = false, height: Int = 50, action: @escaping () -> Void = { }) -> SCDWidgetsContainer
   {
   	let container = SCDWidgetsContainer()
-  	let label = EasySCDTextLabel(text: text, fontsize: 20, font: "ArialMT", fontcolor: EasyColor.black, paddingVertical: 0, paddingHorizontal: 10, x_location: 0, y_location: 0)
+  	let label = EasySCDTextLabel(text: text, fontsize: 20, font: "ArialMT", fontcolor: EasyColor.black, paddingVertical: 0, paddingHorizontal: 10, x_location: 0, y_location: 5)
   	let checkbox = EasySCDCheckbox(checked: checked, height: height)
-  	container.children.append(checkbox)
 	container.children.append(label)
+  	container.children.append(checkbox)
   	container.size = SCDGraphicsDimension(width: Int(screenInfo.screenSize.width), height: height)
 	container.location = SCDGraphicsPoint(x: 0, y: 0)
   	container.onClick { _ in action() }
