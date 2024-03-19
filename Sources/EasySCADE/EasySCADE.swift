@@ -791,24 +791,28 @@ public func EasySCDTextLabel(text: String,
     }
 
 // creates a SCDCheckbox
-public func EasySCDCheckbox(checked: Bool = false, height: Int = 50) -> SCDWidgetsCheckbox
+public func EasySCDCheckbox(
+		checked: Bool = false, 
+		height: Int = 50,
+		location: SCDGraphicsPoint = SCDGraphicsPoint(x: Int(screenInfo.screenSize.width / 2.5), y: 0)
+		) -> SCDWidgetsCheckbox
   {
   	let checkbox = SCDWidgetsCheckbox()
   	checkbox.checked = checked
   	checkbox.enable = true
   	checkbox.visible = true
   	checkbox.size = SCDGraphicsDimension(width: Int(screenInfo.screenSize.width), height: height)
-  	checkbox.location = SCDGraphicsPoint(x: Int(screenInfo.screenSize.width / 2.5), y: 0)
+  	checkbox.location = location
   	checkbox.cornerRadius = 5
 
   	return checkbox
   }
 
 // creates a SCDCheckboxElement (label + checkbox)
-public func EasySCDCheckboxElement(text: String, checked: Bool = false, height: Int = 50, action: @escaping () -> Void = { }) -> SCDWidgetsContainer
+public func EasySCDCheckboxElement(text: String, fontColor: SCDGraphicsRGB = EasyColor.black, checked: Bool = false, height: Int = 50, action: @escaping () -> Void = { }) -> SCDWidgetsContainer
   {
   	let container = SCDWidgetsContainer()
-  	let label = EasySCDTextLabel(text: text, fontsize: 20, font: "ArialMT", fontcolor: EasyColor.black, paddingVertical: 0, paddingHorizontal: 10, x_location: 0, y_location: 5)
+  	let label = EasySCDTextLabel(text: text, fontsize: 20, font: "ArialMT", fontcolor: fontColor, paddingVertical: 0, paddingHorizontal: 10, x_location: 0, y_location: 5)
   	let checkbox = EasySCDCheckbox(checked: checked, height: height)
 	checkbox.location = SCDGraphicsPoint(x: Int(screenInfo.screenSize.width) - height - 20, y: 0)
 	checkbox.size = SCDGraphicsDimension(width: Int(screenInfo.screenSize.width), height: height)
@@ -819,6 +823,12 @@ public func EasySCDCheckboxElement(text: String, checked: Bool = false, height: 
   	container.onClick { _ in action() }
   	return container
   }
+
+public func EasySCDCheckboxForm(elements: [SCDWidgetsContainer]) -> SCDWidgetsContainer
+{
+	return EasyVStack(elements: elements)
+}
+
 
 // dynamic vertical arrangement of widgets
 public func EasyVStack(elements: [SCDWidgetsWidget], location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: Int(screenInfo.statusBarsize.height) + 15)) -> SCDWidgetsContainer {
