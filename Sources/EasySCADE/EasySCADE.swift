@@ -448,7 +448,10 @@ public func EasyAlert(title:String, message:String,action: @escaping () -> Void 
       builder.setMessage(message: message)
 
 	
-	 builder.setPositiveButton(text: "OK", listener: { dialog, which in action() })
+	  builder.setPositiveButton(text: "OK", listener: (DialogInterfaceOnClickListener) (dialog, which) -> { 
+            _ in action()
+        })
+	
 
 	  let dialog: AlertDialog = builder.create()!
 
