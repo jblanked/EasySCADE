@@ -61,7 +61,7 @@ public struct EasyColor {
 }
 
 // creates a Loading Spinner
-public func EasySpinner(show: Bool) {
+public func EasySpinner(show: Bool, text: String = "Loading...") {
 	DispatchQueue.main.async {
     #if os(iOS)
         guard let rootView = SCDApplication.rootViewController?.view else { return }
@@ -99,7 +99,7 @@ public func EasySpinner(show: Bool) {
     
     easyProgress.setProgressStyle(style: ProgressDialog.STYLE_SPINNER)
     easyProgress.incrementProgressBy(diff: 1)
-    easyProgress.setMessage(message: "Loading..")
+    easyProgress.setMessage(message: text)
     if show {
         easyProgress.show()  // Show spinner
     } else {
