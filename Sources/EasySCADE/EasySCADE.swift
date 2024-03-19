@@ -356,7 +356,7 @@ public func EasySCDCard	(
 		description: String, 
 		action: @escaping () -> Void = {  },
 		width: Int = Int(screenInfo.screenSize.width),
-		location: SCDGraphicsPoint = SCDGraphicsPoint(x: 10, y: 0) 
+		location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: 0) 
 	) -> SCDWidgetsContainer {
 
     let customElement = SCDWidgetsContainer()
