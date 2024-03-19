@@ -824,10 +824,18 @@ public func EasySCDCheckboxElement(text: String, fontColor: SCDGraphicsRGB = Eas
   	return container
   }
 
+// creates a Checkbox form
 public func EasySCDCheckboxForm(elements: [SCDWidgetsContainer]) -> SCDWidgetsContainer
 {
 	return EasyVStack(elements: elements)
 }
+
+// creates a Spacer
+public func EasySCDSpacer(height: Int = 20) -> SCDWidgetsWidget
+{
+	return EasySCDTextLabel(text: "", fontsize: height, font: "ArialMT", fontcolor: EasyColor.white, paddingVertical: 0, paddingHorizontal: 0, x_location: 0, y_location: 0)
+}
+
 
 
 // dynamic vertical arrangement of widgets
