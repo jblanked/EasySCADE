@@ -121,7 +121,7 @@ private func Rectangle(
 		fontColor: SCDGraphicsRGB = EasyColor.blue,
 		width: Int = Int(screenInfo.screenSize.width - 10),
 		height: Int = Int(screenInfo.screenSize.width - 10),
-		cardColor: SCDGraphicsRGB = EasyColor.black,
+		cardColor: SCDGraphicsRGB = EasyColor.black
 	) -> BubbleInfo
 	{
 
