@@ -380,8 +380,8 @@ public func EasySCDCard	(
 	customElement.onClick { _ in action() }
 
 	customElement.size = SCDGraphicsDimension(
-			width: Int(bubbleContainer.size.width), 
-			height: Int(bubbleContainer.size.height)
+			width: Int(screenInfo.screenSize.width), 
+			height: Int(screenInfo.screenSize.width)
 		)
 	
 	customElement.location = SCDGraphicsPoint(x: 0, y: 0)
