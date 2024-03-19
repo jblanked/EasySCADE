@@ -322,7 +322,7 @@ private func createCardContainer(path: String, text: String, description: String
     bubbleContainer.children.append(label)
     bubbleContainer.size = SCDGraphicsDimension(width: Int(bubbleDrawing.size.width), height: Int(bubbleDrawing.size.height)) // Use the actual size of the bubble
     bubbleContainer.location = SCDGraphicsPoint(x: 0, y: yPos)
-	bubbleContainer.paddingTop = 10
+	bubbleContainer.paddingLeft = 10
     
     return bubbleContainer 
 }
