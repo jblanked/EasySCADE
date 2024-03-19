@@ -355,7 +355,7 @@ public func EasySCDCard	(
 		path: String, 
 		title: String, 
 		description: String, 
-		action: @escaping () -> Void = {  },
+		action: @escaping () -> Void = {  }
 	) -> SCDWidgetsContainer {
 
     let customElement = SCDWidgetsContainer()
