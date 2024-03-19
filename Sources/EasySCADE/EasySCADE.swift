@@ -381,7 +381,7 @@ public func EasySCDCard	(
     customElement.children.append(bubbleContainer)
     
     
-    customElement.size = SCDGraphicsDimension(width: width - 10, height: width - 10)
+    customElement.size = SCDGraphicsDimension(width: width, height: width)
 
 	customElement.onClick { _ in action() }
 
