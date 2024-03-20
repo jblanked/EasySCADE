@@ -553,6 +553,7 @@ public func EasySCDImage(
 
 // creates SCDImagelabels from photo library
 public func EasySCDImagePhotoLibrary(
+
 		paddingVertical: Int = 0,
 		paddingHorizontal: Int = 10,
 		height: Int = Int(screenInfo.screenSize.width),
@@ -565,8 +566,46 @@ public func EasySCDImagePhotoLibrary(
     {	
     	let image = SCDWidgetsImage()
         
-        image.content = EasySCDCamera()
         image.contentPriority = true
+        image.content = EasySCDCamera()
+        
+        let size = SCDGraphicsDimension()
+        size.height = height
+        size.width = width        
+        image.size = size  
+		image.location = location
+		image.name = "photoLibrary"
+
+		if paddingHorizontal > 0 {
+		image.paddingLeft = paddingHorizontal
+		image.size.width = width - paddingHorizontal
+		}
+		if paddingVertical > 0 {
+			image.paddingTop = paddingVertical
+		}
+
+
+        image.onClick { _ in navigationAction() }
+
+        return image
+    }
+// creates SCDImagelabels from Data
+public func EasySCDImageData(
+		data: Data,
+		paddingVertical: Int = 0,
+		paddingHorizontal: Int = 10,
+		height: Int = Int(screenInfo.screenSize.width),
+		width: Int = Int(screenInfo.screenSize.width),
+		location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: 0),
+		navigationAction: @escaping () -> Void = {
+			
+		
+		}) -> SCDWidgetsImage
+    {	
+    	let image = SCDWidgetsImage()
+        
+        image.contentPriority = true
+        image.content = data
         
         let size = SCDGraphicsDimension()
         size.height = height
@@ -878,11 +917,12 @@ public func EasySCDSpacer(height: Int = 20) -> SCDWidgetsWidget
 
 
 // opens photo library and returns image.content
-public func EasySCDCamera(sourceType: SCDPlatformCameraSourceType = SCDPlatformCameraSourceType.photolibrary) -> Data
+public func EasySCDCamera(_ show: Bool = true, sourceType: SCDPlatformCameraSourceType = SCDPlatformCameraSourceType.photolibrary) -> Data
   {
   	let sys = SCDPlatformCamera()
 	var imageContent: Data = Data()
   	
+	if show {
     
     	sys.getPicture(
     		SCDPlatformCameraOptions.init(sourceType: SCDPlatformCameraSourceType.photolibrary), 
@@ -895,6 +935,7 @@ public func EasySCDCamera(sourceType: SCDPlatformCameraSourceType = SCDPlatformC
     				EasyAlert(title: "Upload Failed", message: "Failed to attach image.")
     		}))
     
+	}
     
        return imageContent
   }
