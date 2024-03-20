@@ -573,7 +573,7 @@ public func EasySCDImagePhotoLibrary(
         size.width = width        
         image.size = size  
 		image.location = location
-		image.name = path
+		image.name = "photoLibrary"
 
 		if paddingHorizontal > 0 {
 		image.paddingLeft = paddingHorizontal
