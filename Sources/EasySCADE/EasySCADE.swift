@@ -567,7 +567,15 @@ public func EasySCDImagePhotoLibrary(
     	let image = SCDWidgetsImage()
         
         image.contentPriority = true
-        image.content = EasySCDCamera()
+
+		EasySCDCamera(
+			true,
+			onImageLoaded: { data in
+				image.content = data
+			}
+		)
+		
+
         
         let size = SCDGraphicsDimension()
         size.height = height
@@ -931,7 +939,10 @@ public func EasySCDSpacer(height: Int = 20) -> SCDWidgetsWidget
 
 
 // opens photo library and returns image.content
-public func EasySCDCamera(_ show: Bool = true, sourceType: SCDPlatformCameraSourceType = SCDPlatformCameraSourceType.photolibrary) -> Data
+public func EasySCDCamera(
+		_ show: Bool = true,
+		onImageLoaded: @escaping (Data) -> Void = { _ in }, // Add this callback 
+		sourceType: SCDPlatformCameraSourceType = SCDPlatformCameraSourceType.photolibrary) -> Data
   {
   	let sys = SCDPlatformCamera()
 	var imageContent: Data = Data()
@@ -942,7 +953,9 @@ public func EasySCDCamera(_ show: Bool = true, sourceType: SCDPlatformCameraSour
     		SCDPlatformCameraOptions.init(sourceType: SCDPlatformCameraSourceType.photolibrary), 
     		onSuccess: SCDPlatformCameraSuccessHandler.init(	{ 
     			data in 
-    			imageContent = data
+
+					onImageLoaded(data)
+    				imageContent = data
     		}), 
     		onError: SCDPlatformCameraErrorHandler.init(	{ 
     			_ in 
