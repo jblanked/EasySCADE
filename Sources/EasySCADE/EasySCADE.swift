@@ -889,7 +889,7 @@ public func EasySCDWebView(
 	  }
 	)
 
-	self.page!.onExit.append(
+	page.onExit.append(
       SCDWidgetsExitEventHandler {
         (exitPageEvent: SCDWidgetsExitEvent?) in
 
