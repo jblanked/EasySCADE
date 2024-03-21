@@ -48,7 +48,7 @@ public let screenInfo: EasyScreenInfo = getWindowScreenSize()
 
 // colors
 public struct EasyColor {
-	public static let white = SCDGraphicsRGB(red: 255, green: 255, blue: 255)
+	public static let white = SCDGraphicsRGB(red: 248, green: 248, blue: 248)
 	public static let blue = SCDGraphicsRGB(red: 10, green: 132, blue: 255) // iOS blue
 	public static let black = SCDGraphicsRGB(red: 0, green: 0, blue: 0)
 	public static let green = SCDGraphicsRGB(red: 48, green: 209, blue: 88) // iOS green
@@ -855,28 +855,23 @@ public func EasySCDWebView(
 			web.paddingTop = paddingVertical
 		}
 
-
 	page.onEnter.append(
       SCDWidgetsEnterEventHandler {
         (enterPageEvent: SCDWidgetsEnterEvent?) in
 
 		web.load(url)
 
-
 		 // Add event when page loaded
 		web.onLoaded.append(SCDWidgetsLoadEventHandler{
 			(ev:SCDWidgetsLoadEvent?) in 
-			
-		
-			
+
 			})
 		
 		
 		// Add event when page failed to load
 		web.onLoadFailed.append(SCDWidgetsLoadFailedEventHandler{
 			(ev:SCDWidgetsLoadFailedEvent?) in 
-			
-			
+				
 			})
 	
 	web.onShouldLoad.append(SCDWidgetsShouldLoadEventHandler { event in
@@ -899,6 +894,9 @@ public func EasySCDWebView(
 
 	  }
 	)
+
+
+
 	
 	return web
 
@@ -1175,3 +1173,36 @@ public func EasySCDScrollbar() -> SCDSvgScrollGroup
 
 	return scroll
 }
+
+public func navigationBar(
+		backgroundColor: SCDGraphicsRGB = EasyColor.white,
+		action: @escaping () -> Void = { }) -> SCDWidgetsNavigationBar
+  {
+  	let navbar = SCDWidgetsNavigationBar()
+  	navbar.location = SCDGraphicsPoint(x: 0, y: Int(screenInfo.statusBarsize.height))
+  	navbar.size = SCDGraphicsDimension(width: Int(screenInfo.screenSize.width), height: 60)
+  	navbar.backgroundColor = backgroundColor
+  	navbar.name = "SCDNavigationBar"
+  	navbar.children = [
+  		EasySCDTextLabel(
+    		 		text: "Back", 
+    		 		fontsize: 20,
+    		 		font: Arial,
+					fontcolor:SCDGraphicsRGB(red:68,green:106,blue:179),
+					paddingVertical:  0,
+					paddingHorizontal: 0,
+					x_location: Int(screenInfo.screenSize.width / 11),
+					y_location: 0,
+					action: {
+						action()
+					})
+  	]
+  	
+  	navbar.onClick { _ in
+  		
+  		action()
+
+  	}
+  	
+  	return navbar
+  }
