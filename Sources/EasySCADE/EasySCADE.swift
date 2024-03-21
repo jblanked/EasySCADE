@@ -1174,7 +1174,7 @@ public func EasySCDScrollbar() -> SCDSvgScrollGroup
 	return scroll
 }
 
-public func navigationBar(
+public func EasySCDNavigationBar(
 		backgroundColor: SCDGraphicsRGB = EasyColor.white,
 		action: @escaping () -> Void = { }) -> SCDWidgetsNavigationBar
   {
