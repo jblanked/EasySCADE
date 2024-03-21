@@ -1187,7 +1187,7 @@ public func EasySCDNavigationBar(
   		EasySCDTextLabel(
     		 		text: "Back", 
     		 		fontsize: 20,
-    		 		font: Arial,
+    		 		font: "ArialMT",
 					fontcolor:SCDGraphicsRGB(red:68,green:106,blue:179),
 					paddingVertical:  0,
 					paddingHorizontal: 0,
