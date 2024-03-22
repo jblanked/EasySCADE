@@ -1241,6 +1241,12 @@ public struct EasySCDToolbarItem
   {
   	 var image: String
   	 var action: () -> Void
+
+	public init(image: String, action: @escaping () -> Void) {
+		self.image = image
+		self.action = action
+	}
+
   }
   
 public func EasySCDToolbar(_ items: [EasySCDToolbarItem], height: Int = 50, backgroundColor: SCDGraphicsRGB = EasyColor.gray) -> SCDWidgetsToolBar
