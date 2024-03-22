@@ -29,9 +29,15 @@ let package = Package(
             name: "EasySCADE",
             dependencies: ["ScadeExtensions",
             .product(name: "Android", package: "swift-android", condition: .when(platforms: [.android])),
-                 .product(name: "AndroidOS", package: "swift-android", condition: .when(platforms: [.android])),
-                  .product(name: "AndroidApp", package: "swift-android", condition: .when(platforms: [.android])),
-                   .product(name: "AndroidContent", package: "swift-android", condition: .when(platforms: [.android])), 
+            .product(name: "AndroidOS", package: "swift-android", condition: .when(platforms: [.android])),
+            .product(name: "AndroidView", package: "swift-android", condition: .when(platforms: [.android])),
+            .product(name: "AndroidNFC", package: "swift-android", condition: .when(platforms: [.android])),
+            .product(name: "AndroidApp", package: "swift-android", condition: .when(platforms: [.android])),
+            .product(name: "AndroidContent", package: "swift-android", condition: .when(platforms: [.android])), 
+            .product(name: "AndroidMedia", package: "swift-android", condition: .when(platforms: [.android])), 
+            .product(name: "AndroidBluetooth", package: "swift-android", condition: .when(platforms: [.android])), 
+            .product(name: "AndroidGraphics", package: "swift-android", condition: .when(platforms: [.android])), 
+            .product(name: "AndroidLocation", package: "swift-android", condition: .when(platforms: [.android])) 
             ],
             exclude: ["Sources/EasySCADE/Generated"],
             swiftSettings: [

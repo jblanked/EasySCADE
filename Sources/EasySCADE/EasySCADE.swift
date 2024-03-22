@@ -18,6 +18,30 @@ import AndroidContent
 let easyProgress: ProgressDialog = ProgressDialog(context: Application.currentActivity!)
 #endif
 
+// class to store user information
+public class Storage: EObject
+{
+	var loggedIn: Bool
+	var userInfo: ProfileData
+	
+	init(loggedIn: Bool, userInfo: ProfileData)
+	{
+		self.loggedIn = loggedIn
+		self.userInfo = userInfo
+	}
+}
+var appStorage:Storage = Storage()
+
+public func EasyStorageSave(_ storage: Storage = appStorage, _ relativePath: String = "appStorage")
+{
+	SCDRuntime.saveDocument(relativePath: relativePath, document: appStorage)
+}
+
+public func EasyStorageLoad(_ relativePath: String = "appStorage")
+{
+	appStorage = SCDRuntime.loadResource(relativePath: relativePath) as! Storage
+}
+
 // class to store screen information
 public class EasyScreenInfo: EObject {
     public var screenSize: CGSize
@@ -61,7 +85,7 @@ public struct EasyColor {
 }
 
 // creates a Loading Spinner
-public func EasySpinner(show: Bool, text: String = "Loading...") {
+public func EasySpinner(_ show: Bool, _ text: String = "Loading...") {
 	DispatchQueue.main.async {
     #if os(iOS)
         guard let rootView = SCDApplication.rootViewController?.view else { return }
@@ -179,7 +203,7 @@ private func Rectangle(
 	}
 
 
-private func Bubble(text:String, color: SCDSvgRGBColor = SCDSvgRGBColor.init(red: 10, green: 132, blue: 255)) -> BubbleInfo
+private func Bubble(_ text:String, color: SCDSvgRGBColor = SCDSvgRGBColor.init(red: 10, green: 132, blue: 255)) -> BubbleInfo
 {
 	 // Create a rectangle
     let rectangle = SCDSvgRect()
@@ -257,7 +281,7 @@ private struct BubbleInfo
 	var size: SCDSize
 }
 
-private func splitTextIntoLines(text: String) -> [String] {
+private func splitTextIntoLines(_ text: String) -> [String] {
 
     let components = text.components(separatedBy: .whitespacesAndNewlines)
 	let words = components.filter { !$0.isEmpty }
@@ -326,7 +350,7 @@ private func createCardContainer(path: String, text: String, description: String
     return bubbleContainer 
 }
 // returns a SCDWidgetsContainer with the bubbles
-public func EasySCDBubbles(bubbles: [EasySCDLayoutBubble], width: Int = Int(screenInfo.screenSize.width),location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: 0) ) -> SCDWidgetsContainer {
+public func EasySCDBubbles(_ bubbles: [EasySCDLayoutBubble], width: Int = Int(screenInfo.screenSize.width),location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: 0) ) -> SCDWidgetsContainer {
     let customElement = SCDWidgetsContainer()
     
     customElement.location = location
@@ -466,7 +490,7 @@ public func EasyAlert(title:String, message:String,action: @escaping () -> Void 
 
 // creates SCDImagelabels from urls
 public func EasySCDImageURL(
-		path: String, 
+		_ path: String, 
 		paddingVertical: Int = 0,
 		paddingHorizontal: Int = 10,
 		height: Int = Int(screenInfo.screenSize.width),
@@ -514,7 +538,7 @@ public func EasySCDImageURL(
 
 // creates SCDImagelabels from local paths
 public func EasySCDImage(
-		path: String, 
+		_ path: String, 
 		paddingVertical: Int = 0,
 		paddingHorizontal: Int = 10,
 		height: Int = Int(screenInfo.screenSize.width),
@@ -599,7 +623,7 @@ public func EasySCDImagePhotoLibrary(
     }
 // creates SCDImagelabels from Data
 public func EasySCDImageData(
-		data: Data,
+		_ data: Data,
 		paddingVertical: Int = 0,
 		paddingHorizontal: Int = 10,
 		height: Int = Int(screenInfo.screenSize.width),
@@ -638,7 +662,7 @@ public func EasySCDImageData(
 
 // creates SCDButtons
 public func EasySCDButton(
-		text: String, 
+		_ text: String, 
 		font: String = "ArialMT",
 		color: SCDGraphicsRGB = EasyColor.blue,
 		height: Int = 50,
@@ -670,7 +694,7 @@ public func EasySCDButton(
 
 // create SCDTextboxes
 public func EasySCDTextBox	(
-		placeholder: String,
+		_ placeholder: String,
 		secure: Bool = false,
 		fontsize:Int = 20,
 		font: String = "ArialMT", 
@@ -732,7 +756,7 @@ public class EasySCDTextBoxForm {
 }
 // create TextForms
 public func EasySCDTextForm(
-	forms: [EasySCDTextBoxForm],
+	_ forms: [EasySCDTextBoxForm],
 	fontsize:Int = 20,
 		font: String = "ArialMT", 
 		fontcolor:SCDGraphicsRGB = EasyColor.black,
@@ -779,7 +803,7 @@ public func EasySCDTextForm(
 
 // create SCDVideoViews
 public func EasySCDWebView(
-		url: String, 
+		_ url: String, 
 		height: Int = Int(screenInfo.screenSize.width),
 		width: Int = Int(screenInfo.screenSize.width),
 		paddingVertical: Int = 0,
@@ -847,6 +871,8 @@ public func EasySCDWebView(
     web.location = location
 	web.backgroundColor = EasyColor.black
 
+	web.load(url)
+
 	if paddingHorizontal > 0 {
 		web.paddingLeft = paddingHorizontal
 		web.size.width = width - paddingHorizontal
@@ -859,7 +885,7 @@ public func EasySCDWebView(
       SCDWidgetsEnterEventHandler {
         (enterPageEvent: SCDWidgetsEnterEvent?) in
 
-		web.load(url)
+		
 
 		 // Add event when page loaded
 		web.onLoaded.append(SCDWidgetsLoadEventHandler{
@@ -903,7 +929,7 @@ public func EasySCDWebView(
 }
 
 // create dynamic SCDTextLabels
-public func EasySCDTextLabel(text: String, 
+public func EasySCDTextLabel(_ text: String, 
 							fontsize:Int = 20,
 							font: String = "ArialMT", 
 							fontcolor:SCDGraphicsRGB = EasyColor.black,
@@ -957,7 +983,7 @@ public func EasySCDTextLabel(text: String,
 
 // creates a SCDCheckbox
 public func EasySCDCheckbox(
-		checked: Bool = false, 
+		_ checked: Bool = false, 
 		height: Int = 50,
 		location: SCDGraphicsPoint = SCDGraphicsPoint(x: Int(screenInfo.screenSize.width / 2.5), y: 0)
 		) -> SCDWidgetsCheckbox
@@ -975,7 +1001,7 @@ public func EasySCDCheckbox(
 
 // creates a SCDCheckboxElement (label + checkbox)
 public func EasySCDCheckboxElement(
-    text: String, 
+    _ text: String, 
     fontColor: SCDGraphicsRGB = EasyColor.black, 
     checked: Bool = false, 
     height: Int = 50, 
@@ -1004,13 +1030,13 @@ public func EasySCDCheckboxElement(
 
 
 // creates a Checkbox form
-public func EasySCDCheckboxForm(elements: [SCDWidgetsContainer]) -> SCDWidgetsContainer
+public func EasySCDCheckboxForm(_ elements: [SCDWidgetsContainer]) -> SCDWidgetsContainer
 {
 	return EasyVStack(elements: elements)
 }
 
 // creates a Spacer
-public func EasySCDSpacer(height: Int = 20) -> SCDWidgetsWidget
+public func EasySCDSpacer(_ height: Int = 20) -> SCDWidgetsWidget
 {
 	return EasySCDTextLabel(text: "", fontsize: height, font: "ArialMT", fontcolor: EasyColor.white, paddingVertical: 0, paddingHorizontal: 0, x_location: 0, y_location: 0)
 }
@@ -1047,7 +1073,7 @@ public func EasySCDCamera(
 
 
 // dynamic vertical arrangement of widgets
-public func EasyVStack(elements: [SCDWidgetsWidget], location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: Int(screenInfo.statusBarsize.height) + 15)) -> SCDWidgetsContainer {
+public func EasyVStack(_ elements: [SCDWidgetsWidget], location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: Int(screenInfo.statusBarsize.height) + 15)) -> SCDWidgetsContainer {
 	let container = SCDWidgetsContainer()
 	container.location = location
 	
@@ -1106,7 +1132,7 @@ public func EasyHStack(page: SCDWidgetsPage, elements: [SCDWidgetsWidget], locat
 	page.children.append(container)
 	page.useSafeArea = false
 }
-public func EasyHStack(elements: [SCDWidgetsWidget], location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: Int(screenInfo.statusBarsize.height) + 15)) -> SCDWidgetsContainer
+public func EasyHStack(_ elements: [SCDWidgetsWidget], location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: Int(screenInfo.statusBarsize.height) + 15)) -> SCDWidgetsContainer
 {
 	let container = SCDWidgetsContainer()
 	container.location = location
@@ -1180,7 +1206,12 @@ public func EasySCDNavigationBar(
   {
   	let navbar = SCDWidgetsNavigationBar()
   	navbar.location = SCDGraphicsPoint(x: 0, y: Int(screenInfo.statusBarsize.height))
+	#if os(iOS)
   	navbar.size = SCDGraphicsDimension(width: Int(screenInfo.screenSize.width), height: 60)
+	#endif
+	#if os(Android)
+	navbar.size = SCDGraphicsDimension(width: Int(screenInfo.screenSize.width), height: 50)
+	#endif
   	navbar.backgroundColor = backgroundColor
   	navbar.name = "SCDNavigationBar"
   	navbar.children = [
@@ -1188,7 +1219,7 @@ public func EasySCDNavigationBar(
     		 		text: "Back", 
     		 		fontsize: 20,
     		 		font: "ArialMT",
-					fontcolor:SCDGraphicsRGB(red:68,green:106,blue:179),
+					fontcolor:EasyColor.blue,
 					paddingVertical:  0,
 					paddingHorizontal: 0,
 					x_location: Int(screenInfo.screenSize.width / 11),
@@ -1206,3 +1237,53 @@ public func EasySCDNavigationBar(
   	
   	return navbar
   }
+public struct EasySCDToolbarItem
+  {
+  	 var image: String
+  	 var action: () -> Void
+  }
+  
+public func EasySCDToolbar(_ items: [EasySCDToolbarItem], height: Int = 50, backgroundColor: SCDGraphicsRGB = EasyColor.gray) -> SCDWidgetsToolBar
+    {
+    	let toolBar = SCDWidgetsToolBar()
+    	
+    	//let tBut = SCDWidgetsTabButton()
+    	//tBut.active = true
+    	//tBut.text = "Home"
+    	//tBut.name = "Home"
+    	//tBut.size = SCDGraphicsDimension(width: 50, height: 50) 
+    	//tBut.backgroundImage
+    	
+    	toolBar.layout = SCDLayoutAutoLayout() 	  
+      	toolBar.backgroundColor = backgroundColor
+        toolBar.size = SCDGraphicsDimension(width: Int(screenInfo.screenSize.width), height: height) 
+        toolBar.location = SCDGraphicsPoint(x: 0, y: 0)
+        
+        let div = Int(screenInfo.screenSize.width / CGFloat(items.count))
+        let mutli = (items.count) == 5 ? 20 : items.count == 4 ? 25 : items.count == 3 ? 40 : items.count == 2 ? 80 : Int(screenInfo.screenSize.width / 2) - 20       
+        var count = 0
+        
+        for i in items
+        {
+        	let image = EasySCDImage(
+    			path: i.image,
+				paddingVertical: 0,
+				paddingHorizontal: 0,
+				height: 50,
+				width: 50,
+				location: SCDGraphicsPoint(x: mutli + (div * count), y: 0),
+				navigationAction: {
+					
+      				i.action()
+      				
+				}
+			)
+			
+			toolBar.children.append(image)
+
+    	count+=1
+    	
+        }
+        
+        return toolBar
+    }
