@@ -770,7 +770,7 @@ public func EasySCDTextForm(
 		{
 			let container = SCDWidgetsContainer()
 			let label = EasySCDTextLabel(
-				text: form.title,
+				form.title,
 				fontsize: fontsize,
 				font: font,
 				fontcolor: fontcolor,
@@ -943,7 +943,7 @@ public func EasySCDTextLabel(_ text: String,
 							) 
 							 -> SCDWidgetsContainer
     {	
-		let paragraph = splitTextIntoLines(text: text)
+		let paragraph = splitTextIntoLines(text)
 		var elements = [SCDWidgetsWidget]()
 		
 		for line in paragraph
@@ -976,7 +976,7 @@ public func EasySCDTextLabel(_ text: String,
 			elements.append(label)
 		}
         
-		let stack = EasyVStack(elements: elements, location: SCDGraphicsPoint(x: x_location, y: y_location))
+		let stack = EasyVStack(elements, location: SCDGraphicsPoint(x: x_location, y: y_location))
 		stack.onClick { _ in action() }
         return stack
     }
@@ -1009,8 +1009,8 @@ public func EasySCDCheckboxElement(
     onCheckedChanged: @escaping (Bool) -> Void = { _ in } // Add this callback
 ) -> SCDWidgetsContainer {
     let container = SCDWidgetsContainer()
-    let label = EasySCDTextLabel(text: text, fontsize: 20, font: "ArialMT", fontcolor: fontColor, paddingVertical: 0, paddingHorizontal: 10, x_location: 0, y_location: 10)
-    let checkbox = EasySCDCheckbox(checked: checked, height: height)
+    let label = EasySCDTextLabel(text, fontsize: 20, font: "ArialMT", fontcolor: fontColor, paddingVertical: 0, paddingHorizontal: 10, x_location: 0, y_location: 10)
+    let checkbox = EasySCDCheckbox(checked, height: height)
     checkbox.location = SCDGraphicsPoint(x: Int(screenInfo.screenSize.width) - height - 20, y: 0)
     container.children.append(label)
     container.children.append(checkbox)
@@ -1032,13 +1032,13 @@ public func EasySCDCheckboxElement(
 // creates a Checkbox form
 public func EasySCDCheckboxForm(_ elements: [SCDWidgetsContainer]) -> SCDWidgetsContainer
 {
-	return EasyVStack(elements: elements)
+	return EasyVStack(elements)
 }
 
 // creates a Spacer
 public func EasySCDSpacer(_ height: Int = 20) -> SCDWidgetsWidget
 {
-	return EasySCDTextLabel(text: "", fontsize: height, font: "ArialMT", fontcolor: EasyColor.white, paddingVertical: 0, paddingHorizontal: 0, x_location: 0, y_location: 0)
+	return EasySCDTextLabel("", fontsize: height, font: "ArialMT", fontcolor: EasyColor.white, paddingVertical: 0, paddingHorizontal: 0, x_location: 0, y_location: 0)
 }
 
 
@@ -1216,7 +1216,7 @@ public func EasySCDNavigationBar(
   	navbar.name = "SCDNavigationBar"
   	navbar.children = [
   		EasySCDTextLabel(
-    		 		text: "Back", 
+    		 		"Back", 
     		 		fontsize: 20,
     		 		font: "ArialMT",
 					fontcolor:EasyColor.blue,
@@ -1266,7 +1266,7 @@ public func EasySCDToolbar(_ items: [EasySCDToolbarItem], height: Int = 50, back
         for i in items
         {
         	let image = EasySCDImage(
-    			path: i.image,
+    			i.image,
 				paddingVertical: 0,
 				paddingHorizontal: 0,
 				height: 50,
