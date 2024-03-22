@@ -1301,7 +1301,7 @@ public func EasySCDSeperator(_ y: Int = 20, _ strokeColor: SCDSvgColor = SCDSvgC
     line.y2 = SCDSvgUnit(integerLiteral: y)
 
     // Setting the stroke color and width to make the line visible
-    line.stroke = SCDSvgColor.black // Black color
+    line.stroke = strokeColor // Black color
     line.strokeWidth = 1.0 // Adjust stroke width as needed
 
     let group = SCDSvgGroup()
