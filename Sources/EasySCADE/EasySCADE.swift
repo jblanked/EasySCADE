@@ -577,15 +577,13 @@ public func EasySCDImage(
 
 // creates SCDImagelabels from photo library
 public func EasySCDImagePhotoLibrary(
-
 		paddingVertical: Int = 0,
 		paddingHorizontal: Int = 10,
 		height: Int = Int(screenInfo.screenSize.width),
 		width: Int = Int(screenInfo.screenSize.width),
 		location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: 0),
 		navigationAction: @escaping () -> Void = {
-			
-		
+
 		}) -> SCDWidgetsImage
     {	
     	let image = SCDWidgetsImage()
@@ -1293,3 +1291,26 @@ public func EasySCDToolbar(_ items: [EasySCDToolbarItem], height: Int = 50, back
         
         return toolBar
     }
+	
+public func EasySCDSeperator(_ y: Int = 20, _ strokeColor: SCDSvgColor = SCDSvgColor.black) -> SCDWidgetsWidget
+  {
+  	let line = SCDSvgLine()
+    line.x1 = SCDSvgUnit(integerLiteral: 10)
+    line.y1 = SCDSvgUnit(integerLiteral: y)
+    line.x2 = SCDSvgUnit(integerLiteral: Int(screenInfo.screenSize.width) - 10)
+    line.y2 = SCDSvgUnit(integerLiteral: y)
+
+    // Setting the stroke color and width to make the line visible
+    line.stroke = SCDSvgColor.black // Black color
+    line.strokeWidth = 1.0 // Adjust stroke width as needed
+
+    let group = SCDSvgGroup()
+    group.children.append(line)
+    
+    let Label = SCDWidgetsLabel()
+    Label.size = SCDGraphicsDimension(width: Int(screenInfo.screenSize.width), height: y) 
+    Label.location = SCDGraphicsPoint(x: 0, y: 0)
+    Label.drawing = group // Set the SVG drawing
+  	
+  	return Label
+  }
