@@ -19,28 +19,28 @@ let easyProgress: ProgressDialog = ProgressDialog(context: Application.currentAc
 #endif
 
 // class to store user information
-public class Storage: EObject
-{
-	var loggedIn: Bool
-	var userInfo: ProfileData
+// public class Storage: EObject
+// {
+// 	var loggedIn: Bool
+// 	var userInfo: ProfileData
 	
-	init(loggedIn: Bool, userInfo: ProfileData)
-	{
-		self.loggedIn = loggedIn
-		self.userInfo = userInfo
-	}
-}
-var appStorage:Storage = Storage()
+// 	init(loggedIn: Bool, userInfo: ProfileData)
+// 	{
+// 		self.loggedIn = loggedIn
+// 		self.userInfo = userInfo
+// 	}
+// }
+// var appStorage:Storage = Storage()
 
-public func EasyStorageSave(_ storage: Storage = appStorage, _ relativePath: String = "appStorage")
-{
-	SCDRuntime.saveDocument(relativePath: relativePath, document: appStorage)
-}
+// public func EasyStorageSave(_ storage: Storage = appStorage, _ relativePath: String = "appStorage")
+// {
+// 	SCDRuntime.saveDocument(relativePath: relativePath, document: appStorage)
+// }
 
-public func EasyStorageLoad(_ relativePath: String = "appStorage")
-{
-	appStorage = SCDRuntime.loadResource(relativePath: relativePath) as! Storage
-}
+// public func EasyStorageLoad(_ relativePath: String = "appStorage")
+// {
+// 	appStorage = SCDRuntime.loadResource(relativePath: relativePath) as! Storage
+// }
 
 // class to store screen information
 public class EasyScreenInfo: EObject {
@@ -176,7 +176,7 @@ private func Rectangle(
         group.children.append(svgText)
     
 
-	let lines = splitTextIntoLines(text: description)
+	let lines = splitTextIntoLines(description)
 
     // Create and add each line of text to the group
     for (index, line) in lines.enumerated() {
@@ -243,7 +243,7 @@ private func Bubble(_ text:String, color: SCDSvgRGBColor = SCDSvgRGBColor.init(r
 	let group = SCDSvgGroup()
     group.children.append(rectangle)
 	
-    let lines = splitTextIntoLines(text: text)
+    let lines = splitTextIntoLines(text)
 
     // Create and add each line of text to the group
     for (index, line) in lines.enumerated() {
@@ -322,7 +322,7 @@ private func splitTextIntoLines(_ text: String) -> [String] {
 
 private func createBubbleContainer(text: String, color: SCDSvgRGBColor, yPos: Int) -> SCDWidgetsContainer {
     let bubbleContainer = SCDWidgetsContainer()
-    let bubbleDrawing = Bubble(text: text, color: color) 
+    let bubbleDrawing = Bubble(text, color: color) 
     
     let label = SCDWidgetsLabel()
     label.drawing = bubbleDrawing.group // Set the SVG drawing
@@ -797,7 +797,7 @@ public func EasySCDTextForm(
 
 			elements.append(container)
 		}
-		return EasyVStack(elements: elements, location: location)
+		return EasyVStack(elements, location: location)
 	}
 
 
