@@ -84,6 +84,20 @@ public struct EasyColor {
 	public static let pink = SCDGraphicsRGB(red: 255, green: 55, blue: 95) // iOS pink
 }
 
+// SVG colors
+public struct EasSVGColor {
+	public static let white = SCDSvgColor(red: 248, green: 248, blue: 248)
+	public static let blue = SCDSvgColor(red: 10, green: 132, blue: 255) // iOS blue
+	public static let black = SCDSvgColor(red: 0, green: 0, blue: 0)
+	public static let green = SCDSvgColor(red: 48, green: 209, blue: 88) // iOS green
+	public static let red = SCDSvgColor(red: 215, green: 0, blue: 21) // iOS red
+	public static let gray = SCDSvgColor(red: 199, green: 199, blue: 204) // iOS gray
+	public static let yellow = SCDSvgColor(red: 255, green: 214, blue: 10) // iOS yellow
+	public static let orange = SCDSvgColor(red: 255, green: 159, blue: 10) // iOS orange
+	public static let purple = SCDSvgColor(red: 191, green: 90, blue: 242) // iOS purple
+	public static let pink = SCDSvgColor(red: 255, green: 55, blue: 95) // iOS pink
+}
+
 // creates a Loading Spinner
 public func EasySpinner(_ show: Bool, _ text: String = "Loading...") {
 	DispatchQueue.main.async {
@@ -241,7 +255,7 @@ private func Bubble(_ text:String, color: SCDSvgRGBColor = SCDSvgRGBColor.init(r
 	
 	
 	let group = SCDSvgGroup()
-    group.children.append(rectangle)
+    
 	
     let lines = splitTextIntoLines(text)
 
@@ -269,6 +283,8 @@ private func Bubble(_ text:String, color: SCDSvgRGBColor = SCDSvgRGBColor.init(r
     rectangle.width = widthEdit
     rectangle.height = heightEdit
     rectangle.fill = color
+
+	group.children.append(rectangle)
 	
 	
     return BubbleInfo.init(group: group, size: SCDSize(width: Double(width), height: Double(height)))
@@ -450,7 +466,7 @@ public func EasyAlert(title:String, message:String,action: @escaping () -> Void 
 
 	DispatchQueue.main.async {
 
-    #if !os(Android)
+    #if os(iOS)
 
       let alert = UIAlertController(
         title: title,
