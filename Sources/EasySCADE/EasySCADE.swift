@@ -85,7 +85,7 @@ public struct EasyColor {
 }
 
 // SVG colors
-public struct EasSVGColor {
+public struct EasySVGColor {
 	public static let white = SCDSvgColor(red: 248, green: 248, blue: 248)
 	public static let blue = SCDSvgColor(red: 10, green: 132, blue: 255) // iOS blue
 	public static let black = SCDSvgColor(red: 0, green: 0, blue: 0)
