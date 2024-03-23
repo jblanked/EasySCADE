@@ -15,6 +15,7 @@ import Java
 import Android
 import AndroidApp
 import AndroidContent
+let easyProgress: ProgressDialog = ProgressDialog(context: Application.currentActivity!)
 #endif
 
 // class to store user information
@@ -119,7 +120,7 @@ public func EasySpinner(_ show: Bool, _ text: String = "Loading...") {
 
     #if os(Android)
     // Android-specific spinner code
-    let easyProgress: ProgressDialog = ProgressDialog(context: Application.currentActivity!)
+    
     easyProgress.setProgressStyle(style: ProgressDialog.STYLE_SPINNER)
     easyProgress.incrementProgressBy(diff: 1)
     easyProgress.setMessage(message: text)
@@ -470,8 +471,8 @@ public func EasyAlert(title:String, message:String,action: @escaping () -> Void 
       builder.setTitle(title: title)
       builder.setMessage(message: message)
 
-	//   let listener = DialogInterfaceOnClickListener {
-	// 	(dialog, which) in action()
+	//   let listener = DialogInterfaceOnClickListener.onClick {
+	// 	(dialog, 0) in action()
 	// 	}
 	  builder.setPositiveButton(text: "OK", listener: nil)
 
