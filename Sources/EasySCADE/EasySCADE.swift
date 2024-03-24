@@ -1408,3 +1408,52 @@ public func EasySCDSeperator(_ y: Int = 20, _ strokeColor: SCDSvgColor = EasySVG
   	
   	return Label
   }
+
+public struct EasyListElement {
+  	 public var item: String
+  	 public var fontsize: Int
+  	 public var fontcolor: SCDGraphicsRGB
+  	 public var action: () -> Void
+
+	public init(item: String, fontsize: Int = 15, fontcolor: SCDGraphicsRGB = EasyColor.black, action: @escaping () -> Void = {}) {
+		self.item = item
+		self.fontsize = fontsize
+		self.fontcolor = fontcolor
+		self.action = action
+	}
+  }
+  
+public func EasySCDList(_ list: [EasyListElement]) -> SCDWidgetsContainer
+  {
+  	var textLabel: [SCDWidgetsWidget] = []
+  	
+  	 for i in list
+  	 {
+  	 	let label = EasySCDTextLabel(
+  	 			i.item,
+  	 			fontsize: i.fontsize,
+				font: "ArialMT",
+				fontcolor: i.fontcolor,
+				paddingVertical: 0,
+				paddingHorizontal: 0,
+				x_location: 5,
+				y_location: 0,
+				bold: false,
+				underline: false,
+				action: {
+					i.action()
+				}
+			
+    	  )
+  	 	textLabel.append(label)
+    	
+    	textLabel.append(EasySCDSeperator(1, SCDColor.black, 3.0))
+  	 	
+  	 }
+  	 
+  	 
+  	 return EasyVStack(textLabel)
+  	 
+}
+  
+
