@@ -1386,7 +1386,7 @@ public func EasySCDToolbar(_ items: [EasySCDToolbarItem], height: Int = 50, back
         return toolBar
     }
 	
-public func EasySCDSeperator(_ y: Int = 20, _ strokeColor: SCDSvgColor = SCDSvgColor.black, _ strokeWidth: Double = 1.0) -> SCDWidgetsWidget
+public func EasySCDSeperator(_ y: Int = 20, _ strokeColor: SCDSvgColor = EasySVGColor.black, _ strokeWidth: Double = 1.0) -> SCDWidgetsWidget
   {
   	let line = SCDSvgLine()
     line.x1 = SCDSvgUnit(integerLiteral: 10)
@@ -1396,7 +1396,7 @@ public func EasySCDSeperator(_ y: Int = 20, _ strokeColor: SCDSvgColor = SCDSvgC
 
     // Setting the stroke color and width to make the line visible
     line.stroke = strokeColor // Black color
-    line.strokeWidth = 1.0 // Adjust stroke width as needed
+    line.strokeWidth = strokeWidth // Adjust stroke width as needed
 
     let group = SCDSvgGroup()
     group.children.append(line)
