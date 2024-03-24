@@ -1038,7 +1038,7 @@ public func EasySCDTextLabel(_ text: String,
     		label.baselineAlignment = SCDWidgetsBaselineAlignment.middle
     		label.verticalAlignment = SCDLayoutVerticalAlignment.middle
 			label.layoutData = SCDLayoutAutoLayoutData()
-			label.size = SCDGraphicsDimension(width: Int(screenInfo.screenSize.width), height: fontsize + 5)
+			label.size = SCDGraphicsDimension(width: Int(screenInfo.screenSize.width), height: fontsize * 2)
 
 			if paddingHorizontal > 0 {
 			label.paddingLeft = paddingHorizontal
@@ -1386,7 +1386,7 @@ public func EasySCDToolbar(_ items: [EasySCDToolbarItem], height: Int = 50, back
         return toolBar
     }
 	
-public func EasySCDSeperator(_ y: Int = 20, _ strokeColor: SCDSvgColor = SCDSvgColor.black) -> SCDWidgetsWidget
+public func EasySCDSeperator(_ y: Int = 20, _ strokeColor: SCDSvgColor = SCDSvgColor.black, _ strokeWidth: Double = 1.0) -> SCDWidgetsWidget
   {
   	let line = SCDSvgLine()
     line.x1 = SCDSvgUnit(integerLiteral: 10)
