@@ -1113,7 +1113,7 @@ public func EasyVStack(
 public func EasyVStack(
 		page: SCDWidgetsPage, 
 		elements: [SCDWidgetsWidget], 
-		location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: Int(screenInfo.statusBarsize.height) + 15)
+		location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: Int(screenInfo.statusBarsize.height) + 15),
 		spacing: Int = 10
 	)  {
 	let container = SCDWidgetsContainer()
