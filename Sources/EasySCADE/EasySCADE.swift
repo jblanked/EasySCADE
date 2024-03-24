@@ -70,6 +70,20 @@ private func getWindowScreenSize() -> EasyScreenInfo {
 // stores the screen information
 public let screenInfo: EasyScreenInfo = getWindowScreenSize()
 
+// extension to SCDGraphicsRGB to make it Equatable
+extension SCDGraphicsRGB: Equatable {
+    public static func ==(lhs: SCDGraphicsRGB, rhs: SCDGraphicsRGB) -> Bool {
+        return lhs.red == rhs.red && lhs.green == rhs.green && lhs.blue == rhs.blue
+    }
+}
+
+// extension to SCDSvgRGBColor to make it Equatable
+extension SCDSvgRGBColor: Equatable {
+    public static func ==(lhs: SCDSvgRGBColor, rhs: SCDSvgRGBColor) -> Bool {
+        return lhs.red == rhs.red && lhs.green == rhs.green && lhs.blue == rhs.blue
+    }
+}
+
 // colors
 public struct EasyColor {
 	public static let white = SCDGraphicsRGB(red: 248, green: 248, blue: 248)
@@ -86,17 +100,64 @@ public struct EasyColor {
 
 // SVG colors
 public struct EasySVGColor {
-	public static let white = SCDSvgColor.white
-	public static let blue = SCDSvgColor.blue
-	public static let black = SCDSvgColor.black
-	public static let green = SCDSvgColor.green 
-	public static let red = SCDSvgColor.red 
-	public static let gray = SCDSvgColor.gray 
-	public static let yellow = SCDSvgColor.yellow
-	public static let orange = SCDSvgColor.orange
-	public static let purple = SCDSvgColor.purple
-	public static let pink = SCDSvgColor.pink
+	public static let white = SCDColor.init(red: 248, green: 248, blue: 248)
+	public static let blue = SCDColor.init(red: 10, green: 132, blue: 255)
+	public static let black = SCDColor.init(red: 0, green: 0, blue: 0)
+	public static let green = SCDColor.init(red: 48, green: 209, blue: 88) 
+	public static let red = SCDColor.init(red: 215, green: 0, blue: 21)
+	public static let gray = SCDColor.init(red: 199, green: 199, blue: 204) 
+	public static let yellow = SCDColor.init(red: 255, green: 214, blue: 10)
+	public static let orange = SCDColor.init(red: 255, green: 159, blue: 10)
+	public static let purple = SCDColor.init(red: 191, green: 90, blue: 95)
+	public static let pink = SCDColor.init(red: 255, green: 55, blue: 95)
 }
+
+public func EasySVGColorToRGB(_ svgColor: SCDColor) -> SCDGraphicsRGB
+{
+   var color: SCDGraphicsRGB
+   
+   switch(svgColor)
+   {
+   		case SCDColor.white: 	color = EasyColor.white; 	
+   		case SCDColor.red: 		color = EasyColor.red; 		
+   		case SCDColor.green:	color = EasyColor.green; 	
+   		case SCDColor.black:	color = EasyColor.black; 	
+   		case SCDColor.pink:		color = EasyColor.pink; 		
+   		case SCDColor.orange:	color = EasyColor.orange; 	
+   		case SCDColor.blue:		color = EasyColor.blue; 	
+   		case SCDColor.gray:		color = EasyColor.gray; 	
+   		case SCDColor.yellow:	color = EasyColor.yellow; 	
+   		case SCDColor.purple:	color = EasyColor.purple; 	
+   		
+   		default: color = SCDGraphicsRGB.init(red: svgColor.red, green: svgColor.green, blue: svgColor.blue)
+   }
+   
+   return color
+}
+
+public func EasyRGBColorToSVG(_ rgbColor: SCDGraphicsRGB) -> SCDColor
+{
+   var color2: SCDColor
+   
+   switch(rgbColor)
+   {
+   		case EasyColor.white: 	color2 = EasySVGColor.white;
+   		case EasyColor.red:		color2 = EasySVGColor.red;
+   		case EasyColor.green: 	color2 = EasySVGColor.green;
+   		case EasyColor.black: 	color2 = EasySVGColor.black;
+   		case EasyColor.pink: 	color2 = EasySVGColor.pink;
+   		case EasyColor.orange: 	color2 = EasySVGColor.orange;
+   		case EasyColor.blue: 	color2 = EasySVGColor.blue;
+   		case EasyColor.gray:	color2 = EasySVGColor.gray;
+   		case EasyColor.yellow: 	color2 = EasySVGColor.yellow;
+   		case EasyColor.purple: 	color2 = EasySVGColor.purple;
+   		
+   		default: color2 = SCDColor.init(red: rgbColor.red, green: rgbColor.green, blue: rgbColor.blue)
+   }
+   
+   return color2
+}
+
 
 // creates a Loading Spinner
 public func EasySpinner(_ show: Bool, _ text: String = "Loading...") {
