@@ -86,16 +86,16 @@ public struct EasyColor {
 
 // SVG colors
 public struct EasySVGColor {
-	public static let white = SCDSvgColor(red: 248, green: 248, blue: 248)
-	public static let blue = SCDSvgColor(red: 10, green: 132, blue: 255) // iOS blue
-	public static let black = SCDSvgColor(red: 0, green: 0, blue: 0)
-	public static let green = SCDSvgColor(red: 48, green: 209, blue: 88) // iOS green
-	public static let red = SCDSvgColor(red: 215, green: 0, blue: 21) // iOS red
-	public static let gray = SCDSvgColor(red: 199, green: 199, blue: 204) // iOS gray
-	public static let yellow = SCDSvgColor(red: 255, green: 214, blue: 10) // iOS yellow
-	public static let orange = SCDSvgColor(red: 255, green: 159, blue: 10) // iOS orange
-	public static let purple = SCDSvgColor(red: 191, green: 90, blue: 242) // iOS purple
-	public static let pink = SCDSvgColor(red: 255, green: 55, blue: 95) // iOS pink
+	public static let white = SCDSvgColor.white
+	public static let blue = SCDSvgColor.blue
+	public static let black = SCDSvgColor.black
+	public static let green = SCDSvgColor.green 
+	public static let red = SCDSvgColor.red 
+	public static let gray = SCDSvgColor.gray 
+	public static let yellow = SCDSvgColor.yellow
+	public static let orange = SCDSvgColor.orange
+	public static let purple = SCDSvgColor.purple
+	public static let pink = SCDSvgColor.pink
 }
 
 // creates a Loading Spinner
