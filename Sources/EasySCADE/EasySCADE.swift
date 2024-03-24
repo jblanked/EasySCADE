@@ -1087,7 +1087,11 @@ public func EasySCDCamera(
 
 
 // dynamic vertical arrangement of widgets
-public func EasyVStack(_ elements: [SCDWidgetsWidget], location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: Int(screenInfo.statusBarsize.height) + 15)) -> SCDWidgetsContainer {
+public func EasyVStack(
+		_ elements: [SCDWidgetsWidget], 
+		location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: Int(screenInfo.statusBarsize.height) + 15),
+		spacing: Int = 10
+	) -> SCDWidgetsContainer {
 	let container = SCDWidgetsContainer()
 	container.location = location
 	
@@ -1096,7 +1100,7 @@ public func EasyVStack(_ elements: [SCDWidgetsWidget], location: SCDGraphicsPoin
 		let tempContainer = SCDWidgetsContainer()
 		tempContainer.location = SCDGraphicsPoint(x: Int(element.location.x), y: yOffset)
 		tempContainer.size = SCDGraphicsDimension(width: Int(element.size.width), height: Int(element.size.height))
-		yOffset += Int(element.size.height) + 10
+		yOffset += Int(element.size.height) + spacing
 		tempContainer.children.append(element)
 		container.children.append(tempContainer)
 	}
@@ -1106,7 +1110,12 @@ public func EasyVStack(_ elements: [SCDWidgetsWidget], location: SCDGraphicsPoin
 	return container
 }
 // dynamic vertical arrangement of widgets
-public func EasyVStack(page: SCDWidgetsPage, elements: [SCDWidgetsWidget], location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: Int(screenInfo.statusBarsize.height) + 15))  {
+public func EasyVStack(
+		page: SCDWidgetsPage, 
+		elements: [SCDWidgetsWidget], 
+		location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: Int(screenInfo.statusBarsize.height) + 15)
+		spacing: Int = 10
+	)  {
 	let container = SCDWidgetsContainer()
 	container.location = location
 	
@@ -1115,7 +1124,7 @@ public func EasyVStack(page: SCDWidgetsPage, elements: [SCDWidgetsWidget], locat
 		let tempContainer = SCDWidgetsContainer()
 		tempContainer.location = SCDGraphicsPoint(x: Int(element.location.x), y: yOffset)
 		tempContainer.size = SCDGraphicsDimension(width: Int(element.size.width), height: Int(element.size.height))
-		yOffset += Int(element.size.height) + 10
+		yOffset += Int(element.size.height) + spacing
 		tempContainer.children.append(element)
 		container.children.append(tempContainer)
 	}
@@ -1126,7 +1135,11 @@ public func EasyVStack(page: SCDWidgetsPage, elements: [SCDWidgetsWidget], locat
 	page.useSafeArea = false
 }
 
-public func EasyHStack(page: SCDWidgetsPage, elements: [SCDWidgetsWidget], location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: Int(screenInfo.statusBarsize.height) + 15)
+public func EasyHStack(
+		page: SCDWidgetsPage, 
+		elements: [SCDWidgetsWidget], 
+		location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: Int(screenInfo.statusBarsize.height) + 15),
+		spacing: Int = 10
 )  {
 	let container = SCDWidgetsContainer()
 	container.location = location
@@ -1136,7 +1149,7 @@ public func EasyHStack(page: SCDWidgetsPage, elements: [SCDWidgetsWidget], locat
 		let tempContainer = SCDWidgetsContainer()
 		tempContainer.location = SCDGraphicsPoint(x: xOffset, y: Int(element.location.y))
 		tempContainer.size = SCDGraphicsDimension(width: Int(element.size.width), height: Int(element.size.height))
-		xOffset += Int(element.size.width) + 10
+		xOffset += Int(element.size.width) + spacing
 		tempContainer.children.append(element)
 		container.children.append(tempContainer)
 	}
@@ -1146,7 +1159,11 @@ public func EasyHStack(page: SCDWidgetsPage, elements: [SCDWidgetsWidget], locat
 	page.children.append(container)
 	page.useSafeArea = false
 }
-public func EasyHStack(_ elements: [SCDWidgetsWidget], location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: Int(screenInfo.statusBarsize.height) + 15)) -> SCDWidgetsContainer
+public func EasyHStack(
+		_ elements: [SCDWidgetsWidget], 
+		location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: Int(screenInfo.statusBarsize.height) + 15),
+		spacing: Int = 10
+	) -> SCDWidgetsContainer
 {
 	let container = SCDWidgetsContainer()
 	container.location = location
@@ -1156,7 +1173,7 @@ public func EasyHStack(_ elements: [SCDWidgetsWidget], location: SCDGraphicsPoin
 		let tempContainer = SCDWidgetsContainer()
 		tempContainer.location = SCDGraphicsPoint(x: xOffset, y: Int(element.location.y))
 		tempContainer.size = SCDGraphicsDimension(width: Int(element.size.width), height: Int(element.size.height))
-		xOffset += Int(element.size.width) + 10
+		xOffset += Int(element.size.width) + spacing
 		tempContainer.children.append(element)
 		container.children.append(tempContainer)
 	}
