@@ -316,7 +316,8 @@ private func Bubble(_ text:String, color: SCDSvgRGBColor = SCDSvgRGBColor.init(r
 	
 	
 	let group = SCDSvgGroup()
-    
+	rectangle.fill = color
+    group.children.append(rectangle)
 	
     let lines = splitTextIntoLines(text)
 
@@ -343,9 +344,8 @@ private func Bubble(_ text:String, color: SCDSvgRGBColor = SCDSvgRGBColor.init(r
     // set width, height, and color
     rectangle.width = widthEdit
     rectangle.height = heightEdit
-    rectangle.fill = color
 
-	group.children.append(rectangle)
+	
 	
 	
     return BubbleInfo.init(group: group, size: SCDSize(width: Double(width), height: Double(height)))
@@ -1409,7 +1409,7 @@ public func EasySCDSeperator(_ y: Int = 20, _ strokeColor: SCDSvgColor = EasySVG
   	return Label
   }
 
-public struct EasyListElement {
+public struct EasySCDListElement {
   	 public var item: String
   	 public var fontsize: Int
   	 public var fontcolor: SCDGraphicsRGB
@@ -1423,7 +1423,7 @@ public struct EasyListElement {
 	}
   }
   
-public func EasySCDList(_ list: [EasyListElement]) -> SCDWidgetsContainer
+public func EasySCDList(_ list: [EasySCDListElement]) -> SCDWidgetsContainer
   {
   	var textLabel: [SCDWidgetsWidget] = []
   	
