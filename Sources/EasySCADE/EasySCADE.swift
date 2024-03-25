@@ -1292,6 +1292,31 @@ public func EasySCDScrollbar() -> SCDSvgScrollGroup
 	return scroll
 }
 
+public func EasySCDScrollbar(
+	_ page: SCDWidgetsPage, 
+	_ widget: SCDWidgetsWidget,
+	_ onScroll: @escaping () -> Void = { },
+	onPageEnter: @escaping () -> Void = { },
+	onPageExit: @escaping () -> Void = { }
+	) -> SCDSvgScrollGroup
+{	
+	if let scb = page.getWidgetByName(widget.name)!.drawing!.findByAttribute("template-id", value: "content") as? SCDSvgScrollGroup
+	{
+		scb.onScroll.append((SCDSvgScrollHandler) { _ in onScroll() } )
+	
+    	page.onEnter.append(SCDWidgetsEnterEventHandler { (enterPageEvent: SCDWidgetsEnterEvent?) in onPageEnter() }) 
+    	
+    	page.onExit.append(SCDWidgetsExitEventHandler { (enterPageEvent: SCDWidgetsExitEvent?) in onPageExit() }) 
+    	
+    	return scb
+	}
+	else
+	{
+		return SCDSvgScrollGroup()
+	}
+}
+
+
 public func EasySCDNavigationBar(
 		backgroundColor: SCDGraphicsRGB = EasyColor.white,
 		action: @escaping () -> Void = { }) -> SCDWidgetsNavigationBar
