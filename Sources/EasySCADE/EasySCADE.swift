@@ -1063,7 +1063,7 @@ public func EasySCDTextLabel(_ text: String,
         
 		let stack = EasyVStack(elements, location: SCDGraphicsPoint(x: x_location, y: y_location))
 		stack.onClick { _ in action() }
-		stack.size = SCDGraphicsDimension(width: Int(screenInfo.screenSize.width), height: Int(line.count * fontsize * 2) + paddingVertical)
+		stack.size = SCDGraphicsDimension(width: Int(screenInfo.screenSize.width), height: Int(paragraph.count * fontsize * 2) + paddingVertical)
         return stack
     }
 
