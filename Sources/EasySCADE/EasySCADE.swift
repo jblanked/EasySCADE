@@ -84,6 +84,7 @@ extension SCDSvgRGBColor: Equatable {
     }
 }
 
+
 // colors
 public struct EasyColor {
 	public static let white = SCDGraphicsRGB(red: 248, green: 248, blue: 248)
@@ -110,6 +111,70 @@ public struct EasySVGColor {
 	public static let orange = SCDColor.init(red: 255, green: 159, blue: 10)
 	public static let purple = SCDColor.init(red: 191, green: 90, blue: 95)
 	public static let pink = SCDColor.init(red: 255, green: 55, blue: 95)
+}
+
+// converting string SCDColor to SCDColor
+public func EasySCDColor(_ color: String, _ defaultColor: SCDColor = SCDColor.white) -> SCDColor {
+	switch color {
+		case "SCDColor.white": return SCDColor.white
+		case "SCDColor.red": return SCDColor.red
+		case "SCDColor.green": return SCDColor.green
+		case "SCDColor.black": return SCDColor.black
+		case "SCDColor.pink": return SCDColor.pink
+		case "SCDColor.orange": return SCDColor.orange
+		case "SCDColor.blue": return SCDColor.blue
+		case "SCDColor.gray": return SCDColor.gray
+		case "SCDColor.yellow": return SCDColor.yellow
+		case "SCDColor.purple": return SCDColor.purple	
+		case "SCDColor.lightblue": return SCDColor.lightblue
+		case "SCDColor.darkgray": return SCDColor.darkgray
+		case "SCDColor.lightgreen": return SCDColor.lightgreen
+		case "SCDColor.brown": return SCDColor.brown
+		case "SCDColor.darkblue": return SCDColor.darkblue
+		case "SCDColor.turquoise": return SCDColor.turquoise
+		case "SCDColor.lightpink": return SCDColor.lightpink
+		case "SCDColor.lightgray": return SCDColor.lightgray
+		case "SCDColor.cyan": return SCDColor.cyan
+		case "SCDColor.teal": return SCDColor.teal
+	    case "SCDColor.darkgreen": return SCDColor.darkgreen
+		case "SCDColor.darkred": return SCDColor.darkred
+		case "SCDColor.darksalmon": return SCDColor.darksalmon
+		case "SCDColor.darkorange": return SCDColor.darkorange
+		case "SCDColor.firebrick": return SCDColor.firebrick
+		case "SCDColor.deeppink": return SCDColor.deeppink
+		case "SCDColor.lightsalmon": return SCDColor.lightsalmon
+		case "SCDColor.darkturquoise": return SCDColor.darkturquoise
+		case "SCDColor.greenyellow": return SCDColor.greenyellow
+		case "SCDColor.deepskyblue": return SCDColor.deepskyblue
+		case "SCDColor.whitesmoke": return SCDColor.whitesmoke
+		case "SCDColor.grey": return SCDColor.grey
+		case "SCDColor.chocolate": return SCDColor.chocolate
+		case "SCDColor.honeydew": return SCDColor.honeydew
+		case "SCDColor.seagreen": return SCDColor.seagreen
+		case "SCDColor.antiquewhite": return SCDColor.antiquewhite
+		case "SCDColor.aqua": return SCDColor.aqua
+		case "SCDColor.aquamarine": return SCDColor.aquamarine
+		case "SCDColor.gold": return SCDColor.gold
+		case "SCDColor.hotpink": return SCDColor.hotpink
+		case "SCDColor.mintcream": return SCDColor.mintcream
+		case "SCDColor.lightsteelblue": return SCDColor.lightsteelblue
+		case "SCDColor.tan": return SCDColor.tan
+		case "SCDColor.snow": return SCDColor.snow
+		case "SCDColor.dimgray": return SCDColor.dimgray
+		case "SCDColor.silver": return SCDColor.silver
+		case "SCDColor.springgreen": return SCDColor.springgreen
+		case "SCDColor.lightcyan": return SCDColor.lightcyan
+		case "SCDColor.lavender": return SCDColor.lavender
+		case "SCDColor.orangered": return SCDColor.orangered
+		case "SCDColor.mediumblue": return SCDColor.mediumblue
+		case "SCDColor.lightyellow": return SCDColor.lightyellow
+		case "SCDColor.midnightblue": return SCDColor.midnightblue
+		case "SCDColor.powderblue": return SCDColor.powderblue
+		case "SCDColor.floralwhite": return SCDColor.floralwhite
+			
+		default: return defaultColor
+		
+	}
 }
 
 public func EasySVGColorToRGB(_ svgColor: SCDColor) -> SCDGraphicsRGB
