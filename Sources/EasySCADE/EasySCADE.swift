@@ -1030,7 +1030,7 @@ public func EasySCDTextLabel(_ text: String,
     {	
 		let paragraph = splitTextIntoLines(text)
 		var elements = [SCDWidgetsWidget]()
-		var count = 0
+		var count = 1
 		for line in paragraph
 		{
 			let label = SCDWidgetsLabel()
