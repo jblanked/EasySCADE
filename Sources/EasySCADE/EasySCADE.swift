@@ -1014,7 +1014,7 @@ public func EasySCDWebView(
 }
 
 // create dynamic SCDTextLabels
-public func EasySCDTextLabel2(_ text: String, 
+public func EasySCDTextLabel(_ text: String, 
 							fontsize:Int = 20,
 							font: String = "ArialMT", 
 							fontcolor:SCDGraphicsRGB = EasyColor.black,
