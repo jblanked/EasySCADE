@@ -211,6 +211,16 @@ public func EasySpinner(_ show: Bool, _ text: String = "Loading...") {
 }
 
 
+public func EasySpinner(_ seconds: Int, _ text: String = "Loading...", _ action: @escaping () -> Void = { }) {
+	DispatchQueue.main.async {
+		EasySpinner(true, text)
+		DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(seconds)) {
+    		EasySpinner(false)
+			action()
+		}
+	}
+}
+
 
 private func Rectangle(
 		path: String,
@@ -1053,6 +1063,7 @@ public func EasySCDTextLabel(_ text: String,
         
 		let stack = EasyVStack(elements, location: SCDGraphicsPoint(x: x_location, y: y_location))
 		stack.onClick { _ in action() }
+		stack.size = SCDGraphicsDimension(width: Int(screenInfo.screenSize.width), height: fontsize * 2)
         return stack
     }
 
