@@ -1014,7 +1014,7 @@ public func EasySCDWebView(
 }
 
 // create dynamic SCDTextLabels
-public func EasySCDTextLabel(_ text: String, 
+public func EasySCDTextLabel2(_ text: String, 
 							fontsize:Int = 20,
 							font: String = "ArialMT", 
 							fontcolor:SCDGraphicsRGB = EasyColor.black,
@@ -1067,6 +1067,7 @@ public func EasySCDTextLabel(_ text: String,
 		stack.size = SCDGraphicsDimension(width: Int(screenInfo.screenSize.width), height: Int(count * fontsize * 2) + paddingVertical)
         return stack
     }
+
 
 // creates a SCDCheckbox
 public func EasySCDCheckbox(
@@ -1125,7 +1126,7 @@ public func EasySCDCheckboxForm(_ elements: [SCDWidgetsContainer]) -> SCDWidgets
 // creates a Spacer
 public func EasySCDSpacer(_ height: Int = 20) -> SCDWidgetsWidget
 {
-	return EasySCDTextLabel("", fontsize: height, font: "ArialMT", fontcolor: EasyColor.white, paddingVertical: 0, paddingHorizontal: 0, x_location: 0, y_location: 0)
+	return EasySCDTextLabel("", fontsize: 0, font: "ArialMT", fontcolor: EasyColor.white, paddingVertical: height, paddingHorizontal: 0, x_location: 0, y_location: 0)
 }
 
 
