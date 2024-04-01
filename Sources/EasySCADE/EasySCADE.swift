@@ -1402,7 +1402,7 @@ public func EasySCDNavigationBar(
 		) -> SCDWidgetsNavigationBar
   {
   	let navbar = SCDWidgetsNavigationBar()
-  	navbar.location = SCDGraphicsPoint(x: 0, y: Int(screenInfo.statusBarsize.height))
+  	navbar.location = SCDGraphicsPoint(x: 0, y: 0)
 	
   	navbar.backgroundColor = backgroundColor
   	navbar.name = "SCDNavigationBar"
