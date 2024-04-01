@@ -1421,7 +1421,7 @@ public func EasySCDNavigationBar(
 					})
 	label.size = SCDGraphicsDimension(width: Int(screenInfo.screenSize.width), height: 40)	
 	navbar.size = SCDGraphicsDimension(width: Int(screenInfo.screenSize.width), height: 20)
-	#endif	
+	
   	navbar.children = [label]
   	
   	navbar.onClick { _ in
