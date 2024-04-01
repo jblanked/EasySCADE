@@ -1403,28 +1403,25 @@ public func EasySCDNavigationBar(
   {
   	let navbar = SCDWidgetsNavigationBar()
   	navbar.location = SCDGraphicsPoint(x: 0, y: Int(screenInfo.statusBarsize.height))
-	#if os(iOS)
-  	navbar.size = SCDGraphicsDimension(width: Int(screenInfo.screenSize.width), height: 60)
-	#endif
-	#if os(Android)
-	navbar.size = SCDGraphicsDimension(width: Int(screenInfo.screenSize.width), height: 50)
-	#endif
+  	navbar.size = SCDGraphicsDimension(width: Int(screenInfo.screenSize.width), height: Int(screenInfo.statusBarsize.height) + 20)
+
   	navbar.backgroundColor = backgroundColor
   	navbar.name = "SCDNavigationBar"
-  	navbar.children = [
-  		EasySCDTextLabel(
+  	
+  	let label = EasySCDTextLabel(
     		 		"Back", 
-    		 		fontsize: 18,
+    		 		fontsize: 20,
     		 		font: "ArialMT",
 					fontcolor:fontcolor,
 					paddingVertical:  0,
 					paddingHorizontal: 0,
 					x_location: Int(screenInfo.screenSize.width / 11),
-					y_location: 0,
+					y_location: -9,
 					action: {
 						action()
 					})
-  	]
+	label.size = SCDGraphicsDimension(width: Int(screenInfo.screenSize.width), height: Int(screenInfo.statusBarsize.height) + 40)		
+  	navbar.children = [label]
   	
   	navbar.onClick { _ in
   		
@@ -1432,8 +1429,14 @@ public func EasySCDNavigationBar(
 
   	}
   	
+  	let backArrow = navbar.drawing!.findByAttribute("template-id", value: "back-arrow-node") as! SCDSvgBox
+		backArrow.fill = EasyRGBColorToSVG(fontcolor)		
+		backArrow.x = SCDSvgUnit(integerLiteral: 10) 	
+		backArrow.y = SCDSvgUnit(integerLiteral: 0) 
+  	
   	return navbar
   }
+
 public struct EasySCDToolbarItem
   {
   	 var image: String
