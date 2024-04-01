@@ -1397,7 +1397,9 @@ public func EasySCDScrollbar(
 
 public func EasySCDNavigationBar(
 		backgroundColor: SCDGraphicsRGB = EasyColor.white,
-		action: @escaping () -> Void = { }) -> SCDWidgetsNavigationBar
+		action: @escaping () -> Void = { },
+		fontcolor: SCDGraphicsRGB = EasyColor.blue
+		) -> SCDWidgetsNavigationBar
   {
   	let navbar = SCDWidgetsNavigationBar()
   	navbar.location = SCDGraphicsPoint(x: 0, y: Int(screenInfo.statusBarsize.height))
@@ -1412,9 +1414,9 @@ public func EasySCDNavigationBar(
   	navbar.children = [
   		EasySCDTextLabel(
     		 		"Back", 
-    		 		fontsize: 20,
+    		 		fontsize: 18,
     		 		font: "ArialMT",
-					fontcolor:EasyColor.blue,
+					fontcolor:fontcolor,
 					paddingVertical:  0,
 					paddingHorizontal: 0,
 					x_location: Int(screenInfo.screenSize.width / 11),
