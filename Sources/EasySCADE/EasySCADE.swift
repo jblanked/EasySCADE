@@ -1403,7 +1403,7 @@ public func EasySCDNavigationBar(
   {
   	let navbar = SCDWidgetsNavigationBar()
   	navbar.location = SCDGraphicsPoint(x: 0, y: Int(screenInfo.statusBarsize.height))
-  	navbar.size = SCDGraphicsDimension(width: Int(screenInfo.screenSize.width), height: Int(screenInfo.statusBarsize.height) + 20)
+  	navbar.size = SCDGraphicsDimension(width: Int(screenInfo.screenSize.width), height:  20)
 
   	navbar.backgroundColor = backgroundColor
   	navbar.name = "SCDNavigationBar"
@@ -1420,7 +1420,7 @@ public func EasySCDNavigationBar(
 					action: {
 						action()
 					})
-	label.size = SCDGraphicsDimension(width: Int(screenInfo.screenSize.width), height: Int(screenInfo.statusBarsize.height) + 40)		
+	label.size = SCDGraphicsDimension(width: Int(screenInfo.screenSize.width), height:  40)		
   	navbar.children = [label]
   	
   	navbar.onClick { _ in
