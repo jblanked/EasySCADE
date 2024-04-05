@@ -475,13 +475,18 @@ private struct BubbleInfo
 
 private func splitTextIntoLines(_ text: String) -> [String] {
 
+	// this function works great but only for a 20 fontsize so we need to adjust it to work with any fontsize
     let components = text.components(separatedBy: .whitespacesAndNewlines)
 	let words = components.filter { !$0.isEmpty }
     let count = words.count
-    
-    let maxWordsPerLine = ((Int(screenInfo.screenSize.width) / 10) * count)
-    let maxLettersPerLine = (Int(screenInfo.screenSize.width) / 10)
-    
+
+	// adjust the maxWordsPerLine and maxLettersPerLine to work with 
+	// any fontsize using the current maxWordsPerLine and maxLettersPerLine as a default for a 20 fontsize
+	// so that as the fontsize decreases the maxWordsPerLine and maxLettersPerLine increases
+	// and as the fontsize increases the maxWordsPerLine and maxLettersPerLine decreases
+
+	let maxWordsPerLine = ((Int(screenInfo.screenSize.width) / 10) * count) * (20 / fontsize)
+	let maxLettersPerLine = (Int(screenInfo.screenSize.width) / 10) * (20 / fontsize)
 
     var lines: [String] = []
     var currentLine = ""
