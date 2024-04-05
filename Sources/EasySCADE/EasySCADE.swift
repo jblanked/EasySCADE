@@ -1182,7 +1182,7 @@ public func EasySCDTextLabel(_ text: String,
 				label.paddingTop = paddingVertical
 			}
 
-			label.paddingTop = label.paddingTop - 10
+			//label.paddingTop = label.paddingTop - 10
 
 
 			elements.append(label)
@@ -1190,7 +1190,7 @@ public func EasySCDTextLabel(_ text: String,
 			yOffset += Int(label.size.height)
 		}
         
-		let stack = EasyVStack(elements, location: SCDGraphicsPoint(x: x_location, y: y_location))
+		let stack = EasyVStack(elements, location: SCDGraphicsPoint(x: x_location, y: y_location), spacing: 0)
 		stack.onClick { _ in action() }
 		stack.size = SCDGraphicsDimension(width: Int(screenInfo.screenSize.width), height: Int(yOffset))
         return stack
