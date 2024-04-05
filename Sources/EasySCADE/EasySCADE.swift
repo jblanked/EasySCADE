@@ -982,7 +982,7 @@ public func EasySCDTextForm(
 				fontsize: fontsize,
 				font: font,
 				fontcolor: fontcolor,
-				paddingVertical: 10,
+				paddingVertical: 0,
 				paddingHorizontal: 10,
 				x_location: 0,
 				y_location: 0,
@@ -1187,7 +1187,7 @@ public func EasySCDTextLabel(_ text: String,
         
 		let stack = EasyVStack(elements, location: SCDGraphicsPoint(x: x_location, y: y_location))
 		stack.onClick { _ in action() }
-		stack.size = SCDGraphicsDimension(width: Int(screenInfo.screenSize.width), height: Int(count * fontsize) + paddingVertical)
+		stack.size = SCDGraphicsDimension(width: Int(screenInfo.screenSize.width), height: Int(count * Int(fontsize * 1.5)) + paddingVertical)
         return stack
     }
 
