@@ -1179,11 +1179,10 @@ public func EasySCDTextLabel(_ text: String,
 			label.font!.bold = bold
 			label.font!.underline = underline
 			label.horizontalAlignment = SCDLayoutHorizontalAlignment.left    
-    		label.baselineAlignment = SCDWidgetsBaselineAlignment.middle
-    		label.verticalAlignment = SCDLayoutVerticalAlignment.top
+    		label.baselineAlignment = SCDWidgetsBaselineAlignment.auto
+    		label.verticalAlignment = SCDLayoutVerticalAlignment.bottom
 			label.layoutData = SCDLayoutAutoLayoutData()
 			label.size = SCDGraphicsDimension(width: Int(screenInfo.screenSize.width), height: fontsize * 2)
-			label.location = SCDGraphicsPoint(x: 0, y: 10)
 
 			if paddingHorizontal > 0 {
 			label.paddingLeft = paddingHorizontal
