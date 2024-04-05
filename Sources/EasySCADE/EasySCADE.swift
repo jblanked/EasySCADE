@@ -473,7 +473,10 @@ private struct BubbleInfo
 	var size: SCDSize
 }
 
-private func splitTextIntoLines(_ text: String) -> [String] {
+private func splitTextIntoLines(
+		_ text: String,
+		_ fontsize: Int = 20
+		) -> [String] {
 
 	// this function works great but only for a 20 fontsize so we need to adjust it to work with any fontsize
     let components = text.components(separatedBy: .whitespacesAndNewlines)
@@ -1156,7 +1159,7 @@ public func EasySCDTextLabel(_ text: String,
 							) 
 							 -> SCDWidgetsContainer
     {	
-		let paragraph = splitTextIntoLines(text)
+		let paragraph = splitTextIntoLines(text, fontsize)
 		var elements = [SCDWidgetsWidget]()
 		var count = 1
 		var yOffset = 0
