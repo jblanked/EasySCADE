@@ -1263,7 +1263,7 @@ public func EasySCDCheckboxForm(_ elements: [SCDWidgetsContainer]) -> SCDWidgets
 // creates a Spacer
 public func EasySCDSpacer(_ height: Int = 20) -> SCDWidgetsWidget
 {
-	return EasySCDTextLabel("", fontsize: 0, font: "ArialMT", fontcolor: EasyColor.white, paddingVertical: height, paddingHorizontal: 0, x_location: 0, y_location: 0)
+	return EasySCDTextLabel("", fontsize: height, font: "ArialMT", fontcolor: EasyColor.white, paddingVertical: height, paddingHorizontal: 0, x_location: 0, y_location: 0)
 }
 
 
@@ -1487,7 +1487,7 @@ public func EasySCDNavigationBar(
 					paddingVertical:  0,
 					paddingHorizontal: 0,
 					x_location: Int(screenInfo.screenSize.width / 11),
-					y_location: -8,
+					y_location: -5,
 					action: {
 						action()
 					})
