@@ -1180,7 +1180,7 @@ public func EasySCDTextLabel(_ text: String,
 			label.font!.underline = underline
 			label.horizontalAlignment = SCDLayoutHorizontalAlignment.left    
     		label.baselineAlignment = SCDWidgetsBaselineAlignment.middle
-    		label.verticalAlignment = SCDLayoutVerticalAlignment.middle
+    		label.verticalAlignment = SCDLayoutVerticalAlignment.top
 			label.layoutData = SCDLayoutAutoLayoutData()
 			label.size = SCDGraphicsDimension(width: Int(screenInfo.screenSize.width), height: fontsize * 2)
 
