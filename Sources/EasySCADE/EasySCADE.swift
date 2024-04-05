@@ -1172,7 +1172,7 @@ public func EasySCDTextLabel(_ text: String,
     		label.baselineAlignment = SCDWidgetsBaselineAlignment.auto
     		label.verticalAlignment = SCDLayoutVerticalAlignment.middle
 			label.layoutData = SCDLayoutAutoLayoutData()
-			label.size = SCDGraphicsDimension(width: Int(screenInfo.screenSize.width), height: fontsize * 2 + 10)
+			label.size = SCDGraphicsDimension(width: Int(screenInfo.screenSize.width), height: fontsize * 2 + 10 - (fontsize - 20))
 
 			if paddingHorizontal > 0 {
 			label.paddingLeft = paddingHorizontal
@@ -1253,7 +1253,9 @@ public func EasySCDCheckboxForm(_ elements: [SCDWidgetsContainer]) -> SCDWidgets
 // creates a Spacer
 public func EasySCDSpacer(_ height: Int = 20) -> SCDWidgetsWidget
 {
-	return EasySCDTextLabel("", fontsize: height, font: "ArialMT", fontcolor: EasyColor.white, paddingVertical: height, paddingHorizontal: 0, x_location: 0, y_location: 0)
+	let sp = EasySCDTextLabel("", fontsize: height, font: "ArialMT", fontcolor: EasyColor.white, paddingVertical: height, paddingHorizontal: 0, x_location: 0, y_location: 0)
+	sp.size = SCDGraphicsDimension(width: Int(screenInfo.screenSize.width), height: height)
+	return sp
 }
 
 
