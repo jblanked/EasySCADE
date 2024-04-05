@@ -1172,7 +1172,7 @@ public func EasySCDTextLabel(_ text: String,
     		label.baselineAlignment = SCDWidgetsBaselineAlignment.auto
     		label.verticalAlignment = SCDLayoutVerticalAlignment.middle
 			label.layoutData = SCDLayoutAutoLayoutData()
-			label.size = SCDGraphicsDimension(width: Int(screenInfo.screenSize.width), height: fontsize * 2 + 10 - (fontsize - 20))
+			label.size = SCDGraphicsDimension(width: Int(screenInfo.screenSize.width), height: fontsize * 2 - (fontsize - 20))
 
 			if paddingHorizontal > 0 {
 			label.paddingLeft = paddingHorizontal
@@ -1181,8 +1181,6 @@ public func EasySCDTextLabel(_ text: String,
 			if paddingVertical > 0 {
 				label.paddingTop = paddingVertical
 			}
-
-			//label.paddingTop = label.paddingTop - 10
 
 
 			elements.append(label)
@@ -1480,7 +1478,7 @@ public func EasySCDNavigationBar(
 					paddingVertical:  0,
 					paddingHorizontal: 0,
 					x_location: Int(screenInfo.screenSize.width / 11),
-					y_location: 0,
+					y_location: -8,
 					action: {
 						action()
 					})
