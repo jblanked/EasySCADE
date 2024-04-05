@@ -1182,7 +1182,7 @@ public func EasySCDTextLabel(_ text: String,
     		label.baselineAlignment = SCDWidgetsBaselineAlignment.auto
     		label.verticalAlignment = SCDLayoutVerticalAlignment.middle
 			label.layoutData = SCDLayoutAutoLayoutData()
-			label.size = SCDGraphicsDimension(width: Int(screenInfo.screenSize.width), height: fontsize * 2)
+			label.size = SCDGraphicsDimension(width: Int(screenInfo.screenSize.width), height: fontsize * 2 + 10)
 
 			if paddingHorizontal > 0 {
 			label.paddingLeft = paddingHorizontal
@@ -1194,7 +1194,7 @@ public func EasySCDTextLabel(_ text: String,
 
 			elements.append(label)
 			count += 1
-			yOffset += fontsize * 2 + paddingVertical
+			yOffset += Int(label.size.height)
 		}
         
 		let stack = EasyVStack(elements, location: SCDGraphicsPoint(x: x_location, y: y_location))
