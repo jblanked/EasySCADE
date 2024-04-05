@@ -488,10 +488,10 @@ private func splitTextIntoLines(
 	// so that as the fontsize decreases the maxWordsPerLine and maxLettersPerLine increases
 	// and as the fontsize increases the maxWordsPerLine and maxLettersPerLine decreases
 
-	fontsize == 0 ? 20 : fontsize
+	
 
-	let maxWordsPerLine = ((Int(screenInfo.screenSize.width) / 10) * count) * (20 / fontsize)
-	let maxLettersPerLine = (Int(screenInfo.screenSize.width) / 10) * (20 / fontsize)
+	let maxWordsPerLine = ((Int(screenInfo.screenSize.width) / 10) * count) * (20 / (fontsize == 0 ? 20 : fontsize))
+	let maxLettersPerLine = (Int(screenInfo.screenSize.width) / 10) * (20 / (fontsize == 0 ? 20 : fontsize))
 
     var lines: [String] = []
     var currentLine = ""
