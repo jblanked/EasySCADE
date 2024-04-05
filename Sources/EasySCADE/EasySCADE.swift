@@ -1192,6 +1192,8 @@ public func EasySCDTextLabel(_ text: String,
 				label.paddingTop = paddingVertical
 			}
 
+			label.paddingTop = label.paddingTop - 10
+
 			elements.append(label)
 			count += 1
 			yOffset += Int(label.size.height) + 10
