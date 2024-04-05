@@ -1154,6 +1154,7 @@ public func EasySCDTextLabel(_ text: String,
 		let paragraph = splitTextIntoLines(text)
 		var elements = [SCDWidgetsWidget]()
 		var count = 1
+		var yOffset = 0
 		for line in paragraph
 		{
 			let label = SCDWidgetsLabel()
@@ -1183,11 +1184,12 @@ public func EasySCDTextLabel(_ text: String,
 
 			elements.append(label)
 			count += 1
+			yOffset += fontsize * 2
 		}
         
 		let stack = EasyVStack(elements, location: SCDGraphicsPoint(x: x_location, y: y_location))
 		stack.onClick { _ in action() }
-		stack.size = SCDGraphicsDimension(width: Int(screenInfo.screenSize.width), height: Int(Double(count) * (Double(fontsize) * 1.5)) + paddingVertical)
+		stack.size = SCDGraphicsDimension(width: Int(screenInfo.screenSize.width), height: Int(yOffset))
         return stack
     }
 
