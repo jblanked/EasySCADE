@@ -286,6 +286,24 @@ public func EasySpinner(_ seconds: Int, _ text: String = "Loading...", _ action:
 	}
 }
 
+public func EasySwipeGesture(
+		_ page: SCDWidgetsPage,
+		_ direction: SCDSvgSwipeDirection = .left,
+		_ action: @escaping () -> Void = { print("swiped") }
+		)  {
+		
+		// Use short cut syntax to create recognizer and specify action
+		let swipeGestureRecognizer = SCDSvgSwipeGestureRecognizer { handler in
+    		
+    		action()
+    		
+		}
+		// Configure: capture swifts from left to right only
+		swipeGestureRecognizer.direction = direction
+		
+		page.drawing!.gestureRecognizers.append(swipeGestureRecognizer)
+	}
+
 
 private func Rectangle(
 		path: String,
