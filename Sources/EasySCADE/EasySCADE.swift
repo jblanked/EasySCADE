@@ -473,44 +473,33 @@ private struct BubbleInfo
 	var size: SCDSize
 }
 
-private func splitTextIntoLines(
-		_ text: String,
-		_ fontsize: Int = 20
-		) -> [String] {
-
-	// this function works great but only for a 20 fontsize so we need to adjust it to work with any fontsize
+private func splitTextIntoLines(_ text: String, _ fontsize: Int = 20) -> [String] {
     let components = text.components(separatedBy: .whitespacesAndNewlines)
-	let words = components.filter { !$0.isEmpty }
-    let count = words.count
+    let words = components.filter { !$0.isEmpty }
 
-	// adjust the maxWordsPerLine and maxLettersPerLine to work with 
-	// any fontsize using the current maxWordsPerLine and maxLettersPerLine as a default for a 20 fontsize
-	// so that as the fontsize decreases the maxWordsPerLine and maxLettersPerLine increases
-	// and as the fontsize increases the maxWordsPerLine and maxLettersPerLine decreases
+    // Calculate adjustment factor based on fontsize changes, inversely proportional
+    let baseFontSize = 20
+    let adjustmentFactor = Double(baseFontSize) / Double(fontsize == 0 ? baseFontSize : fontsize)
 
-	
-
-	let maxWordsPerLine = ((Int(screenInfo.screenSize.width) / 10) * count) * (20 / (fontsize == 0 ? 20 : fontsize))
-	let maxLettersPerLine = (Int(screenInfo.screenSize.width) / 10) * (20 / (fontsize == 0 ? 20 : fontsize))
+    // Adjust maxWordsPerLine and maxLettersPerLine based on fontsize
+    let maxLettersPerLine = Int(Double(Int(screenInfo.screenSize.width) / 10) * adjustmentFactor)
 
     var lines: [String] = []
     var currentLine = ""
-    var currentLineWordCount = 0
+    var currentLineLetterCount = 0
 
     for word in words {
-        // Check if adding the next word would exceed the line limits
-        let wouldExceedWordLimit = (currentLineWordCount + 1) > maxWordsPerLine
-        let wouldExceedLetterLimit = (currentLine.count + word.count + 1) > maxLettersPerLine // +1 for space
+        let wouldExceedLetterLimit = (currentLineLetterCount + word.count + 1) > maxLettersPerLine // +1 for space
 
-        if wouldExceedWordLimit || wouldExceedLetterLimit {
+        if wouldExceedLetterLimit {
             // Start a new line
             lines.append(currentLine.trimmingCharacters(in: .whitespaces))
             currentLine = word + " "
-            currentLineWordCount = 1
+            currentLineLetterCount = word.count + 1 // Reset count, +1 for space
         } else {
             // Add word to the current line
             currentLine += word + " "
-            currentLineWordCount += 1
+            currentLineLetterCount += word.count + 1 // Include current word and space
         }
     }
 
@@ -520,7 +509,8 @@ private func splitTextIntoLines(
     }
 
     return lines
-    }
+}
+
 
 private func createBubbleContainer(
 		text: String, 
@@ -1487,7 +1477,7 @@ public func EasySCDNavigationBar(
 					paddingVertical:  0,
 					paddingHorizontal: 0,
 					x_location: Int(screenInfo.screenSize.width / 11),
-					y_location: -5,
+					y_location: 0,
 					action: {
 						action()
 					})
