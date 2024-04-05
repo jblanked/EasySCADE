@@ -1478,7 +1478,7 @@ public func EasySCDNavigationBar(
 					paddingVertical:  0,
 					paddingHorizontal: 0,
 					x_location: Int(screenInfo.screenSize.width / 11),
-					y_location: -4,
+					y_location: -3,
 					action: {
 						action()
 					})
