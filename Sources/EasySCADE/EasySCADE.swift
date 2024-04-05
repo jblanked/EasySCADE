@@ -1193,8 +1193,17 @@ public func EasySCDTextLabel(_ text: String,
 			}
 
 			elements.append(label)
+			
+			if count > 1
+			{
+				yOffset += fontsize * 2 + paddingVertical + 10
+			}
+			else
+			{
+				yOffset += fontsize * 2 + paddingVertical
+			}
+
 			count += 1
-			yOffset += fontsize * 2 + paddingVertical + 10
 		}
         
 		let stack = EasyVStack(elements, location: SCDGraphicsPoint(x: x_location, y: y_location))
