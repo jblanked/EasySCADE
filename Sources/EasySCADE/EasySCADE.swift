@@ -168,6 +168,21 @@ extension SCDLatticePageAdapter {
 		DispatchQueue.main.async { self.navigation?.go(page: page) }
 	}
 
+	public func scrollbar(
+			_ onScroll: @escaping () -> Void = { },
+			_ onPageEnter: @escaping () -> Void = { },
+			_ onPageExit: @escaping () -> Void = { }
+		) {
+		 EasySCDScrollbar(
+			self.page!,
+			self.page!,
+			onScroll,
+			onPageEnter,
+			onPageExit
+		)	
+		
+	}
+
 }
 
 extension SCDWidgetsContainer {
