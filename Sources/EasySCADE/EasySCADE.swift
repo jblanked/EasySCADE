@@ -82,7 +82,7 @@ extension SCDLatticePageAdapter {
 }
 
 
-class EasyVStack {
+public class EasyVStack {
     private var widgets: [SCDWidgetsWidget] = []
     private let spacing: Int
     
@@ -116,15 +116,15 @@ class EasyVStack {
 }
 
 @resultBuilder
-struct WidgetArrayBuilder {
-    static func buildBlock(_ components: SCDWidgetsWidget...) -> [SCDWidgetsWidget] {
+public struct WidgetArrayBuilder {
+    public static func buildBlock(_ components: SCDWidgetsWidget...) -> [SCDWidgetsWidget] {
         components
     }
 }
 
 extension SCDLatticePageAdapter {
     // A method to lay out EasyVStack on the current page
-    func vStack(@WidgetArrayBuilder _ builder: () -> [SCDWidgetsWidget], _ spacing: Int = 10) {
+    public func vStack(@WidgetArrayBuilder _ builder: () -> [SCDWidgetsWidget], _ spacing: Int = 10) {
         let st = EasyVStack.init(spacing: spacing, widgets: builder())
         st.layout(in: self.page!)
     }    
