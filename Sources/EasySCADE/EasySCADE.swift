@@ -70,18 +70,6 @@ private func getWindowScreenSize() -> EasyScreenInfo {
 // stores the screen information
 public let screenInfo: EasyScreenInfo = getWindowScreenSize()
 
-
-extension SCDLatticePageAdapter {
-	public func add(_ widget: SCDWidgetsWidget) {
-		self.page?.children.append(widget)
-	}
-	
-	public var screenSize: CGSize {
-		return CGSize(width: screenInfo.screenSize.width, height: screenInfo.screenSize.height)
-	}
-}
-
-
 public class EasyVStack {
     private var widgets: [SCDWidgetsWidget] = []
     private let spacing: Int
@@ -155,6 +143,15 @@ public struct WidgetArrayBuilder {
 }
 
 extension SCDLatticePageAdapter {
+
+	public func append(_ widget: SCDWidgetsWidget) {
+		self.page?.children.append(widget)
+	}
+	
+	public var screenSize: CGSize {
+		return CGSize(width: screenInfo.screenSize.width, height: screenInfo.screenSize.height)
+	}
+
     // A method to lay out EasyVStack on the current page
     public func vStack(@WidgetArrayBuilder _ builder: () -> [SCDWidgetsWidget], _ spacing: Int = 10) {
         let st = EasyVStack.init(spacing: spacing, widgets: builder())
@@ -165,6 +162,10 @@ extension SCDLatticePageAdapter {
 	public func hStack(@WidgetArrayBuilder _ builder: () -> [SCDWidgetsWidget], _ spacing: Int = 10) {
 		let st = EasyHStack.init(spacing: spacing, widgets: builder())
 		st.layout(in: self.page!)
+	}
+
+	public navigateTo(_ page: String = "main.page") {
+		DispatchQueue.main.async { self.page?.navigation?.go(page: page) }
 	}
 
 }
