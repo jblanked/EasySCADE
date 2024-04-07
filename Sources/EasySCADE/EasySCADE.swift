@@ -70,6 +70,68 @@ private func getWindowScreenSize() -> EasyScreenInfo {
 // stores the screen information
 public let screenInfo: EasyScreenInfo = getWindowScreenSize()
 
+
+extension SCDLatticePageAdapter {
+	public func add(_ widget: SCDWidgetsWidget) {
+		self.page?.children.append(widget)
+	}
+	
+	public var screenSize: CGSize {
+		return CGSize(width: screenInfo.screenSize.width, height: screenInfo.screenSize.height)
+	}
+}
+
+
+class EasyVStack {
+    private var widgets: [SCDWidgetsWidget] = []
+    private let spacing: Int
+    
+    // Assume widgets are passed directly to the initializer
+    init(spacing: Int = 10, widgets: [SCDWidgetsWidget]) {
+        self.spacing = spacing
+        self.widgets = widgets
+    }
+    
+    
+    // Simplified for direct widget array initialization
+    convenience init(spacing: Int = 10, @WidgetArrayBuilder _ builder: () -> [SCDWidgetsWidget]) {
+        self.init(spacing: spacing, widgets: builder())
+    }
+    
+    // Function to layout the widgets vertically
+    func layout(in parentWidget: SCDWidgetsContainer) {
+        var yOffset = 0
+        
+	for element in self.widgets {
+		let tempContainer = SCDWidgetsContainer()
+		tempContainer.location = SCDGraphicsPoint(x: Int(element.location.x), y: yOffset)
+		tempContainer.size = SCDGraphicsDimension(width: Int(element.size.width), height: Int(element.size.height))
+		yOffset += Int(element.size.height) + spacing
+		tempContainer.children.append(element)
+		parentWidget.children.append(tempContainer)
+	}
+
+	parentWidget.size = SCDGraphicsDimension(width: Int(screenInfo.screenSize.width), height: yOffset)
+    }
+}
+
+@resultBuilder
+struct WidgetArrayBuilder {
+    static func buildBlock(_ components: SCDWidgetsWidget...) -> [SCDWidgetsWidget] {
+        components
+    }
+}
+
+extension SCDLatticePageAdapter {
+    // A method to lay out EasyVStack on the current page
+    func vStack(@WidgetArrayBuilder _ builder: () -> [SCDWidgetsWidget], _ spacing: Int = 10) {
+        let st = EasyVStack.init(spacing: spacing, widgets: builder())
+        st.layout(in: self.page!)
+    }    
+
+}
+
+
 // extension to SCDGraphicsRGB to make it Equatable
 extension SCDGraphicsRGB: Equatable {
     public static func ==(lhs: SCDGraphicsRGB, rhs: SCDGraphicsRGB) -> Bool {
@@ -303,7 +365,7 @@ public func EasySwipeGesture(
 		
 		page.drawing!.gestureRecognizers.append(swipeGestureRecognizer)
 	}
-
+// add the gesture to the widget after the widget has been added to the page so that the recognizer will use the entire length of the widget instead of just the original page size
 public func EasySwipeGesture(
 		_ widget: SCDWidgetsWidget,
 		_ direction: SCDSvgSwipeDirection = .left,
@@ -1005,7 +1067,7 @@ public func EasySCDTextForm(
 
 			elements.append(container)
 		}
-		return EasyVStack(elements, location: location)
+		return EasySCDVStack(elements, location: location)
 	}
 
 
@@ -1188,7 +1250,7 @@ public func EasySCDTextLabel(_ text: String,
 			yOffset += Int(label.size.height)
 		}
         
-		let stack = EasyVStack(elements, location: SCDGraphicsPoint(x: x_location, y: y_location), spacing: 0)
+		let stack = EasySCDVStack(elements, location: SCDGraphicsPoint(x: x_location, y: y_location), spacing: 0)
 		stack.onClick { _ in action() }
 		stack.size = SCDGraphicsDimension(width: Int(screenInfo.screenSize.width), height: Int(yOffset))
         return stack
@@ -1246,7 +1308,7 @@ public func EasySCDCheckboxElement(
 // creates a Checkbox form
 public func EasySCDCheckboxForm(_ elements: [SCDWidgetsContainer]) -> SCDWidgetsContainer
 {
-	return EasyVStack(elements)
+	return EasySCDVStack(elements)
 }
 
 // creates a Spacer
@@ -1289,7 +1351,7 @@ public func EasySCDCamera(
 
 
 // dynamic vertical arrangement of widgets
-public func EasyVStack(
+public func EasySCDVStack(
 		_ elements: [SCDWidgetsWidget], 
 		location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: Int(screenInfo.statusBarsize.height) + 15),
 		spacing: Int = 10
@@ -1312,7 +1374,7 @@ public func EasyVStack(
 	return container
 }
 // dynamic vertical arrangement of widgets
-public func EasyVStack(
+public func EasySCDVStack(
 		page: SCDWidgetsPage, 
 		elements: [SCDWidgetsWidget], 
 		location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: Int(screenInfo.statusBarsize.height) + 15),
@@ -1337,7 +1399,7 @@ public func EasyVStack(
 	page.useSafeArea = false
 }
 
-public func EasyHStack(
+public func EasySCDHStack(
 		page: SCDWidgetsPage, 
 		elements: [SCDWidgetsWidget], 
 		location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: Int(screenInfo.statusBarsize.height) + 15),
@@ -1361,7 +1423,7 @@ public func EasyHStack(
 	page.children.append(container)
 	page.useSafeArea = false
 }
-public func EasyHStack(
+public func EasySCDHStack(
 		_ elements: [SCDWidgetsWidget], 
 		location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: Int(screenInfo.statusBarsize.height) + 15),
 		spacing: Int = 10
@@ -1624,7 +1686,7 @@ public func EasySCDList(_ list: [EasySCDListElement]) -> SCDWidgetsContainer
   	 }
   	 
   	 
-  	 return EasyVStack(textLabel)
+  	 return EasySCDVStack(textLabel)
   	 
 }
   
