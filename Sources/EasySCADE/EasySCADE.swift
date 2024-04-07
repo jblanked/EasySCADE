@@ -177,8 +177,8 @@ extension SCDLatticePageAdapter {
 			self.page!,
 			self.page!,
 			onScroll,
-			onPageEnter,
-			onPageExit
+			onPageEnter: onPageEnter,
+			onPageExit: onPageExit
 		)	
 		
 	}
