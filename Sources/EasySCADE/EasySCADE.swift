@@ -87,19 +87,19 @@ public class EasyVStack {
     private let spacing: Int
     
     // Assume widgets are passed directly to the initializer
-    init(spacing: Int = 10, widgets: [SCDWidgetsWidget]) {
+    public init(spacing: Int = 10, widgets: [SCDWidgetsWidget]) {
         self.spacing = spacing
         self.widgets = widgets
     }
     
     
     // Simplified for direct widget array initialization
-    convenience init(spacing: Int = 10, @WidgetArrayBuilder _ builder: () -> [SCDWidgetsWidget]) {
+    public convenience init(spacing: Int = 10, @WidgetArrayBuilder _ builder: () -> [SCDWidgetsWidget]) {
         self.init(spacing: spacing, widgets: builder())
     }
     
     // Function to layout the widgets vertically
-    func layout(in parentWidget: SCDWidgetsContainer) {
+    public func layout(in parentWidget: SCDWidgetsContainer) {
         var yOffset = 0
         
 	for element in self.widgets {
