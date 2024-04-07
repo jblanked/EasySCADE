@@ -170,8 +170,8 @@ extension SCDLatticePageAdapter {
 
 	public func scrollbar(
 			_ onScroll: @escaping () -> Void = { },
-			_ onPageEnter: @escaping () -> Void = { },
-			_ onPageExit: @escaping () -> Void = { }
+			onPageEnter: @escaping () -> Void = { },
+			onPageExit: @escaping () -> Void = { }
 		) {
 		 EasySCDScrollbar(
 			self.page!,
