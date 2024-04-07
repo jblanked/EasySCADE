@@ -115,6 +115,38 @@ public class EasyVStack {
     }
 }
 
+public class EasyHStack {
+	private var widgets: [SCDWidgetsWidget] = []
+	private let spacing: Int
+	
+	// Assume widgets are passed directly to the initializer
+	public init(spacing: Int = 10, widgets: [SCDWidgetsWidget]) {
+		self.spacing = spacing
+		self.widgets = widgets
+	}
+	
+	// Simplified for direct widget array initialization
+	public convenience init(spacing: Int = 10, @WidgetArrayBuilder _ builder: () -> [SCDWidgetsWidget]) {
+		self.init(spacing: spacing, widgets: builder())
+	}
+	
+	// Function to layout the widgets horizontally
+	public func layout(in parentWidget: SCDWidgetsContainer) {
+		var xOffset = 0
+		
+	for element in self.widgets {
+		let tempContainer = SCDWidgetsContainer()
+		tempContainer.location = SCDGraphicsPoint(x: xOffset, y: Int(element.location.y))
+		tempContainer.size = SCDGraphicsDimension(width: Int(element.size.width), height: Int(element.size.height))
+		xOffset += Int(element.size.width) + spacing
+		tempContainer.children.append(element)
+		parentWidget.children.append(tempContainer)
+	}
+
+	parentWidget.size = SCDGraphicsDimension(width: xOffset, height: Int(screenInfo.screenSize.height))
+	}
+}
+
 @resultBuilder
 public struct WidgetArrayBuilder {
     public static func buildBlock(_ components: SCDWidgetsWidget...) -> [SCDWidgetsWidget] {
@@ -129,6 +161,26 @@ extension SCDLatticePageAdapter {
         st.layout(in: self.page!)
     }    
 
+	// A method to lay out EasyHStack on the current page
+	public func hStack(@WidgetArrayBuilder _ builder: () -> [SCDWidgetsWidget], _ spacing: Int = 10) {
+		let st = EasyHStack.init(spacing: spacing, widgets: builder())
+		st.layout(in: self.page!)
+	}
+
+}
+
+extension SCDWidgetsContainer {
+	// A method to lay out EasyVStack in a container
+	public func vStack(@WidgetArrayBuilder _ builder: () -> [SCDWidgetsWidget], _ spacing: Int = 10) {
+		let st = EasyVStack.init(spacing: spacing, widgets: builder())
+		st.layout(in: self)
+	}
+
+	// A method to lay out EasyHStack in a container
+	public func hStack(@WidgetArrayBuilder _ builder: () -> [SCDWidgetsWidget], _ spacing: Int = 10) {
+		let st = EasyHStack.init(spacing: spacing, widgets: builder())
+		st.layout(in: self)
+	}
 }
 
 
