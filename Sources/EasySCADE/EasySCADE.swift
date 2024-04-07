@@ -164,8 +164,8 @@ extension SCDLatticePageAdapter {
 		st.layout(in: self.page!)
 	}
 
-	public navigateTo(_ page: String = "main.page") {
-		DispatchQueue.main.async { self.page?.navigation?.go(page: page) }
+	public func navigateTo(_ page: String = "main.page") {
+		DispatchQueue.main.async { self.navigation?.go(page: page) }
 	}
 
 }
