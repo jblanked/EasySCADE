@@ -1704,7 +1704,7 @@ public func EasySCDSeperator(_ y: Int = 20, _ strokeColor: SCDSvgColor = EasySVG
     group.children.append(line)
     
     let Label = SCDWidgetsLabel()
-    Label.size = SCDGraphicsDimension(width: Int(screenInfo.screenSize.width), height: y) 
+    Label.size = SCDGraphicsDimension(width: Int(screenInfo.screenSize.width), height: y)
     Label.location = SCDGraphicsPoint(x: 0, y: 0)
     Label.drawing = group // Set the SVG drawing
   	
@@ -1749,13 +1749,14 @@ public func EasySCDList(_ list: [EasySCDListElement]) -> SCDWidgetsContainer
     	  )
   	 	textLabel.append(label)
     	
-    	textLabel.append(EasySCDSeperator(1, SCDColor.black, 3.0))
+    	textLabel.append(EasySCDSeperator(10, SCDColor.black, 3.0))
   	 	
   	 }
   	 
+  	 let stack = EasySCDVStack(textLabel)
+  	 stack.size = SCDGraphicsDimension(width: Int(stack.size.width), height: Int(stack.size.height + ((10 * (textLabel.count)))))
   	 
-  	 return EasySCDVStack(textLabel)
+  	 return stack
   	 
 }
-  
 
