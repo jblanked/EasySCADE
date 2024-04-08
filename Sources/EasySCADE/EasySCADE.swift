@@ -1752,9 +1752,11 @@ public func EasySCDList(_ list: [EasySCDListElement]) -> SCDWidgetsContainer
     	textLabel.append(EasySCDSeperator(1, SCDColor.black, 3.0))
   	 	
   	 }
+
+	 let stack = EasySCDVStack(textLabel, location: SCDGraphicsPoint(x: 0, y: 0), spacing: 0)
   	 
   	 
-  	 return EasySCDVStack(textLabel)
+  	 return stack
   	 
 }
   
