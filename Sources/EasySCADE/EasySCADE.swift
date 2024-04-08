@@ -1753,7 +1753,7 @@ public func EasySCDList(_ list: [EasySCDListElement]) -> SCDWidgetsContainer
   	 	
   	 }
 
-	 let stack = EasySCDVStack(textLabel, location: SCDGraphicsPoint(x: 0, y: 0), spacing: 0)
+	 let stack = EasySCDVStack(textLabel, location: SCDGraphicsPoint(x: 0, y: 0), spacing: 2)
   	 
   	 
   	 return stack
