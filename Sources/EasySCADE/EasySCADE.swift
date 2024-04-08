@@ -1736,7 +1736,7 @@ public func EasySCDList(_ list: [EasySCDListElement]) -> SCDWidgetsContainer
   	 			fontsize: i.fontsize,
 				font: "ArialMT",
 				fontcolor: i.fontcolor,
-				paddingVertical: -10,
+				paddingVertical: 0,
 				paddingHorizontal: 0,
 				x_location: 5,
 				y_location: 0,
@@ -1749,7 +1749,7 @@ public func EasySCDList(_ list: [EasySCDListElement]) -> SCDWidgetsContainer
     	  )
   	 	textLabel.append(label)
     	let sec = EasySCDSeperator(10, SCDColor.black, 3.0)
-		//sec.paddingBottom = 10
+		sec.size = SCDGraphicsDimension(width: Int(screenInfo.screenSize.width), height: 20)
     	textLabel.append(sec)
   	 	
   	 }
