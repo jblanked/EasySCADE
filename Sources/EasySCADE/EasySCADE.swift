@@ -1753,10 +1753,9 @@ public func EasySCDList(_ list: [EasySCDListElement]) -> SCDWidgetsContainer
   	 	
   	 }
   	 
-  	 let stack = EasySCDVStack(textLabel)
-  	 stack.size = SCDGraphicsDimension(width: Int(stack.size.width), height: Int(stack.size.height + ((10 * (textLabel.count)))))
   	 
-  	 return stack
+  	 return EasySCDVStack(textLabel)
   	 
 }
+  
 
