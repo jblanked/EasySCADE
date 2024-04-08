@@ -1749,7 +1749,7 @@ public func EasySCDList(_ list: [EasySCDListElement]) -> SCDWidgetsContainer
     	  )
   	 	textLabel.append(label)
     	
-    	textLabel.append(EasySCDSeperator(10, SCDColor.black, 3.0))
+    	textLabel.append(EasySCDSeperator(1, SCDColor.black, 3.0))
   	 	
   	 }
   	 
