@@ -147,12 +147,9 @@ let container: SCDWidgetsContainer = SCDWidgetsContainer()
 container.hStack {
 	textLabel
 	button
-}
-
-	
+}	
 ```
 
-(Include several code examples that demonstrate how to use the various features of EasySCADE.)
 
 
 ## License
