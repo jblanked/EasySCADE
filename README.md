@@ -48,7 +48,7 @@ let package = Package(
     ],
     targets: [
         .target(
-            name: "YourTargetName",
+            name: "YourProjectName",
             dependencies: ["EasySCADE"]),
             exclude: ["main.page"],
             swiftSettings: [
