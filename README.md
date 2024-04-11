@@ -81,25 +81,25 @@ android:
     output: 
     product-path: 
     extra-args:
-    search-paths: []
+    search-paths: [.build/checkouts/EasySCADE/lib/android/armeabi-v7a] // add reference
     linked-libs: [sqlite3] // add sqlite3
   arm64-v8a:
     output: 
     product-path: 
     extra-args:
-    search-paths: []
+    search-paths: [.build/checkouts/EasySCADE/lib/android/arm64-v8a] // add reference
     linked-libs: [sqlite3] // add sqlite3
   x86:
     output: 
     product-path: 
     extra-args:
-    search-paths: []
+    search-paths: [.build/checkouts/EasySCADE/lib/android/x86] // add reference
     linked-libs: [sqlite3] // add sqlite3
   x86_64:
     output: 
     product-path: 
     extra-args:
-    search-paths: []
+    search-paths: [.build/checkouts/EasySCADE/lib/android/x86_64] // add reference
     linked-libs: [sqlite3] // add sqlite3
   intent-filters:
     - action:
