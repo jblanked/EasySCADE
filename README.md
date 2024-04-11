@@ -64,7 +64,9 @@ Replace `YourProjectName` with your project name.
 
 ### Step 3: Add SQLITE3 as a Library
 
-Open your SCADE project's `build.yaml` file and add SQLite3 as a linked library in the `android` section:
+Download the `lib` folder from [https://github.com/jblanked/EasySCADE/tree/main/lib/android](https://github.com/jblanked/EasySCADE/tree/main/lib/android) and place it directly in your project directory.
+
+Then, open your SCADE project's `build.yaml` file and add SQLite3 as a linked library in the `android` section:
 
 ```swift
 android:
@@ -81,25 +83,25 @@ android:
     output: 
     product-path: 
     extra-args:
-    search-paths: [.build/checkouts/EasySCADE/lib/android/armeabi-v7a] // add reference
+    search-paths: []
     linked-libs: [sqlite3] // add sqlite3
   arm64-v8a:
     output: 
     product-path: 
     extra-args:
-    search-paths: [.build/checkouts/EasySCADE/lib/android/arm64-v8a] // add reference
+    search-paths: []
     linked-libs: [sqlite3] // add sqlite3
   x86:
     output: 
     product-path: 
     extra-args:
-    search-paths: [.build/checkouts/EasySCADE/lib/android/x86] // add reference
+    search-paths: []
     linked-libs: [sqlite3] // add sqlite3
   x86_64:
     output: 
     product-path: 
     extra-args:
-    search-paths: [.build/checkouts/EasySCADE/lib/android/x86_64] // add reference
+    search-paths: []
     linked-libs: [sqlite3] // add sqlite3
   intent-filters:
     - action:
