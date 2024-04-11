@@ -82,7 +82,7 @@ public class EasyAppStorage {
     }
 }
 
-public let appStorage: EasyAppStorage = EasyAppStorage()
+public var appStorage: EasyAppStorage = EasyAppStorage()
 
 // class to store screen information
 public class EasyScreenInfo: EObject {
