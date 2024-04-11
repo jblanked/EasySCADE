@@ -21,6 +21,7 @@ let package = Package(
     dependencies: [
         .package(url: "https://github.com/scade-platform/ScadeExtensions", branch: "main"),
         .package(url: "https://github.com/scade-platform/swift-android.git", branch: "android/24"),
+        .package(url: "https://github.com/scadedoc/SQLite.swift", branch: "master"),
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
@@ -28,6 +29,7 @@ let package = Package(
         .target(
             name: "EasySCADE",
             dependencies: ["ScadeExtensions",
+            .product(name: "SQLite", package: "SQLite.swift"),
             .product(name: "Android", package: "swift-android", condition: .when(platforms: [.android])),
             .product(name: "AndroidOS", package: "swift-android", condition: .when(platforms: [.android])),
             .product(name: "AndroidView", package: "swift-android", condition: .when(platforms: [.android])),

@@ -61,7 +61,61 @@ let package = Package(
 
 Replace `YourProjectName` with your project name.
 
-### Step 3: Import EasySCADE
+
+### Step 3: Add SQLITE3 as a Library
+
+Open your SCADE project's `build.yaml` file and add SQLite3 as a linked library in the `android` section:
+
+```swift
+android:
+  name: YourProjectName
+  id: com.scade.YourProjectName
+  version-name: 1.0.0
+  version-code: 1
+  build-type: Debug
+  key-store-properties:
+  google-api-key:
+  manifest-file:
+  permissions: [INTERNET,BLUETOOTH,CAMERA,POST_NOTIFICATIONS] // add these permissions as well
+  armeabi-v7a:
+    output: 
+    product-path: 
+    extra-args:
+    search-paths: []
+    linked-libs: [sqlite3] // add sqlite3
+  arm64-v8a:
+    output: 
+    product-path: 
+    extra-args:
+    search-paths: []
+    linked-libs: [sqlite3] // add sqlite3
+  x86:
+    output: 
+    product-path: 
+    extra-args:
+    search-paths: []
+    linked-libs: [sqlite3] // add sqlite3
+  x86_64:
+    output: 
+    product-path: 
+    extra-args:
+    search-paths: []
+    linked-libs: [sqlite3] // add sqlite3
+  intent-filters:
+    - action:
+      scheme:
+      categories: []
+  icons:
+    mdpi:
+    hdpi:
+    xhdpi:
+    xxhdpi:
+
+```
+
+
+
+### Step 4: Import EasySCADE
 
 Now that you have added EasySCADE as a dependency, you can start using it in your project. Simply import EasySCADE in your Swift files:
 
@@ -69,7 +123,7 @@ Now that you have added EasySCADE as a dependency, you can start using it in you
 import EasySCADE
 ```
 
-### Step 4: Start Using EasySCADE
+### Step 5: Start Using EasySCADE
 
 You are now ready to simplify your SCADE app development with EasySCADE! Check the [Usage](#usage) section below for examples on how to use EasySCADE in your project.
 
