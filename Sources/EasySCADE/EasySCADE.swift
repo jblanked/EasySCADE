@@ -18,6 +18,71 @@ import AndroidContent
 let easyProgress: ProgressDialog = ProgressDialog(context: Application.currentActivity!)
 #endif
 
+import SQLite
+
+public class EasyStorage {
+    
+    private let db: Connection
+    private let keyValueTable = Table("key_value_store")
+    private let key = Expression<String>("key")
+    private let value = Expression<String>("value")
+    
+    // Initialize the database connection
+    public init() {
+        do {
+            let path = NSHomeDirectory() + "/data.db"
+            db = try Connection(path)
+            try createTable()
+        } catch {
+            fatalError("Failed to initialize database connection: \(error)")
+        }
+    }
+    
+    // Create the key-value table
+    private func createTable() throws {
+        try db.run(keyValueTable.create(ifNotExists: true) { t in
+            t.column(key, primaryKey: true)
+            t.column(value)
+        })
+    }
+    
+    // Write a key-value pair
+    public static func write(key: String, value: String) {
+        do {
+            let storage = Storage()
+            let insert = storage.keyValueTable.insert(or: .replace, storage.key <- key, storage.value <- value)
+            try storage.db.run(insert)
+        } catch {
+            print("Failed to write key-value: \(error)")
+        }
+    }
+    
+    // Read a value by key
+    public static func read(key: String) -> String? {
+        do {
+            let storage = Storage()
+            if let row = try storage.db.pluck(storage.keyValueTable.filter(storage.key == key)) {
+                return row[storage.value]
+            }
+        } catch {
+            print("Failed to read key: \(error)")
+        }
+        return nil
+    }
+    
+    // Delete a key-value pair
+    public static func delete(key: String) {
+        do {
+            let storage = Storage()
+            let row = storage.keyValueTable.filter(storage.key == key)
+            try storage.db.run(row.delete())
+        } catch {
+            print("Failed to delete key: \(error)")
+        }
+    }
+}
+
+
 // class to store user information
 // public class Storage: EObject
 // {
@@ -32,15 +97,6 @@ let easyProgress: ProgressDialog = ProgressDialog(context: Application.currentAc
 // }
 // var appStorage:Storage = Storage()
 
-// public func EasyStorageSave(_ storage: Storage = appStorage, _ relativePath: String = "appStorage")
-// {
-// 	SCDRuntime.saveDocument(relativePath: relativePath, document: appStorage)
-// }
-
-// public func EasyStorageLoad(_ relativePath: String = "appStorage")
-// {
-// 	appStorage = SCDRuntime.loadResource(relativePath: relativePath) as! Storage
-// }
 
 // class to store screen information
 public class EasyScreenInfo: EObject {
