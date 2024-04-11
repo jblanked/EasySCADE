@@ -64,7 +64,7 @@ Replace `YourProjectName` with your project name.
 
 ### Step 3: Add SQLITE3 as a Library
 
-Download the `lib` folder from [https://github.com/jblanked/EasySCADE/tree/main/lib/android](https://github.com/jblanked/EasySCADE/tree/main/lib/android) and place it directly in your project directory.
+Download the `lib` folder from [https://github.com/6vedant/SQLiteScadeExample/tree/master/lib](https://github.com/6vedant/SQLiteScadeExample/tree/master/lib) and place it directly in your project directory.
 
 Then, open your SCADE project's `build.yaml` file and add SQLite3 as a linked library in the `android` section:
 
