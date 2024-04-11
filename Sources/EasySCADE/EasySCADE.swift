@@ -47,22 +47,20 @@ public class EasyAppStorage {
     }
     
     // Write a key-value pair
-    public static func write(key: String, value: String) {
+    public func write(key: String, value: String) {
         do {
-            let storage = EasyAppStorage()
-            let insert = storage.keyValueTable.insert(or: .replace, storage.key <- key, storage.value <- value)
-            try storage.db.run(insert)
+            let insert = keyValueTable.insert(or: .replace, self.key <- key, self.value <- value)
+            try db.run(insert)
         } catch {
             print("Failed to write key-value: \(error)")
         }
     }
     
     // Read a value by key
-    public static func read(key: String) -> String? {
+    public func read(key: String) -> String? {
         do {
-            let storage = EasyAppStorage()
-            if let row = try storage.db.pluck(storage.keyValueTable.filter(storage.key == key)) {
-                return row[storage.value]
+            if let row = try db.pluck(keyValueTable.filter(self.key == key)) {
+                return row[self.value]
             }
         } catch {
             print("Failed to read key: \(error)")
@@ -71,18 +69,18 @@ public class EasyAppStorage {
     }
     
     // Delete a key-value pair
-    public static func delete(key: String) {
+    public func delete(key: String) {
         do {
-            let storage = EasyAppStorage()
-            let row = storage.keyValueTable.filter(storage.key == key)
-            try storage.db.run(row.delete())
+            let row = keyValueTable.filter(self.key == key)
+            try db.run(row.delete())
         } catch {
             print("Failed to delete key: \(error)")
         }
     }
 }
 
-public var appStorage: EasyAppStorage = EasyAppStorage()
+
+public let appStorage: EasyAppStorage = EasyAppStorage()
 
 // class to store screen information
 public class EasyScreenInfo: EObject {
