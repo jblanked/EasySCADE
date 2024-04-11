@@ -20,7 +20,7 @@ let easyProgress: ProgressDialog = ProgressDialog(context: Application.currentAc
 
 import SQLite
 
-public class EasyStorage {
+public class EasyAppStorage {
     
     private let db: Connection
     private let keyValueTable = Table("key_value_store")
@@ -49,7 +49,7 @@ public class EasyStorage {
     // Write a key-value pair
     public static func write(key: String, value: String) {
         do {
-            let storage = Storage()
+            let storage = EasyAppStorage()
             let insert = storage.keyValueTable.insert(or: .replace, storage.key <- key, storage.value <- value)
             try storage.db.run(insert)
         } catch {
@@ -60,7 +60,7 @@ public class EasyStorage {
     // Read a value by key
     public static func read(key: String) -> String? {
         do {
-            let storage = Storage()
+            let storage = EasyAppStorage()
             if let row = try storage.db.pluck(storage.keyValueTable.filter(storage.key == key)) {
                 return row[storage.value]
             }
@@ -73,7 +73,7 @@ public class EasyStorage {
     // Delete a key-value pair
     public static func delete(key: String) {
         do {
-            let storage = Storage()
+            let storage = EasyAppStorage()
             let row = storage.keyValueTable.filter(storage.key == key)
             try storage.db.run(row.delete())
         } catch {
