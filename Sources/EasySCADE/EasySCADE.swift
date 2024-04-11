@@ -353,6 +353,29 @@ public func EasyRGBColorToSVG(_ rgbColor: SCDGraphicsRGB) -> SCDColor
    return color2
 }
 
+// creates a SCDGraphicsFont
+public func EasyFont(
+    _ size: Int = 20,
+  	_ name: String = "ArialMT",
+  	_ color: SCDGraphicsRGB = EasyColor.black,
+  	_ bold: Bool = false,
+  	_ underline: Bool = false,
+  	_ italic: Bool = false,
+  	_ lineThrough: Bool = false 	
+  ) -> SCDGraphicsFont
+  {
+  	let f: SCDGraphicsFont = SCDGraphicsFont()
+    	 
+    f.bold = bold
+    f.color = color
+    f.italic = italic
+    f.lineThrough = lineThrough
+    f.underline = underline
+    f.size = size
+    
+    return f
+  }
+
 
 // creates a Loading Spinner
 public func EasySpinner(_ show: Bool, _ text: String = "Loading...") {

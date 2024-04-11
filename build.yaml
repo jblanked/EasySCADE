@@ -1,0 +1,11 @@
+android:
+  permissions: [INTERNET,BLUETOOTH,CAMERA,POST_NOTIFICATIONS]
+  armeabi-v7a:
+    linked-libs: [sqlite3]
+  arm64-v8a:
+    linked-libs: [sqlite3]
+  x86:
+    linked-libs: [sqlite3]
+  x86_64:
+    linked-libs: [sqlite3]
+
