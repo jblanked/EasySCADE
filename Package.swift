@@ -29,7 +29,7 @@ let package = Package(
         .target(
             name: "EasySCADE",
             dependencies: ["ScadeExtensions",
-            .product(name: "SQLite", package: "SQLite.swift"),
+            .product(name: "SQLite", package: "SQLite.swift", condition: .when(platforms: [.macOS, .iOS])),
             .product(name: "Android", package: "swift-android", condition: .when(platforms: [.android])),
             .product(name: "AndroidOS", package: "swift-android", condition: .when(platforms: [.android])),
             .product(name: "AndroidView", package: "swift-android", condition: .when(platforms: [.android])),
