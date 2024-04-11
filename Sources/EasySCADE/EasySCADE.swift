@@ -82,21 +82,7 @@ public class EasyAppStorage {
     }
 }
 
-
-// class to store user information
-// public class Storage: EObject
-// {
-// 	var loggedIn: Bool
-// 	var userInfo: ProfileData
-	
-// 	init(loggedIn: Bool, userInfo: ProfileData)
-// 	{
-// 		self.loggedIn = loggedIn
-// 		self.userInfo = userInfo
-// 	}
-// }
-// var appStorage:Storage = Storage()
-
+public let appStorage: EasyAppStorage = EasyAppStorage()
 
 // class to store screen information
 public class EasyScreenInfo: EObject {
