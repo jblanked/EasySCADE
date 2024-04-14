@@ -140,6 +140,9 @@ let textLabel: SCDWidgetsWidget = EasySCDTextLabel("Your Text")
 // Image
 let image: SCDWidgetsImage = EasySCDImage("Assets/YourImage.png")
 
+// ImageURL with caching
+let image: SCDWidgetsImage = EasySCDImageCache("yourKey", "yourImageURL")
+
 // Button
 let button: SCDWidgetsButton = EasySCDButton("Button")
 
