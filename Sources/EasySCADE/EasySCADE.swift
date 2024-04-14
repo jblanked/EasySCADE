@@ -82,7 +82,6 @@ public class EasyAppStorage {
 	public func deleteAllKeys() {
 		do {
 			try db.run(keyValueTable.delete())
-			print("All keys deleted successfully.")
 		} catch {
 			print("Failed to delete all keys: \(error)")
 		}
