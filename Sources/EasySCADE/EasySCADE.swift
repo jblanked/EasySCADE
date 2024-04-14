@@ -929,7 +929,7 @@ private func EasySCDImageCache(_ key: String, _ value: String) -> SCDWidgetsImag
 
 
 
-func EasySCDImageCacheLocal(_ key: String, _ filePath: String) -> SCDWidgetsImage {
+private func EasySCDImageCacheLocal(_ key: String, _ filePath: String) -> SCDWidgetsImage {
     var imageWidget = SCDWidgetsImage()
 
     // Check if the cached version of the file exists and is valid
