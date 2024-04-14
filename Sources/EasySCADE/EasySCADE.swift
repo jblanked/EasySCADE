@@ -899,7 +899,7 @@ public func EasyAlert(title:String, message:String,action: @escaping () -> Void 
 
   }
 
-public func EasySCDImageCache(_ key: String, _ value: String) -> SCDWidgetsImage {
+private func EasySCDImageCache(_ key: String, _ value: String) -> SCDWidgetsImage {
     var imageWidget = SCDWidgetsImage()
 
     // Try to read the cached picture from storage
@@ -926,6 +926,34 @@ public func EasySCDImageCache(_ key: String, _ value: String) -> SCDWidgetsImage
 
     return imageWidget
 }
+
+
+
+func EasySCDImageCacheLocal(_ key: String, _ filePath: String) -> SCDWidgetsImage {
+    var imageWidget = SCDWidgetsImage()
+
+    // Check if the cached version of the file exists and is valid
+    if let cachedString = appStorage.read(key: key) {
+        let cachedImageData = Data(base64Encoded: cachedString.replacingOccurrences(of: "data:image/png;base64,", with: ""))
+        if let imageData = cachedImageData {
+            imageWidget = EasySCDImageData(imageData)
+        }
+    }
+
+    // Check if the local file differs from the cached version or if the cached version is not valid
+    if let newImageData = try? Data(contentsOf: URL(fileURLWithPath: filePath)) {
+        let newImageBase64String = newImageData.base64EncodedString()
+        if appStorage.read(key: key) != newImageBase64String && !newImageData.isEmpty {
+            // Save the new image as a base64 string to cache
+            appStorage.write(key: key, value: newImageBase64String)
+            // Update the image widget with the new image data
+            imageWidget = EasySCDImageData(newImageData)
+        }
+    }
+
+    return imageWidget
+}
+
 
 
 // creates SCDImagelabels from urls
@@ -977,10 +1005,7 @@ public func EasySCDImage(
 		
 		}) -> SCDWidgetsImage
     {	
-    	let image = SCDWidgetsImage()
-        
-        image.url = path
-        image.contentPriority = false
+    	let image = EasySCDImageCacheLocal(path, path)
         
         let size = SCDGraphicsDimension()
         size.height = height
