@@ -889,7 +889,35 @@ public func EasyAlert(title:String, message:String,action: @escaping () -> Void 
 	}
 
   }
-  
+
+public func EasySCDImageCache(_ key: String, _ value: String) -> SCDWidgetsImage {
+    var imageWidget = SCDWidgetsImage()
+
+    // Try to read the cached picture from storage
+    if let picString = appStorage.read(key: key) {
+        // Decode the base64 string after stripping the data URI prefix
+        let base64String = picString.replacingOccurrences(of: "data:image/png;base64,", with: "")
+        if let imageData = Data(base64Encoded: base64String) {
+            // Set the image if existing cache data is valid
+            imageWidget = EasySCDImageData(imageData)
+        }
+    }
+
+    // Fetch the image from the provided URL if the cached image is not valid or doesn't exist
+    if let profileImageURL = URL(string: value), let newImageData = try? Data(contentsOf: profileImageURL) {
+        // Check if the new image data is different from what's already cached and it's not empty
+        let newImageBase64String = newImageData.base64EncodedString()
+        if appStorage.read(key: key) != newImageBase64String && !newImageData.isEmpty {
+            // Save the new image as a base64 string to cache
+            appStorage.write(key: key, value: newImageBase64String)
+            // Create an image from the newly fetched data and update the widget
+            imageWidget = EasySCDImageData(newImageData)
+        }
+    }
+
+    return imageWidget
+}
+
 
 // creates SCDImagelabels from urls
 public func EasySCDImageURL(
@@ -901,22 +929,7 @@ public func EasySCDImageURL(
 		location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: 0),
 		navigationAction: @escaping () -> Void = {  }) -> SCDWidgetsImage
 {	
-	let image = SCDWidgetsImage()
-			
-	// Create URL
-	let url = URL(string: path)!
-
-	DispatchQueue.main.async {
-		// Fetch Image Data
-		if let data = try? Data(contentsOf: url) {
-		
-		DispatchQueue.main.async {
-			// Create Image and Update Image Control
-			image.contentPriority = true
-			image.content = data
-		}
-		}
-	}
+	let image = EasySCDImageCache(path, path)
 			
 	let size = SCDGraphicsDimension()
 	size.height = height
@@ -938,6 +951,9 @@ public func EasySCDImageURL(
 
 	return image
 }
+
+// 
+
 
 // creates SCDImagelabels from local paths
 public func EasySCDImage(
