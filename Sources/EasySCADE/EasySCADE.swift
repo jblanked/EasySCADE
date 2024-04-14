@@ -19,7 +19,7 @@ import AndroidOS
 let easyProgress: ProgressDialog = ProgressDialog(context: Application.currentActivity!)
 #endif
 
-import SQLite
+//import SQLite
 
 // public class EasyAppStorage {
     
