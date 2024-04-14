@@ -137,7 +137,7 @@ Here are some examples of how EasySCADE can be used in your SCADE applications:
 // Text Label
 let textLabel: SCDWidgetsWidget = EasySCDTextLabel("Your Text")
 
-// Image
+// Image with caching
 let image: SCDWidgetsImage = EasySCDImage("Assets/YourImage.png")
 
 // ImageURL with caching
