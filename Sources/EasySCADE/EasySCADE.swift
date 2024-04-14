@@ -100,7 +100,7 @@ public class EasyAppStorage {
     
     public init() {
         #if os(Android)
-        sharedPreferences = Application.currentActivity?.getSharedPreferences(name: "EasySCADE", mode: 0)
+        sharedPreferences = Application.currentActivity?.getSharedPreferences(name: "Scade", mode: 0)
         #endif
     }
     
