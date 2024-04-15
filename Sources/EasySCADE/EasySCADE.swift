@@ -1438,6 +1438,7 @@ public func EasySCDWebView(
 
 // change the text of an EasySCDTextLabel
 extension SCDWidgetsContainer {
+	
     public func setText(_ text: String) {
         if let tempContainer = self.children.first as? SCDWidgetsContainer,
            let label = tempContainer.children.first as? SCDWidgetsLabel {
