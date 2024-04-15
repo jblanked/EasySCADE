@@ -1436,6 +1436,16 @@ public func EasySCDWebView(
 
 }
 
+// change the text of an EasySCDTextLabel
+extension SCDWidgetsContainer {
+    public func setText(_ text: String) {
+        if let tempContainer = self.children.first as? SCDWidgetsContainer,
+           let label = tempContainer.children.first as? SCDWidgetsLabel {
+            label.text = text
+        }
+    }
+}
+
 // create dynamic SCDTextLabels
 public func EasySCDTextLabel(_ text: String, 
 							fontsize:Int = 20,
@@ -1448,8 +1458,7 @@ public func EasySCDTextLabel(_ text: String,
 							bold: Bool = false,
 							underline: Bool = false,
 							action: @escaping () -> Void = { }
-							) 
-							 -> SCDWidgetsContainer
+							)-> SCDWidgetsContainer
     {	
 		let paragraph = splitTextIntoLines(text, fontsize)
 		var elements = [SCDWidgetsWidget]()
