@@ -82,6 +82,19 @@ Here are some examples of how EasySCADE can be used in your SCADE applications:
 // Text Label
 let textLabel: SCDWidgetsWidget = EasySCDTextLabel("Your Text")
 
+// Textbox
+let textBox: SCDWidgetsTextbox = EasySCDTextBox("Placeholder")
+
+// Textbox Form
+let textBoxForm: SCDWidgetsWidget = EasySCDTextForm(
+    [
+        EasySCDTextBoxForm(
+            title: "Your Title",
+            textbox: textBox // from above
+        )
+    ]
+)
+
 // Image with caching
 let image: SCDWidgetsImage = EasySCDImage("Assets/YourImage.png")
 
@@ -94,8 +107,39 @@ let button: SCDWidgetsButton = EasySCDButton("Button")
 // Navigation Bar
 let navigationBar: SCDWidgetsWidget = EasySCDNavigationBar()
 
+// WebView/VideoView
+let web: SCDWidgetsWebView = EasySCDWebView("https://www.github.com/jblanked/EasySCADE")
+
 // Check Box
 let checkBox: SCDWidgetsCheckbox = EasySCDCheckbox()
+
+// Spacer
+let spacer: SCDWidgetsWidget = EasySCDSpacer()
+
+// Separator
+let separator: SCDWidgetsWidget = EasySCDSeperator()
+
+
+// Screen Info
+screenInfo.screenSize.height // Screen Height
+screenInfo.screenSize.width // Screen Width
+screenInfo.statusBarVisible // boolean 
+screenInfo.statusBarsize.height // Status Bar Height
+screenInfo.statusBarsize.width // Status Bar Width
+
+
+// App Storage
+appStorage.write(key: "yourKey", value: "Your Value")  // save value
+
+appStorage.deleteAllKeys() // delete all keys
+
+appStorage.delete(key: "yourKey") // delete key
+
+if let yourValue = appStorage.read(key: "yourKey") // get value from key
+{
+    print(yourValue)
+}
+
 
 // colors
 let white: SCDGraphicsRGB = EasyColor.white
@@ -109,48 +153,70 @@ EasyAlert(title: "Your Title", message: "Your Alert Message")
 // Loading Spinner
 EasySpinner(true)
 
+// Swipe Gesture
+EasySwipeGesture(
+    self.page,
+    .left
+)
+
+// Card
+let card: SCDWidgetsContainer = EasySCDCard(
+    path: "Assets/YourBackgroundImage.png",
+    title: "Header title",
+    description: "Body"
+)
+
+// List
+let list: SCDWidgetsContainer = EasySCDList(
+    [
+        EasySCDListElement(item: "Value1"),
+        EasySCDListElement(item: "Value2"),
+        EasySCDListElement(item: "Value3")
+    ]
+)
+
 // VStack
 let vStack: SCDWidgetsContainer = EasySCDVStack(
 	[
-		textLabel,
-		button
+		textLabel, // from above
+		button // from above
 	]
 )
 
 // alternative VStack
 self.vStack {
-	textLabel
-	button
+	textLabel // from above
+	button // from above
 }
 
 // alternative VStack 2
 let container: SCDWidgetsContainer = SCDWidgetsContainer()
 
 container.vStack {
-	textLabel
-	button
+	textLabel // from above
+	button // from above
 }
 
 // HStack
 let hStack: SCDWidgetsContainer = EasySCDHStack(
 	[
-		textLabel,
-		button
+		textLabel, // from above
+		button // from above
 	]
 )
 
 // alternative HStack
 self.hStack {
-	textLabel
-	button
+	textLabel // from above
+	button // from above
 }
 
 // alternative HStack 2
 let container: SCDWidgetsContainer = SCDWidgetsContainer()
 
 container.hStack {
-	textLabel
-	button
+	textLabel // from above
+	button // from above
 }	
 ```
 
