@@ -160,7 +160,7 @@ EasySwipeGesture(
 )
 
 // Swipe Gesture
-image.swipeGesture(.left, { self.navigation!.go(page: "main.page")  })
+image.swipeGesture({ self.navigation!.go(page: "main.page")  }, .right)
 
 
 // Card
@@ -171,7 +171,7 @@ let card: SCDWidgetsContainer = EasySCDCard(
 )
 
 // Swipe Gesture
-card.swipeGesture(.right, { self.navigation!.go(page: "main.page")  })
+card.swipeGesture({ self.navigation!.go(page: "main.page")  }, .left)
 
 
 // List

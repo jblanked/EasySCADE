@@ -290,7 +290,7 @@ extension SCDLatticePageAdapter {
 	}
 
 	public func swipeGesture(
-			_ action: @escaping () -> Void = {  }
+			_ action: @escaping () -> Void = {  },
 			_ direction: SCDSvgSwipeDirection = .right,
 		)  {
 			EasySwipeGesture(self.page!, direction, action)
@@ -300,7 +300,7 @@ extension SCDLatticePageAdapter {
 
 extension SCDWidgetsWidget {
 	public func swipeGesture(
-			_ action: @escaping () -> Void = {  }
+			_ action: @escaping () -> Void = {  },
 			_ direction: SCDSvgSwipeDirection = .right,
 		)  {
 			EasySwipeGesture(self, direction, action)
