@@ -159,12 +159,20 @@ EasySwipeGesture(
     .left
 )
 
+// Swipe Gesture
+image.swipeGesture(.left, { self.navigation!.go(page: "main.page")  })
+
+
 // Card
 let card: SCDWidgetsContainer = EasySCDCard(
     path: "Assets/YourBackgroundImage.png",
     title: "Header title",
     description: "Body"
 )
+
+// Swipe Gesture
+card.swipeGesture(.right, { self.navigation!.go(page: "main.page")  })
+
 
 // List
 let list: SCDWidgetsContainer = EasySCDList(
