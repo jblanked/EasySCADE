@@ -564,7 +564,7 @@ public func EasySwipeGesture(
 	}
 // add the gesture to the widget after the widget has been added to the page so that the recognizer will use the entire length of the widget instead of just the original page size
 public func EasySwipeGesture(
-		  widget: SCDWidgetsWidget,
+		_ widget: SCDWidgetsWidget,
 		_ direction: SCDSvgSwipeDirection = .left,
 		_ action: @escaping () -> Void = { print("swiped") }
 		)  {
