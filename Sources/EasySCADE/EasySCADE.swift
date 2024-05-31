@@ -1250,11 +1250,7 @@ public func EasySCDTextBox	(
 		tBox.font!.color = fontcolor
 		tBox.backgroundColor = EasyColor.gray
 		tBox.cornerRadius = 5
-
-		// tBox.onTextChange.append(SCDWidgetsTextChangeEventHandler{
-		// 	ev in form.variable = ev!.newValue			
-		// })
-
+		
 		if paddingHorizontal > 0 {
 			tBox.paddingLeft = paddingHorizontal
 			tBox.size.width = width - paddingHorizontal
