@@ -317,7 +317,7 @@ extension SCDWidgetsContainer {
 			onPageExit: @escaping () -> Void = { }
 		) {
 		 EasySCDScrollbar(
-			self,
+			self.page!,
 			self,
 			onScroll,
 			onPageEnter: onPageEnter,
