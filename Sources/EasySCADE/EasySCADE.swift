@@ -298,6 +298,15 @@ extension SCDLatticePageAdapter {
 
 }
 
+extension SCDWidgetsWidget {
+	public func swipeGesture(
+			_ direction: SCDSvgSwipeDirection = .left,
+			_ action: @escaping () -> Void = {  }
+		)  {
+			EasySwipeGesture(self, direction, action)
+		}
+}
+
 extension SCDWidgetsContainer {
 	// A method to lay out EasyVStack in a container
 	public func vStack(@WidgetArrayBuilder _ builder: () -> [SCDWidgetsWidget], _ spacing: Int = 10) {
