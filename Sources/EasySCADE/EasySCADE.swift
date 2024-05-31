@@ -319,13 +319,6 @@ extension SCDWidgetsContainer {
 		let st = EasyHStack.init(spacing: spacing, widgets: builder())
 		st.layout(in: self)
 	}
-
-	public func swipeGesture(
-			_ direction: SCDSvgSwipeDirection = .left,
-			_ action: @escaping () -> Void = {  }
-		)  {
-			EasySwipeGesture(self, direction, action)
-		}
 }
 
 
