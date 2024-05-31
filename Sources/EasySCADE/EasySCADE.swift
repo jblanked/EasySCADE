@@ -290,8 +290,8 @@ extension SCDLatticePageAdapter {
 	}
 
 	public func swipeGesture(
-			_ direction: SCDSvgSwipeDirection = .left,
 			_ action: @escaping () -> Void = {  }
+			_ direction: SCDSvgSwipeDirection = .right,
 		)  {
 			EasySwipeGesture(self.page!, direction, action)
 		}
@@ -300,8 +300,8 @@ extension SCDLatticePageAdapter {
 
 extension SCDWidgetsWidget {
 	public func swipeGesture(
-			_ direction: SCDSvgSwipeDirection = .left,
 			_ action: @escaping () -> Void = {  }
+			_ direction: SCDSvgSwipeDirection = .right,
 		)  {
 			EasySwipeGesture(self, direction, action)
 		}
@@ -563,7 +563,7 @@ public func EasySpinner(_ seconds: Int, _ text: String = "Loading...", _ action:
 
 public func EasySwipeGesture(
 		_ page: SCDWidgetsPage,
-		_ direction: SCDSvgSwipeDirection = .left,
+		_ direction: SCDSvgSwipeDirection = .right,
 		_ action: @escaping () -> Void = { print("swiped") }
 		)  {
 		
@@ -581,7 +581,7 @@ public func EasySwipeGesture(
 // add the gesture to the widget after the widget has been added to the page so that the recognizer will use the entire length of the widget instead of just the original page size
 public func EasySwipeGesture(
 		_ widget: SCDWidgetsWidget,
-		_ direction: SCDSvgSwipeDirection = .left,
+		_ direction: SCDSvgSwipeDirection = .right,
 		_ action: @escaping () -> Void = { print("swiped") }
 		)  {
 		
@@ -1868,10 +1868,10 @@ public func EasySCDNavigationBar(
 		backArrow.x = SCDSvgUnit(integerLiteral: 10) 	
 		backArrow.y = SCDSvgUnit(integerLiteral: 0) 
 	
-	// apply swipe gesture to the navbar
-	EasySwipeGesture(page, .left, action) 
   	
   	page.children.append(navbar)
+
+	EasySwipeGesture(page, .right, action) 
   }
 
 public struct EasySCDToolbarItem
