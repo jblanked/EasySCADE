@@ -311,21 +311,6 @@ extension SCDWidgetsContainer {
 		st.layout(in: self)
 	}
 
-	public func scrollbar(
-			_ onScroll: @escaping () -> Void = { },
-			onPageEnter: @escaping () -> Void = { },
-			onPageExit: @escaping () -> Void = { }
-		) {
-		 EasySCDScrollbar(
-			self.page!,
-			self,
-			onScroll,
-			onPageEnter: onPageEnter,
-			onPageExit: onPageExit
-		)	
-		
-	}
-
 	public func swipeGesture(
 			_ direction: SCDSvgSwipeDirection = .left,
 			_ action: @escaping () -> Void = {  }
