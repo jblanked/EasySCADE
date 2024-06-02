@@ -597,118 +597,46 @@ public func EasySwipeGesture(
 		widget.drawing!.gestureRecognizers.append(swipeGestureRecognizer)
 	}
 
-
-private func Rectangle(
-		path: String,
-		text: String,
-		description: String,
-		font: String = "ArialMT",
-		fontColor: SCDGraphicsRGB = EasyColor.blue,
-		width: Int = Int(screenInfo.screenSize.width - 10),
-		height: Int = Int(screenInfo.screenSize.width - 10),
-		cardColor: SCDGraphicsRGB = EasyColor.black
-	) -> BubbleInfo
-	{
-
-
-		let group = SCDSvgGroup()
-
-		// create image from path
-		let image = SCDSvgImage()
-		image.xhref = path
-		image.x = 10
-		image.y = 0
-		image.width = SCDSvgUnit.init(integerLiteral: width)
-		image.height = SCDSvgUnit.init(integerLiteral: height)
-		group.children.append(image)
-	
-
-        let svgText = SCDSvgText()
-        svgText.text = text
-        svgText.x = SCDSvgUnit(integerLiteral:Int(width + 10) / 2)
-        svgText.y = SCDSvgUnit(integerLiteral: Int(25)) // Adjust y based on line number
-        svgText.fill = SCDSvgColor.white
-        svgText.fontSize = 25
-        svgText.anchor = SCDSvgTextAnchor.middle
-        svgText.alignment = SCDSvgTextAlignment.center
-        svgText.alignmentBaseline = SCDSvgTextAlignmentBaseline.middle
-        svgText.fontName = 	"ArialMT"
-        
-        group.children.append(svgText)
-    
-
-	let lines = splitTextIntoLines(description)
-
-    // Create and add each line of text to the group
-    for (index, line) in lines.enumerated() {
-        let svgText = SCDSvgText()
-        svgText.text = line
-        svgText.x = SCDSvgUnit(integerLiteral:Int(width + 10) / 2)
-		let divider = width - Int(30 * (lines.count - index))
-
-        svgText.y = SCDSvgUnit	(
-			integerLiteral: Int(divider)
-		) 
-        svgText.fill = SCDSvgColor.white
-        svgText.fontSize = 17
-        svgText.anchor = SCDSvgTextAnchor.middle
-        svgText.alignment = SCDSvgTextAlignment.center
-        svgText.alignmentBaseline = SCDSvgTextAlignmentBaseline.middle
-        svgText.fontName = 	"ArialMT"
-        group.children.append(svgText)
-    }
-
-	
-	return BubbleInfo.init(group: group, size: SCDSize(width: Double(width), height: Double(height)))  
-
-	}
-
-
 private func Bubble(
-	_ text:String, 
-	color: SCDSvgRGBColor = SCDSvgRGBColor.init(red: 10, green: 132, blue: 255),
-	fontcolor: SCDSvgRGBColor = SCDSvgColor.white
-	) -> BubbleInfo
-{
-	 // Create a rectangle
+    _ text: String, 
+    color: SCDSvgRGBColor = SCDSvgRGBColor(red: 10, green: 132, blue: 255),
+    fontcolor: SCDSvgRGBColor = SCDSvgColor.white
+) -> BubbleInfo {
+    // Create a rectangle
     let rectangle = SCDSvgRect()
-       
     
     let components = text.components(separatedBy: .whitespacesAndNewlines)
-	let words = components.filter { !$0.isEmpty }
-    let count = words.count
-    let _ = ((Int(screenInfo.screenSize.width) / 10) * count)
+    let words = components.filter { !$0.isEmpty }
     let totalCharacters = words.reduce(0) { $0 + $1.count } // Sum of all characters in words
-    var width : Int
+    var width: Int
     var height: Int
-    
-    let _ = (Int(screenInfo.screenSize.width) / 10)
-    
-    // if more than 10 words 
-    if count >= 10 
-    {
-    	width = Int(screenInfo.screenSize.width) - 10
-    	height = Int((Int(screenInfo.screenSize.height) / 10) * Int(count/10)) + 15
+
+    let characterWidth = 20 // Approximate width of each character
+    let lineHeight = 30 // Height of each line
+    let padding = 10 // Padding inside the bubble
+
+    // Set a maximum number of characters per line to avoid overly wide bubbles
+    let screenWidth = Int(screenInfo.screenSize.width)
+    let maxCharactersPerLine = (screenWidth - 2 * padding) / characterWidth
+
+    // Calculate width and height
+    if totalCharacters > maxCharactersPerLine {
+        let lines = (totalCharacters / maxCharactersPerLine) + (totalCharacters % maxCharactersPerLine > 0 ? 1 : 0)
+        width = screenWidth - 20 // Use maximum available width
+        height = lines * lineHeight + 2 * padding // Adjust height based on the number of lines
+    } else {
+        width = min(totalCharacters * characterWidth, screenWidth - 20) // Adjust width based on total characters
+        height = lineHeight + 2 * padding // Single line height plus padding
     }
 
-    else
-    {
-    	let div = Int((screenInfo.screenSize.width) / 22)
-    	width = totalCharacters * div > Int(screenInfo.screenSize.width) - 10 ? Int(screenInfo.screenSize.width) - 10 : totalCharacters * div
-    	height = (Int(screenInfo.screenSize.height) / 15)
-    	
-    }
-    
-    
     // Set the corner radius
-	rectangle.rx = 20 // Radius for x-axis corners
-	rectangle.ry = 20 // Radius for y-axis corners
-	
-	
-	let group = SCDSvgGroup()
-	rectangle.fill = color
+    rectangle.rx = 20 // Radius for x-axis corners
+    rectangle.ry = 20 // Radius for y-axis corners
+
+    let group = SCDSvgGroup()
+    rectangle.fill = color
     group.children.append(rectangle)
-	
+    
     let lines = splitTextIntoLines(text)
 
     // Create and add each line of text to the group
@@ -722,30 +650,21 @@ private func Bubble(
         svgText.anchor = SCDSvgTextAnchor.start
         svgText.alignment = SCDSvgTextAlignment.left
         svgText.alignmentBaseline = SCDSvgTextAlignmentBaseline.auto
-        svgText.fontName = 	"ArialMT"
+        svgText.fontName = "ArialMT"
         height = Int(25 + (index * 30)) + 10
         group.children.append(svgText)
     }
-    
-     // translate width/height into SCDSvgUnits
-    let widthEdit = SCDSvgUnit.init(integerLiteral: width)
-    let heightEdit = SCDSvgUnit.init(integerLiteral: height)
-    
-    // set width, height, and color
-    rectangle.width = widthEdit
-    rectangle.height = heightEdit
 
-	
-	
-	
-    return BubbleInfo.init(group: group, size: SCDSize(width: Double(width), height: Double(height)))
+    // Translate width/height into SCDSvgUnits
+    rectangle.width = SCDSvgUnit(integerLiteral: width)
+    rectangle.height = SCDSvgUnit(integerLiteral: height)
     
+    return BubbleInfo(group: group, size: SCDSize(width: Double(width), height: Double(height)))
 }
 
-private struct BubbleInfo
-{
-	var group: SCDSvgGroup
-	var size: SCDSize
+private struct BubbleInfo {
+    var group: SCDSvgGroup
+    var size: SCDSize
 }
 
 private func splitTextIntoLines(_ text: String, _ fontsize: Int = 20) -> [String] {
@@ -786,13 +705,12 @@ private func splitTextIntoLines(_ text: String, _ fontsize: Int = 20) -> [String
     return lines
 }
 
-
 private func createBubbleContainer(
-		text: String, 
-		color: SCDSvgRGBColor, 
-		yPos: Int,
-		fontcolor: SCDSvgRGBColor = SCDSvgColor.white
-	) -> SCDWidgetsContainer {
+    text: String, 
+    color: SCDSvgRGBColor, 
+    yPos: Int,
+    fontcolor: SCDSvgRGBColor = SCDSvgColor.white
+) -> SCDWidgetsContainer {
     let bubbleContainer = SCDWidgetsContainer()
     let bubbleDrawing = Bubble(text, color: color, fontcolor: fontcolor) 
     
@@ -806,7 +724,14 @@ private func createBubbleContainer(
     
     return bubbleContainer 
 }
-private func createCardContainer(path: String, text: String, description: String, color: SCDSvgRGBColor, yPos: Int) -> SCDWidgetsContainer {
+
+private func createCardContainer(
+    path: String, 
+    text: String, 
+    description: String, 
+    color: SCDSvgRGBColor, 
+    yPos: Int
+) -> SCDWidgetsContainer {
     let bubbleContainer = SCDWidgetsContainer()
     let bubbleDrawing = Rectangle(path: path, text: text, description: description) 
     
@@ -817,41 +742,139 @@ private func createCardContainer(path: String, text: String, description: String
     bubbleContainer.children.append(label)
     bubbleContainer.size = SCDGraphicsDimension(width: Int(bubbleDrawing.size.width), height: Int(bubbleDrawing.size.height)) // Use the actual size of the bubble
     bubbleContainer.location = SCDGraphicsPoint(x: 0, y: yPos)
-	bubbleContainer.paddingLeft = 10
+    bubbleContainer.paddingLeft = 10
     
     return bubbleContainer 
 }
-// returns a SCDWidgetsContainer with the bubbles
+
+// Returns a SCDWidgetsContainer with the bubbles
 public func EasySCDBubbles(
-		_ bubbles: [EasySCDLayoutBubble], 
-		width: Int = Int(screenInfo.screenSize.width),
-		location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: 0) 
-		) -> SCDWidgetsContainer {
+    _ bubbles: [EasySCDLayoutBubble], 
+    width: Int = Int(screenInfo.screenSize.width),
+    location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: 0) 
+) -> SCDWidgetsContainer {
     let customElement = SCDWidgetsContainer()
-    
     customElement.location = location
 
-
     var yOffset = 0
-    for text in bubbles {
+    for bubble in bubbles {
+        // Create the name label
+        let nameLabel = EasySCDTextLabel(
+            bubble.name, 
+            fontsize: 17,
+            font: "ArialMT", 
+            fontcolor: EasyColor.white,
+            paddingVertical: 0,
+            paddingHorizontal: 10,
+            x_location: 0,
+            y_location: yOffset,
+            bold: true
+        )
+        
+        // Add the name label to the container
+        customElement.children.append(nameLabel)
+        yOffset += 30 // Adjust offset for the name label height
+        
         let bubbleContainer = createBubbleContainer(
-				text: text.text, 
-				color: text.color, 
-				yPos: yOffset,
-				fontcolor: text.fontcolor)
+            text: bubble.text, 
+            color: bubble.color, 
+            yPos: yOffset,
+            fontcolor: bubble.fontcolor
+        )
         
         // Use the actual bubble height to adjust yOffset for the next container
         yOffset += Int(bubbleContainer.size.height) + 10 // Add some space between bubbles
         
-        // add a SCDSvgText that says the user's name (appending it first will put the username on above the bubblw)
-        
+        // Add the message bubble to the container
         customElement.children.append(bubbleContainer)
     }
     
     customElement.size = SCDGraphicsDimension(width: width, height: yOffset)
 
-   return customElement
+    return customElement
 }
+
+private func Rectangle(
+    path: String,
+    text: String,
+    description: String,
+    font: String = "ArialMT",
+    fontColor: SCDGraphicsRGB = EasyColor.blue,
+    width: Int = Int(screenInfo.screenSize.width - 10),
+    height: Int = Int(screenInfo.screenSize.width - 10),
+    cardColor: SCDGraphicsRGB = EasyColor.black
+) -> BubbleInfo {
+    let group = SCDSvgGroup()
+
+    // Create image from path
+    let image = SCDSvgImage()
+    image.xhref = path
+    image.x = 10
+    image.y = 0
+    image.width = SCDSvgUnit(integerLiteral: width)
+    image.height = SCDSvgUnit(integerLiteral: height)
+    group.children.append(image)
+
+    let svgText = SCDSvgText()
+    svgText.text = text
+    svgText.x = SCDSvgUnit(integerLiteral: Int(width + 10) / 2)
+    svgText.y = SCDSvgUnit(integerLiteral: 25) // Adjust y based on line number
+    svgText.fill = SCDSvgColor.white
+    svgText.fontSize = 25
+    svgText.anchor = SCDSvgTextAnchor.middle
+    svgText.alignment = SCDSvgTextAlignment.center
+    svgText.alignmentBaseline = SCDSvgTextAlignmentBaseline.middle
+    svgText.fontName = "ArialMT"
+    group.children.append(svgText)
+
+    let lines = splitTextIntoLines(description)
+
+    // Create and add each line of text to the group
+    for (index, line) in lines.enumerated() {
+        let svgText = SCDSvgText()
+        svgText.text = line
+        svgText.x = SCDSvgUnit(integerLiteral: Int(width + 10) / 2)
+        let divider = width - Int(30 * (lines.count - index))
+        svgText.y = SCDSvgUnit(integerLiteral: divider) 
+        svgText.fill = SCDSvgColor.white
+        svgText.fontSize = 17
+        svgText.anchor = SCDSvgTextAnchor.middle
+        svgText.alignment = SCDSvgTextAlignment.center
+        svgText.alignmentBaseline = SCDSvgTextAlignmentBaseline.middle
+        svgText.fontName = "ArialMT"
+        group.children.append(svgText)
+    }
+
+    return BubbleInfo(group: group, size: SCDSize(width: Double(width), height: Double(height)))
+}
+
+public struct EasySCDLayoutBubble {
+public var name: String
+    public var text: String
+    public var color: SCDSvgRGBColor
+    public var fontcolor: SCDSvgRGBColor
+
+    public init(
+    name: String,
+        text: String, 
+        color: SCDSvgRGBColor = SCDSvgRGBColor(red: 10, green: 132, blue: 255),
+        fontcolor: SCDSvgRGBColor = SCDSvgColor.white
+    ) {
+    	self.name = name
+        self.text = text
+        self.color = color
+        self.fontcolor = fontcolor
+    }
+}
+
+public struct EasySCDLayoutBubbles {
+    public var bubbles: [EasySCDLayoutBubble]
+
+    public init(bubbles: [EasySCDLayoutBubble]) {
+        self.bubbles = bubbles
+    }
+}
+
 
 // returns a SCDWidgetsContainer with the Card
 public func EasySCDCard	(
