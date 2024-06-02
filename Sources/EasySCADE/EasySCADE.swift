@@ -916,30 +916,6 @@ public func EasySCDCard	(
    return customElement
 }
 
-public struct EasySCDLayoutBubble {
-    public var text: String
-    public var color: SCDSvgRGBColor
-	public var fontcolor: SCDSvgRGBColor
-
-    public init(
-			text: String, 
-			color: SCDSvgRGBColor = SCDSvgRGBColor(red: 10, green: 132, blue: 255),
-			fontcolor: SCDSvgRGBColor = SCDSvgColor.white) {
-        self.text = text
-        self.color = color
-		self.fontcolor = fontcolor
-    }
-}
-
-public struct EasySCDLayoutBubbles {
-	public var bubbles: [EasySCDLayoutBubble]
-
-	public init(bubbles: [EasySCDLayoutBubble]) {
-		self.bubbles = bubbles
-	}
-}
-
-
 #if os(iOS) 
 
 extension SCDApplication {
