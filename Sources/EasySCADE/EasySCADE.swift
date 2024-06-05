@@ -105,42 +105,43 @@ public class EasyAppStorage {
     }
     
     public func write(key: String, value: String) {
-        #if os(iOS)
-        UserDefaults.standard.set(value, forKey: key)
-        #elseif os(Android)
+        #if os(Android)
         let editor = sharedPreferences?.edit()
         editor?.putString(key: key, value: value)
         editor?.apply()
+        #else
+        UserDefaults.standard.set(value, forKey: key)
         #endif
     }
     
     public func read(key: String) -> String? {
-        #if os(iOS)
-        return UserDefaults.standard.string(forKey: key)
-        #elseif os(Android)
+        #if os(Android)
         return sharedPreferences?.getString(key: key, defValue: "")
+        #else
+        return UserDefaults.standard.string(forKey: key)
         #endif
+
     }
     
     public func delete(key: String) {
-        #if os(iOS)
-        UserDefaults.standard.removeObject(forKey: key)
-        #elseif os(Android)
+        #if os(Android)
         let editor = sharedPreferences?.edit()
         editor?.remove(key: key)
         editor?.apply()
+        #else
+        UserDefaults.standard.removeObject(forKey: key)
         #endif
     }
     
     public func deleteAllKeys() {
-        #if os(iOS)
-        if let appDomain = Bundle.main.bundleIdentifier {
-            UserDefaults.standard.removePersistentDomain(forName: appDomain)
-        }
-        #elseif os(Android)
+        #if os(Android)
         let editor = sharedPreferences?.edit()
         editor?.clear()
         editor?.apply()
+        #else
+        if let appDomain = Bundle.main.bundleIdentifier {
+            UserDefaults.standard.removePersistentDomain(forName: appDomain)
+        }
         #endif
     }
 }
