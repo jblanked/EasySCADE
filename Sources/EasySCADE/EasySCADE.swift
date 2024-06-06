@@ -769,7 +769,7 @@ public func EasySCDBubbles(
             bubble.name, 
             fontsize: 17,
             font: "ArialMT", 
-            fontcolor: EasyColor.white,
+            fontcolor: bubble.nameColor,
             paddingVertical: 0,
             paddingHorizontal: 10,
             x_location: 0,
@@ -872,6 +872,7 @@ public var name: String
         self.text = text
         self.color = color
         self.fontcolor = fontcolor
+		self.nameColor = nameColor
     }
 }
 
