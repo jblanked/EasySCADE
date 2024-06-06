@@ -859,12 +859,14 @@ public var name: String
     public var text: String
     public var color: SCDSvgRGBColor
     public var fontcolor: SCDSvgRGBColor
+	public var nameColor: SCDSvgRGBColor = SCDSvgColor.white
 
     public init(
     name: String,
         text: String, 
         color: SCDSvgRGBColor = SCDSvgRGBColor(red: 10, green: 132, blue: 255),
-        fontcolor: SCDSvgRGBColor = SCDSvgColor.white
+        fontcolor: SCDSvgRGBColor = SCDSvgColor.white,
+		nameColor: SCDSvgRGBColor = SCDSvgColor.white
     ) {
     	self.name = name
         self.text = text
