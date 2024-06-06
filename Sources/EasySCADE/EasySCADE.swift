@@ -769,7 +769,7 @@ public func EasySCDBubbles(
             bubble.name, 
             fontsize: 17,
             font: "ArialMT", 
-            fontcolor: EasySCDColor(bubble.nameColor),
+            fontcolor: EasyRGBColorToSVG(bubble.nameColor),
             paddingVertical: 0,
             paddingHorizontal: 10,
             x_location: 0,
