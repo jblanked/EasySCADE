@@ -520,10 +520,11 @@ public func EasySpinner(_ show: Bool, _ text: String = "Loading...") {
 
         if show {
             // Initialize and configure the spinner
+			var spinner: UIActivityIndicatorView
 			if #available(iOS 13.0, *) {
-            let spinner = UIActivityIndicatorView(style: .large)
+         	spinner = UIActivityIndicatorView(style: .large)
 			} else {
-				let spinner = UIActivityIndicatorView(style: .whiteLarge)
+			 spinner = UIActivityIndicatorView(style: .whiteLarge)
 			}
             spinner.color = .white 
             spinner.center = rootView.center
