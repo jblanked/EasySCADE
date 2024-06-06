@@ -476,6 +476,11 @@ public func EasyRGBColorToSVG(_ rgbColor: SCDGraphicsRGB) -> SCDColor
    return color2
 }
 
+public func EasySCDSvgRGBColorToRGB(_ svgColor: SCDSvgRGBColor) -> SCDGraphicsRGB
+{
+   return SCDGraphicsRGB.init(red: svgColor.red, green: svgColor.green, blue: svgColor.blue)
+}
+
 // creates a SCDGraphicsFont
 public func EasyFont(
     _ size: Int = 20,
@@ -769,7 +774,7 @@ public func EasySCDBubbles(
             bubble.name, 
             fontsize: 17,
             font: "ArialMT", 
-            fontcolor: EasyRGBColorToSVG(bubble.nameColor),
+            fontcolor: EasySCDSvgRGBColorToRGB(bubble.nameColor),
             paddingVertical: 0,
             paddingHorizontal: 10,
             x_location: 0,
