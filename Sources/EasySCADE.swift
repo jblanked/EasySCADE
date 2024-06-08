@@ -327,14 +327,17 @@ extension SCDLatticePageAdapter {
 
 
 extension SCDSvgScrollGroup {
-	public func refresh() -> Bool {
-		self.onScroll.append((SCDSvgScrollHandler) { n in
-			
-			return Int(n!.location!.y) < -50 ? true : false
-		})
-		return false
-	}
+    public func refresh() -> Bool {
+        self.onScroll.append(SCDSvgScrollHandler { (n: SCDSvgScrollEvent?) -> Bool in
+            guard let locationY = n?.location?.y else {
+                return false
+            }
+            return Int(locationY) < -50
+        })
+        return false
+    }
 }
+
 
 extension SCDWidgetsWidget {
 	public func swipeGesture(
