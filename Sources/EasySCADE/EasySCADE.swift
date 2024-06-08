@@ -296,6 +296,32 @@ extension SCDLatticePageAdapter {
 		)  {
 			EasySwipeGesture(self.page!, direction, action)
 		}
+	
+	public func setTemplate(_ template: SCDWidgetsPage) {
+		self.page!.children = template.children
+		self.page!.onEnter = template.onEnter
+		self.page!.onExit = template.onExit
+		self.page!.useSafeArea = template.useSafeArea
+		self.page!.backgroundColor = template.backgroundColor
+		self.page!.backgroundImage = template.backgroundImage
+		self.page!.contentSize = template.contentSize
+		self.page!.cornerRadius = template.cornerRadius
+		self.page!.enable = template.enable
+		self.page!.layout = template.layout
+		self.page!.layoutData = template.layoutData
+		self.page!.location = template.location
+		self.page!.maxArea = template.maxArea
+		self.page!.minArea = template.minArea
+		self.page!.name = template.name
+		self.page!.onClick = template.onClick
+		self.page!.paddingBottom = template.paddingBottom
+		self.page!.paddingTop = template.paddingTop
+		self.page!.paddingLeft = template.paddingLeft
+		self.page!.paddingRight = template.paddingRight
+		self.page!.size = template.size
+		self.page!.tag = template.tag
+		self.page!.visible = template.visible
+	}
 
 }
 
@@ -1718,6 +1744,103 @@ public func EasySCDHStack(
 	container.size = SCDGraphicsDimension(width: xOffset, height: Int(screenInfo.screenSize.height))
 	
 	return container
+}
+
+public class EasyTemplateRegistration {
+	public var username: String  = ""
+    public var password: String = "" 
+    public var password2: String = ""
+    public var firstName: String = ""
+    public var lastName: String = ""
+    public var email: String = "" 
+    public var onClick: () -> Void = { print("Register Button Clicked") }
+	
+	public init	(
+			_ page: SCDLatticePageAdapter,
+			name: String = "easyTemplateRegistration", 
+			backgroundColor: SCDGraphicsRGB = EasyColor.white
+		) {
+		
+		let userTextbox = EasySCDTextBox("Your Username", secure: false)
+   		userTextbox.onTextChange.append(SCDWidgetsTextChangeEventHandler { ev in self.username = ev!.newValue })
+   		
+   		let emailTextbox = EasySCDTextBox("Your Email", secure: false)
+   		emailTextbox.onTextChange.append(SCDWidgetsTextChangeEventHandler { ev in self.email = ev!.newValue })
+   		
+   		let firstnameTextbox = EasySCDTextBox("Your First Name", secure: false)
+   		firstnameTextbox.onTextChange.append(SCDWidgetsTextChangeEventHandler { ev in self.firstName = ev!.newValue })
+   
+   		let lastnameTextbox = EasySCDTextBox("Your Last Name", secure: false)
+   		lastnameTextbox.onTextChange.append(SCDWidgetsTextChangeEventHandler { ev in self.lastName = ev!.newValue })
+   		
+   		let passTextbox = EasySCDTextBox("Your Password", secure: true)
+   		passTextbox.onTextChange.append(SCDWidgetsTextChangeEventHandler { ev in self.password = ev!.newValue })
+   
+   		let pass2Textbox = EasySCDTextBox("Your Password Again", secure: true)
+   		pass2Textbox.onTextChange.append(SCDWidgetsTextChangeEventHandler { ev in self.password2 = ev!.newValue })
+   		
+   		let buttonRegister: SCDWidgetsButton = EasySCDButton("Register", font: "ArialMT",color: EasyColor.blue)
+   		
+   		buttonRegister.onClick( 
+   			{	
+   				_ in self.onClick()		
+   			}
+   		)
+   
+   		
+		let temp  = EasySCDPage(
+			name: name,
+			children: [
+				EasySCDVStack([
+				EasySCDTextForm(
+    		
+    				[
+    			
+    				EasySCDTextBoxForm	(
+    					title: "Username",
+    					textbox: userTextbox				
+    				),	
+    				EasySCDTextBoxForm	(
+    					title: "Email",
+    					textbox: emailTextbox  				
+    				),
+    				EasySCDTextBoxForm	(
+    					title: "First Name",
+    					textbox: firstnameTextbox  				
+    				),
+    				EasySCDTextBoxForm	(
+    					title: "Last Name",
+    					textbox: lastnameTextbox  				
+    				),
+    				EasySCDTextBoxForm	(
+    					title: "Password",
+    					textbox: passTextbox  				
+    				),
+    				EasySCDTextBoxForm	(
+    					title: "Password (Again)",
+    					textbox: pass2Textbox  				
+    				),
+    				
+    				
+    			
+    			],
+    			
+    			fontsize: 20,
+				font: Arial, 
+				fontcolor: EasyColor.black
+    		),
+    		buttonRegister
+    		])
+    		
+			],
+			useSafeArea: false,
+			backgroundColor: backgroundColor,
+			onEnter: { },
+			onExit: { }
+		)
+		
+		page.setTemplate(temp)
+	}
 }
 
 public func EasySCDPage(
