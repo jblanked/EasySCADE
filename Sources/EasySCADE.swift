@@ -330,7 +330,7 @@ extension SCDSvgScrollGroup {
     public func refresh() -> Bool {
         self.onScroll.append(SCDSvgScrollHandler { (n: SCDSvgScrollEvent?) -> Void in
             guard let locationY = n?.location?.y else {
-                return false
+                return 
             }
             return Int(locationY) < -50
         })
