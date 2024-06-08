@@ -1876,7 +1876,7 @@ public class EasyTemplateRegistration {
 					firstnameTextbox,
 					lastnameTextbox,
 					passTextbox,
-					pass2Textbox 
+					pass2Textbox,
 					buttonRegister 				
     			],
     		),	
