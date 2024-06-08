@@ -172,6 +172,9 @@ public class EasyTemplateLogin {
 			print("")
 		}
 
+  	private var scrollbox: SCDSvgScrollGroup = SCDSvgScrollGroup()
+  	public var backgroundImage: String = ""
+
 	private func validate() -> Bool {
 		if (username.isEmpty || password.isEmpty) {
 			EasyAlert(title: "Sign In Error", message: "Please fill in all fields.")
@@ -263,6 +266,87 @@ public class EasyTemplateLogin {
 			onEnter: { },
 			onExit: { }
 		)
+		}
+		else if formNumber == 3
+		{
+			self.scrollbox = EasySCDScrollbar(
+      							temp, 
+      							temp,
+      							onPageEnter: {
+
+      							}
+      						 )
+      						 
+    		self.scrollbox.setScrollBarEnabled(false)
+    		temp.size = SCDGraphicsDimension(width: Int(screenInfo.screenSize.width), height: Int(screenInfo.screenSize.height))
+    		temp.location = SCDGraphicsPoint(x: 0, y: 0)
+
+    		let usernameBox = EasySCDTextBox("Username",secure: false,fontsize: 20,font: "ArialMT",fontcolor: EasyColor.black)
+
+    		usernameBox.onTextChange.append(SCDWidgetsTextChangeEventHandler { ev in self.username = ev!.newValue })
+
+    		usernameBox.backgroundColor = nil
+
+    		let passwordBox = EasySCDTextBox("Password", secure: true, fontsize: 20, font: "ArialMT", fontcolor: EasyColor.black)
+
+    		passwordBox.onTextChange.append(SCDWidgetsTextChangeEventHandler { ev in self.password = ev!.newValue })
+
+    		passwordBox.backgroundColor = nil 
+    		
+    		let signIn = EasySCDButton(
+      						"Sign In",
+      						font: "ArialMT",
+      						color: EasyColor.black,
+      						height: 50,
+      						width: Int(screenInfo.screenSize.width),
+      						paddingVertical: 0,
+      						paddingHorizontal: 0,
+      						location: SCDGraphicsPoint(x: 0, y: 0),
+      						action: { self.onClick() }
+    					)
+
+    		signIn.cornerRadius = 10
+
+    		let register = EasySCDButton(
+      							"Don't have any account? Register here.",
+      							font: "ArialMT",
+      							color: EasyColor.black,
+      							height: 70,
+      							width: Int(screenInfo.screenSize.width),
+      							paddingVertical: 0,
+      							paddingHorizontal: 0,
+      							location: SCDGraphicsPoint(x: 0, y: 10),
+      							action: { print("Register here button clicked") }
+    						)
+    		
+    		let stack = EasySCDVStack([
+      						EasySCDSpacer(Int(screenInfo.screenSize.height / 2.5)),
+      						usernameBox,
+      						passwordBox,
+      						signIn,
+      						EasySCDSpacer(150),
+      						register,
+    					])
+			
+			temp  = EasySCDPage(
+			name: name,
+			children: [
+				stack
+			],
+			useSafeArea: false,
+			backgroundColor: backgroundColor,
+			onEnter: { },
+			onExit: { }
+		)
+		
+			if self.backgroundImage != ""
+			{
+				temp.backgroundImage = self.backgroundImage
+			}
+			
+    		
+    		
+    		
 		}
 
 		page.setTemplate(temp)

@@ -232,6 +232,8 @@ EasyTemplateLogin(self) // Login with Labels
 
 EasyTemplateLogin(self,2) // Login without Labels
 
+EasyTemplateLogin(self,3) // Login without Labels
+
 EasyTemplateRegistration(self) // Registration with Labels
 
 EasyTemplateRegistration(self,2) // Registration without Labels
