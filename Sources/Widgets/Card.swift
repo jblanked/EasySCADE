@@ -133,3 +133,8 @@ private func Rectangle(
 
     return BubbleInfo(group: group, size: SCDSize(width: Double(width), height: Double(height)))
 }
+
+private struct BubbleInfo {
+    var group: SCDSvgGroup
+    var size: SCDSize
+}
