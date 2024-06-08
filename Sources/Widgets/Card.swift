@@ -79,3 +79,57 @@ private func createCardContainer(
     
     return bubbleContainer 
 }
+
+private func Rectangle(
+    path: String,
+    text: String,
+    description: String,
+    font: String = "ArialMT",
+    fontColor: SCDGraphicsRGB = EasyColor.blue,
+    width: Int = Int(screenInfo.screenSize.width - 10),
+    height: Int = Int(screenInfo.screenSize.width - 10),
+    cardColor: SCDGraphicsRGB = EasyColor.black
+) -> BubbleInfo {
+    let group = SCDSvgGroup()
+
+    // Create image from path
+    let image = SCDSvgImage()
+    image.xhref = path
+    image.x = 10
+    image.y = 0
+    image.width = SCDSvgUnit(integerLiteral: width)
+    image.height = SCDSvgUnit(integerLiteral: height)
+    group.children.append(image)
+
+    let svgText = SCDSvgText()
+    svgText.text = text
+    svgText.x = SCDSvgUnit(integerLiteral: Int(width + 10) / 2)
+    svgText.y = SCDSvgUnit(integerLiteral: 25) // Adjust y based on line number
+    svgText.fill = SCDSvgColor.white
+    svgText.fontSize = 25
+    svgText.anchor = SCDSvgTextAnchor.middle
+    svgText.alignment = SCDSvgTextAlignment.center
+    svgText.alignmentBaseline = SCDSvgTextAlignmentBaseline.middle
+    svgText.fontName = "ArialMT"
+    group.children.append(svgText)
+
+    let lines = splitTextIntoLines(description)
+
+    // Create and add each line of text to the group
+    for (index, line) in lines.enumerated() {
+        let svgText = SCDSvgText()
+        svgText.text = line
+        svgText.x = SCDSvgUnit(integerLiteral: Int(width + 10) / 2)
+        let divider = width - Int(30 * (lines.count - index))
+        svgText.y = SCDSvgUnit(integerLiteral: divider) 
+        svgText.fill = SCDSvgColor.white
+        svgText.fontSize = 17
+        svgText.anchor = SCDSvgTextAnchor.middle
+        svgText.alignment = SCDSvgTextAlignment.center
+        svgText.alignmentBaseline = SCDSvgTextAlignmentBaseline.middle
+        svgText.fontName = "ArialMT"
+        group.children.append(svgText)
+    }
+
+    return BubbleInfo(group: group, size: SCDSize(width: Double(width), height: Double(height)))
+}
