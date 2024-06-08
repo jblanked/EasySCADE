@@ -174,7 +174,7 @@ public func EasySCDImageData(
     }
 
 
-private func EasySCDImageCache(_ key: String, _ value: String) -> SCDWidgetsImage {
+private func EasySCDImageCache(_ key: String, _ value: String, completion: @escaping (SCDWidgetsImage) -> Void) {
     var imageWidget = SCDWidgetsImage()
 
     // Try to read the cached picture from storage
@@ -187,19 +187,25 @@ private func EasySCDImageCache(_ key: String, _ value: String) -> SCDWidgetsImag
         }
     }
 
+    completion(imageWidget)
+
     // Fetch the image from the provided URL if the cached image is not valid or doesn't exist
-    if let profileImageURL = URL(string: value), let newImageData = try? Data(contentsOf: profileImageURL) {
-        // Check if the new image data is different from what's already cached and it's not empty
-        let newImageBase64String = newImageData.base64EncodedString()
-        if appStorage.read(key: key) != newImageBase64String && !newImageData.isEmpty {
-            // Save the new image as a base64 string to cache
-            appStorage.write(key: key, value: newImageBase64String)
-            // Create an image from the newly fetched data and update the widget
-            imageWidget = EasySCDImageData(newImageData)
+    DispatchQueue.global(qos: .background).async {
+        if let profileImageURL = URL(string: value), let newImageData = try? Data(contentsOf: profileImageURL) {
+            // Check if the new image data is different from what's already cached and it's not empty
+            let newImageBase64String = newImageData.base64EncodedString()
+            if appStorage.read(key: key) != newImageBase64String && !newImageData.isEmpty {
+                // Save the new image as a base64 string to cache
+                appStorage.write(key: key, value: newImageBase64String)
+                // Create an image from the newly fetched data and update the widget
+                let newImageWidget = EasySCDImageData(newImageData)
+                
+                DispatchQueue.main.async {
+                    completion(newImageWidget)
+                }
+            }
         }
     }
-
-    return imageWidget
 }
 
 
