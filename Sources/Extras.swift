@@ -19,31 +19,6 @@ import AndroidOS
 let easyProgress: ProgressDialog = ProgressDialog(context: Application.currentActivity!)
 #endif
 
-// class to store screen information
-public class EasyScreenInfo: EObject {
-    public var screenSize: CGSize
-    public var statusBarVisible: Bool
-    public var statusBarsize: CGSize
-    
-    public init(screenSize: CGSize, statusBarVisible: Bool, statusBarsize: CGSize) {
-        self.screenSize = screenSize
-        self.statusBarsize = statusBarsize
-        self.statusBarVisible = statusBarVisible
-    }
-}
-
-private func getWindowScreenSize() -> EasyScreenInfo {
-    let size = SCDRuntime.system.getScreenSize()
-    let statusBarVisible = SCDRuntime.system.statusBarVisible
-    let statusBarsize = SCDRuntime.system.getScreenSafeArea()
-    
-    return EasyScreenInfo(
-        screenSize: CGSize(width: size!.width, height: size!.height),
-        statusBarVisible: statusBarVisible,
-        statusBarsize: CGSize(width: statusBarsize!.bounds.width, height: statusBarsize!.bounds.height)
-    )
-}
-
 
 // creates an alert 
 public func EasyAlert(title:String, message:String,action: @escaping () -> Void = { }) {
@@ -278,3 +253,28 @@ public func EasySCDCamera(
     
        return imageContent
   }
+
+// class to store screen information
+public class EasyScreenInfo: EObject {
+    public var screenSize: CGSize
+    public var statusBarVisible: Bool
+    public var statusBarsize: CGSize
+    
+    public init(screenSize: CGSize, statusBarVisible: Bool, statusBarsize: CGSize) {
+        self.screenSize = screenSize
+        self.statusBarsize = statusBarsize
+        self.statusBarVisible = statusBarVisible
+    }
+}
+
+private func getWindowScreenSize() -> EasyScreenInfo {
+    let size = SCDRuntime.system.getScreenSize()
+    let statusBarVisible = SCDRuntime.system.statusBarVisible
+    let statusBarsize = SCDRuntime.system.getScreenSafeArea()
+    
+    return EasyScreenInfo(
+        screenSize: CGSize(width: size!.width, height: size!.height),
+        statusBarVisible: statusBarVisible,
+        statusBarsize: CGSize(width: statusBarsize!.bounds.width, height: statusBarsize!.bounds.height)
+    )
+}
