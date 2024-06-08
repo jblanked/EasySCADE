@@ -57,3 +57,25 @@ public func EasySCDCard	(
 
    return customElement
 }
+
+private func createCardContainer(
+    path: String, 
+    text: String, 
+    description: String, 
+    color: SCDSvgRGBColor, 
+    yPos: Int
+) -> SCDWidgetsContainer {
+    let bubbleContainer = SCDWidgetsContainer()
+    let bubbleDrawing = Rectangle(path: path, text: text, description: description) 
+    
+    let label = SCDWidgetsLabel()
+    label.drawing = bubbleDrawing.group // Set the SVG drawing
+    
+    // Use the bubble size directly from bubbleDrawing.size
+    bubbleContainer.children.append(label)
+    bubbleContainer.size = SCDGraphicsDimension(width: Int(bubbleDrawing.size.width), height: Int(bubbleDrawing.size.height)) // Use the actual size of the bubble
+    bubbleContainer.location = SCDGraphicsPoint(x: 0, y: yPos)
+    bubbleContainer.paddingLeft = 10
+    
+    return bubbleContainer 
+}
