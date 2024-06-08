@@ -18,65 +18,6 @@ import AndroidContent
 import AndroidOS
 #endif
 
-
-
-private func EasySCDImageCache(_ key: String, _ value: String) -> SCDWidgetsImage {
-    var imageWidget = SCDWidgetsImage()
-
-    // Try to read the cached picture from storage
-    if let picString = appStorage.read(key: key) {
-        // Decode the base64 string after stripping the data URI prefix
-        let base64String = picString.replacingOccurrences(of: "data:image/png;base64,", with: "")
-        if let imageData = Data(base64Encoded: base64String) {
-            // Set the image if existing cache data is valid
-            imageWidget = EasySCDImageData(imageData)
-        }
-    }
-
-    // Fetch the image from the provided URL if the cached image is not valid or doesn't exist
-    if let profileImageURL = URL(string: value), let newImageData = try? Data(contentsOf: profileImageURL) {
-        // Check if the new image data is different from what's already cached and it's not empty
-        let newImageBase64String = newImageData.base64EncodedString()
-        if appStorage.read(key: key) != newImageBase64String && !newImageData.isEmpty {
-            // Save the new image as a base64 string to cache
-            appStorage.write(key: key, value: newImageBase64String)
-            // Create an image from the newly fetched data and update the widget
-            imageWidget = EasySCDImageData(newImageData)
-        }
-    }
-
-    return imageWidget
-}
-
-
-
-private func EasySCDImageCacheLocal(_ key: String, _ filePath: String) -> SCDWidgetsImage {
-    var imageWidget = SCDWidgetsImage()
-
-    // Check if the cached version of the file exists and is valid
-    if let cachedString = appStorage.read(key: key) {
-        let cachedImageData = Data(base64Encoded: cachedString.replacingOccurrences(of: "data:image/png;base64,", with: ""))
-        if let imageData = cachedImageData {
-            imageWidget = EasySCDImageData(imageData)
-        }
-    }
-
-    // Check if the local file differs from the cached version or if the cached version is not valid
-    if let newImageData = try? Data(contentsOf: URL(fileURLWithPath: filePath)) {
-        let newImageBase64String = newImageData.base64EncodedString()
-        if appStorage.read(key: key) != newImageBase64String && !newImageData.isEmpty {
-            // Save the new image as a base64 string to cache
-            appStorage.write(key: key, value: newImageBase64String)
-            // Update the image widget with the new image data
-            imageWidget = EasySCDImageData(newImageData)
-        }
-    }
-
-    return imageWidget
-}
-
-
-
 // creates SCDImagelabels from urls
 public func EasySCDImageURL(
 		_ path: String, 
@@ -231,3 +172,59 @@ public func EasySCDImageData(
 
         return image
     }
+
+
+private func EasySCDImageCache(_ key: String, _ value: String) -> SCDWidgetsImage {
+    var imageWidget = SCDWidgetsImage()
+
+    // Try to read the cached picture from storage
+    if let picString = appStorage.read(key: key) {
+        // Decode the base64 string after stripping the data URI prefix
+        let base64String = picString.replacingOccurrences(of: "data:image/png;base64,", with: "")
+        if let imageData = Data(base64Encoded: base64String) {
+            // Set the image if existing cache data is valid
+            imageWidget = EasySCDImageData(imageData)
+        }
+    }
+
+    // Fetch the image from the provided URL if the cached image is not valid or doesn't exist
+    if let profileImageURL = URL(string: value), let newImageData = try? Data(contentsOf: profileImageURL) {
+        // Check if the new image data is different from what's already cached and it's not empty
+        let newImageBase64String = newImageData.base64EncodedString()
+        if appStorage.read(key: key) != newImageBase64String && !newImageData.isEmpty {
+            // Save the new image as a base64 string to cache
+            appStorage.write(key: key, value: newImageBase64String)
+            // Create an image from the newly fetched data and update the widget
+            imageWidget = EasySCDImageData(newImageData)
+        }
+    }
+
+    return imageWidget
+}
+
+
+
+private func EasySCDImageCacheLocal(_ key: String, _ filePath: String) -> SCDWidgetsImage {
+    var imageWidget = SCDWidgetsImage()
+
+    // Check if the cached version of the file exists and is valid
+    if let cachedString = appStorage.read(key: key) {
+        let cachedImageData = Data(base64Encoded: cachedString.replacingOccurrences(of: "data:image/png;base64,", with: ""))
+        if let imageData = cachedImageData {
+            imageWidget = EasySCDImageData(imageData)
+        }
+    }
+
+    // Check if the local file differs from the cached version or if the cached version is not valid
+    if let newImageData = try? Data(contentsOf: URL(fileURLWithPath: filePath)) {
+        let newImageBase64String = newImageData.base64EncodedString()
+        if appStorage.read(key: key) != newImageBase64String && !newImageData.isEmpty {
+            // Save the new image as a base64 string to cache
+            appStorage.write(key: key, value: newImageBase64String)
+            // Update the image widget with the new image data
+            imageWidget = EasySCDImageData(newImageData)
+        }
+    }
+
+    return imageWidget
+}
