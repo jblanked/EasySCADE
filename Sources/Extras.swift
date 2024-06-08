@@ -267,7 +267,7 @@ public class EasyScreenInfo: EObject {
     }
 }
 
-private func getWindowScreenSize() -> EasyScreenInfo {
+public func getWindowScreenSize() -> EasyScreenInfo {
     let size = SCDRuntime.system.getScreenSize()
     let statusBarVisible = SCDRuntime.system.statusBarVisible
     let statusBarsize = SCDRuntime.system.getScreenSafeArea()
