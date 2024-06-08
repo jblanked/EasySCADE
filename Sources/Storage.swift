@@ -144,6 +144,3 @@ public class EasyAppStorage {
         #endif
     }
 }
-
-
-public let appStorage: EasyAppStorage = EasyAppStorage()
