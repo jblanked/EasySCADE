@@ -18,6 +18,63 @@ import AndroidContent
 import AndroidOS
 #endif
 
+public class EasyAppStorage {
+    
+    #if os(iOS)
+    // iOS UserDefaults as the storage medium
+    #elseif os(Android)
+    // Android SharedPreferences as the storage medium
+    private var sharedPreferences: AndroidContent.SharedPreferences?
+    #endif
+    
+    public init() {
+        #if os(Android)
+        sharedPreferences = Application.currentActivity?.getSharedPreferences(name: "EasySCADE", mode: 0)
+        #endif
+    }
+    
+    public func write(key: String, value: String) {
+        #if os(Android)
+        let editor = sharedPreferences?.edit()
+        editor?.putString(key: key, value: value)
+        editor?.apply()
+        #else
+        UserDefaults.standard.set(value, forKey: key)
+        #endif
+    }
+    
+    public func read(key: String) -> String? {
+        #if os(Android)
+        return sharedPreferences?.getString(key: key, defValue: "")
+        #else
+        return UserDefaults.standard.string(forKey: key)
+        #endif
+
+    }
+    
+    public func delete(key: String) {
+        #if os(Android)
+        let editor = sharedPreferences?.edit()
+        editor?.remove(key: key)
+        editor?.apply()
+        #else
+        UserDefaults.standard.removeObject(forKey: key)
+        #endif
+    }
+    
+    public func deleteAllKeys() {
+        #if os(Android)
+        let editor = sharedPreferences?.edit()
+        editor?.clear()
+        editor?.apply()
+        #else
+        if let appDomain = Bundle.main.bundleIdentifier {
+            UserDefaults.standard.removePersistentDomain(forName: appDomain)
+        }
+        #endif
+    }
+}
+
 //import SQLite
 
 // public class EasyAppStorage {
@@ -87,60 +144,3 @@ import AndroidOS
 // 		}
 // 	}
 // }
-
-public class EasyAppStorage {
-    
-    #if os(iOS)
-    // iOS UserDefaults as the storage medium
-    #elseif os(Android)
-    // Android SharedPreferences as the storage medium
-    private var sharedPreferences: AndroidContent.SharedPreferences?
-    #endif
-    
-    public init() {
-        #if os(Android)
-        sharedPreferences = Application.currentActivity?.getSharedPreferences(name: "EasySCADE", mode: 0)
-        #endif
-    }
-    
-    public func write(key: String, value: String) {
-        #if os(Android)
-        let editor = sharedPreferences?.edit()
-        editor?.putString(key: key, value: value)
-        editor?.apply()
-        #else
-        UserDefaults.standard.set(value, forKey: key)
-        #endif
-    }
-    
-    public func read(key: String) -> String? {
-        #if os(Android)
-        return sharedPreferences?.getString(key: key, defValue: "")
-        #else
-        return UserDefaults.standard.string(forKey: key)
-        #endif
-
-    }
-    
-    public func delete(key: String) {
-        #if os(Android)
-        let editor = sharedPreferences?.edit()
-        editor?.remove(key: key)
-        editor?.apply()
-        #else
-        UserDefaults.standard.removeObject(forKey: key)
-        #endif
-    }
-    
-    public func deleteAllKeys() {
-        #if os(Android)
-        let editor = sharedPreferences?.edit()
-        editor?.clear()
-        editor?.apply()
-        #else
-        if let appDomain = Bundle.main.bundleIdentifier {
-            UserDefaults.standard.removePersistentDomain(forName: appDomain)
-        }
-        #endif
-    }
-}
