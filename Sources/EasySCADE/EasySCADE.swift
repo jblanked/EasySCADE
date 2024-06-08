@@ -1865,7 +1865,7 @@ public class EasyTemplateRegistration {
 		)
 
 		}
-		else
+		else if formNumber == 2
 		{
 			temp  = EasySCDPage(
 			name: name,
@@ -1889,6 +1889,113 @@ public class EasyTemplateRegistration {
 		
 		page.setTemplate(temp)
 	}
+}
+
+public class EasyTemplateLogin {
+	public var username: String  = ""
+	public var password: String = "" 
+	public var onClick: () -> Void = { 
+			print("")
+			print("Sign In Button Clicked") 
+			print("")
+		}
+
+	private func validate() -> Bool {
+		if (username.isEmpty || password.isEmpty) {
+			EasyAlert(title: "Sign In Error", message: "Please fill in all fields.")
+			return false
+		}
+		return true
+	}
+	
+	public init	(
+			_ page: SCDLatticePageAdapter,
+			_ formNumber: Int = 1,
+			name: String = "easyTemplateSignIn", 
+			backgroundColor: SCDGraphicsRGB = EasyColor.white
+		) {
+		
+		let userTextbox = EasySCDTextBox("Your Username", secure: false)
+   		userTextbox.onTextChange.append(SCDWidgetsTextChangeEventHandler { ev in self.username = ev!.newValue })
+   		
+   		let passTextbox = EasySCDTextBox("Your Password", secure: true)
+   		passTextbox.onTextChange.append(SCDWidgetsTextChangeEventHandler { ev in self.password = ev!.newValue })
+   		
+   		let buttonSignIn: SCDWidgetsButton = EasySCDButton("Sign In", font: "ArialMT",color: EasyColor.blue)
+   		
+   		buttonSignIn.onClick( 
+   			{	
+   				_ in 
+
+				if self.validate() {
+					self.onClick()
+				}
+   			}
+   		)
+
+		var temp: SCDWidgetsPage = SCDWidgetsPage()	
+		
+			if formNumber == 1 {	
+   		
+		temp  = EasySCDPage(
+			name: name,
+			children: [
+				EasySCDVStack([
+				EasySCDTextForm(
+			
+					[
+				
+					EasySCDTextBoxForm	(
+						title: "Username",
+						textbox: userTextbox				
+					),	
+					EasySCDTextBoxForm	(
+						title: "Password",
+						textbox: passTextbox  				
+					),
+					
+					
+				
+				],
+				
+				fontsize: 20,
+				font: "ArialMT", 
+				fontcolor: EasyColor.black
+			),
+			buttonSignIn
+			])
+			
+			],
+			useSafeArea: false,
+			backgroundColor: backgroundColor,
+			onEnter: { },
+			onExit: { }
+		)
+		
+		}
+		
+		else if formNumber == 2
+		{
+			temp  = EasySCDPage(
+			name: name,
+			children: [
+				EasySCDVStack([
+				userTextbox,
+				passTextbox,				
+				buttonSignIn
+			])
+			
+			],
+			useSafeArea: false,
+			backgroundColor: backgroundColor,
+			onEnter: { },
+			onExit: { }
+		)
+		}
+
+		page.setTemplate(temp)
+
+		}
 }
 
 public func EasySCDPage(

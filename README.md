@@ -226,6 +226,15 @@ container.hStack {
 	textLabel // from above
 	button // from above
 }	
+
+// templates
+EasyTemplateLogin(self) // Login with Labels
+
+EasyTemplateLogin(self,2) // Login without Labels
+
+EasyTemplateRegistration(self) // Registration with Labels
+
+EasyTemplateRegistration(self,2) // Registration without Labels
 ```
 
 
