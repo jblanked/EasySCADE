@@ -329,12 +329,12 @@ extension SCDLatticePageAdapter {
 extension SCDSvgScrollGroup {
 	public func refresh() -> Bool {
 		var refresh = false
-		self.onScroll.append { n in
+		self.onScroll.append((SCDSvgScrollHandler) { n in
 			let scrollY = Int(n!.location!.y)
 			if scrollY < -50 {
 				refresh = true
 			}
-		}
+		})
 		return refresh
 	}
 }
