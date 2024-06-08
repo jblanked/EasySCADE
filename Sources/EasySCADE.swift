@@ -328,7 +328,7 @@ extension SCDLatticePageAdapter {
 
 extension SCDSvgScrollGroup {
     public func refresh() -> Bool {
-        self.onScroll.append(SCDSvgScrollHandler { (n: SCDSvgScrollEvent?) -> Bool in
+        self.onScroll.append(SCDSvgScrollHandler { (n: SCDSvgScrollEvent?) -> Void in
             guard let locationY = n?.location?.y else {
                 return false
             }
