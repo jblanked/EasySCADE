@@ -1879,7 +1879,7 @@ public class EasyTemplateRegistration {
 					pass2Textbox,
 					buttonRegister 				
     			],
-    		),	
+    		)	
     		],
 			useSafeArea: false,
 			backgroundColor: backgroundColor,
