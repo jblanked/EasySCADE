@@ -1826,7 +1826,7 @@ public class EasyTemplateRegistration {
     			],
     			
     			fontsize: 20,
-				font: Arial, 
+				font: "ArialMT", 
 				fontcolor: EasyColor.black
     		),
     		buttonRegister
