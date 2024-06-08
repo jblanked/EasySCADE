@@ -88,7 +88,7 @@ private struct BubbleInfo {
     var size: SCDSize
 }
 
-private func splitTextIntoLines(_ text: String, _ fontsize: Int = 20) -> [String] {
+public func splitTextIntoLines(_ text: String, _ fontsize: Int = 20) -> [String] {
     let components = text.components(separatedBy: .whitespacesAndNewlines)
     let words = components.filter { !$0.isEmpty }
 
