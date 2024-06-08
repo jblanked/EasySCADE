@@ -18,28 +18,6 @@ import AndroidContent
 import AndroidOS
 #endif
 
-
-public func EasySCDScrollbar() -> SCDSvgScrollGroup
-{
-	let scroll = SCDSvgScrollGroup()
-    scroll.type = SCDSvgScrollType.vertical
-    scroll.setScrollBarEnabled(true)
-    scroll.height = Int(screenInfo.screenSize.height)
-    scroll.width = Int(screenInfo.screenSize.width)
-	scroll.visible = true
-
-	let line = SCDSvgLine()
-    line.x1 = SCDSvgUnit.init(integerLiteral: Int(screenInfo.screenSize.width - 10))	
-    line.x2 = SCDSvgUnit.init(integerLiteral: Int(screenInfo.screenSize.width - 5))	
-    line.y1 = SCDSvgUnit.init(integerLiteral: Int(screenInfo.screenSize.height - 10))	
-    line.y2 = SCDSvgUnit.init(integerLiteral: Int(screenInfo.screenSize.height - 10))	
-    line.visible = true
-
-	scroll.children.append(line)
-
-	return scroll
-}
-
 public func EasySCDScrollbar(
 	_ page: SCDWidgetsPage, 
 	_ widget: SCDWidgetsWidget,
@@ -62,4 +40,25 @@ public func EasySCDScrollbar(
 	{
 		return SCDSvgScrollGroup()
 	}
+}
+
+public func EasySCDScrollbar() -> SCDSvgScrollGroup
+{
+	let scroll = SCDSvgScrollGroup()
+    scroll.type = SCDSvgScrollType.vertical
+    scroll.setScrollBarEnabled(true)
+    scroll.height = Int(screenInfo.screenSize.height)
+    scroll.width = Int(screenInfo.screenSize.width)
+	scroll.visible = true
+
+	let line = SCDSvgLine()
+    line.x1 = SCDSvgUnit.init(integerLiteral: Int(screenInfo.screenSize.width - 10))	
+    line.x2 = SCDSvgUnit.init(integerLiteral: Int(screenInfo.screenSize.width - 5))	
+    line.y1 = SCDSvgUnit.init(integerLiteral: Int(screenInfo.screenSize.height - 10))	
+    line.y2 = SCDSvgUnit.init(integerLiteral: Int(screenInfo.screenSize.height - 10))	
+    line.visible = true
+
+	scroll.children.append(line)
+
+	return scroll
 }
