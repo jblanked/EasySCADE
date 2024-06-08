@@ -1756,12 +1756,6 @@ public class EasyTemplateRegistration {
     public var onClick: () -> Void = { 
 			print("")
 			print("Register Button Clicked") 
-			print("Username: \(self.username)")
-			print("Password: \(self.password)")
-			print("Password2: \(self.password2)")
-			print("First Name: \(self.firstName)")
-			print("Last Name: \(self.lastName)")
-			print("Email: \(self.email)")
 			print("")
 		}
 
