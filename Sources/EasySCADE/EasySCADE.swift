@@ -1774,6 +1774,7 @@ public class EasyTemplateRegistration {
 	
 	public init	(
 			_ page: SCDLatticePageAdapter,
+			_ formNumber: Int = 1,
 			name: String = "easyTemplateRegistration", 
 			backgroundColor: SCDGraphicsRGB = EasyColor.white
 		) {
@@ -1807,10 +1808,12 @@ public class EasyTemplateRegistration {
 				}
    			}
    		)
-				
+
+		var temp: SCDWidgetsPage = SCDWidgetsPage()		
    
+		if formNumber == 1 {
    		
-		let temp  = EasySCDPage(
+		temp  = EasySCDPage(
 			name: name,
 			children: [
 				EasySCDVStack([
@@ -1860,6 +1863,30 @@ public class EasyTemplateRegistration {
 			onEnter: { },
 			onExit: { }
 		)
+
+		}
+		else
+		{
+			temp  = EasySCDPage(
+			name: name,
+			children: [
+				EasySCDVStack([
+					userTextbox,
+					emailTextbox,
+					firstnameTextbox,
+					lastnameTextbox,
+					passTextbox,
+					pass2Textbox 
+					buttonRegister 				
+    			],
+    		),	
+    		],
+			useSafeArea: false,
+			backgroundColor: backgroundColor,
+			onEnter: { },
+			onExit: { }
+		)
+		}
 		
 		page.setTemplate(temp)
 	}
