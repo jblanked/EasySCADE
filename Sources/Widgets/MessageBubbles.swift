@@ -18,6 +18,84 @@ import AndroidContent
 import AndroidOS
 #endif
 
+// Returns a SCDWidgetsContainer with the bubbles
+public func EasySCDBubbles(
+    _ bubbles: [EasySCDLayoutBubble], 
+    width: Int = Int(screenInfo.screenSize.width),
+    location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: 0) 
+) -> SCDWidgetsContainer {
+    let customElement = SCDWidgetsContainer()
+    customElement.location = location
+
+    var yOffset = 0
+    for bubble in bubbles {
+        // Create the name label
+        let nameLabel = EasySCDTextLabel(
+            bubble.name, 
+            fontsize: 17,
+            font: "ArialMT", 
+            fontcolor: EasySCDSvgRGBColorToRGB(bubble.nameColor),
+            paddingVertical: 0,
+            paddingHorizontal: 10,
+            x_location: 0,
+            y_location: yOffset,
+            bold: true
+        )
+        
+        // Add the name label to the container
+        customElement.children.append(nameLabel)
+        yOffset += 30 // Adjust offset for the name label height
+        
+        let bubbleContainer = createBubbleContainer(
+            text: bubble.text, 
+            color: bubble.color, 
+            yPos: yOffset,
+            fontcolor: bubble.fontcolor
+        )
+        
+        // Use the actual bubble height to adjust yOffset for the next container
+        yOffset += Int(bubbleContainer.size.height) + 10 // Add some space between bubbles
+        
+        // Add the message bubble to the container
+        customElement.children.append(bubbleContainer)
+    }
+    
+    customElement.size = SCDGraphicsDimension(width: width, height: yOffset)
+
+    return customElement
+}
+
+public struct EasySCDLayoutBubble {
+public var name: String
+    public var text: String
+    public var color: SCDSvgRGBColor
+    public var fontcolor: SCDSvgRGBColor
+	public var nameColor: SCDSvgRGBColor = SCDSvgColor.white
+
+    public init(
+    name: String,
+        text: String, 
+        color: SCDSvgRGBColor = SCDSvgRGBColor(red: 10, green: 132, blue: 255),
+        fontcolor: SCDSvgRGBColor = SCDSvgColor.white,
+		nameColor: SCDSvgRGBColor = SCDSvgColor.white
+    ) {
+    	self.name = name
+        self.text = text
+        self.color = color
+        self.fontcolor = fontcolor
+		self.nameColor = nameColor
+    }
+}
+
+public struct EasySCDLayoutBubbles {
+    public var bubbles: [EasySCDLayoutBubble]
+
+    public init(bubbles: [EasySCDLayoutBubble]) {
+        self.bubbles = bubbles
+    }
+}
+
+
 private func Bubble(
     _ text: String, 
     color: SCDSvgRGBColor = SCDSvgRGBColor(red: 10, green: 132, blue: 255),
@@ -168,53 +246,6 @@ private func createCardContainer(
     return bubbleContainer 
 }
 
-// Returns a SCDWidgetsContainer with the bubbles
-public func EasySCDBubbles(
-    _ bubbles: [EasySCDLayoutBubble], 
-    width: Int = Int(screenInfo.screenSize.width),
-    location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: 0) 
-) -> SCDWidgetsContainer {
-    let customElement = SCDWidgetsContainer()
-    customElement.location = location
-
-    var yOffset = 0
-    for bubble in bubbles {
-        // Create the name label
-        let nameLabel = EasySCDTextLabel(
-            bubble.name, 
-            fontsize: 17,
-            font: "ArialMT", 
-            fontcolor: EasySCDSvgRGBColorToRGB(bubble.nameColor),
-            paddingVertical: 0,
-            paddingHorizontal: 10,
-            x_location: 0,
-            y_location: yOffset,
-            bold: true
-        )
-        
-        // Add the name label to the container
-        customElement.children.append(nameLabel)
-        yOffset += 30 // Adjust offset for the name label height
-        
-        let bubbleContainer = createBubbleContainer(
-            text: bubble.text, 
-            color: bubble.color, 
-            yPos: yOffset,
-            fontcolor: bubble.fontcolor
-        )
-        
-        // Use the actual bubble height to adjust yOffset for the next container
-        yOffset += Int(bubbleContainer.size.height) + 10 // Add some space between bubbles
-        
-        // Add the message bubble to the container
-        customElement.children.append(bubbleContainer)
-    }
-    
-    customElement.size = SCDGraphicsDimension(width: width, height: yOffset)
-
-    return customElement
-}
-
 private func Rectangle(
     path: String,
     text: String,
@@ -267,34 +298,4 @@ private func Rectangle(
     }
 
     return BubbleInfo(group: group, size: SCDSize(width: Double(width), height: Double(height)))
-}
-
-public struct EasySCDLayoutBubble {
-public var name: String
-    public var text: String
-    public var color: SCDSvgRGBColor
-    public var fontcolor: SCDSvgRGBColor
-	public var nameColor: SCDSvgRGBColor = SCDSvgColor.white
-
-    public init(
-    name: String,
-        text: String, 
-        color: SCDSvgRGBColor = SCDSvgRGBColor(red: 10, green: 132, blue: 255),
-        fontcolor: SCDSvgRGBColor = SCDSvgColor.white,
-		nameColor: SCDSvgRGBColor = SCDSvgColor.white
-    ) {
-    	self.name = name
-        self.text = text
-        self.color = color
-        self.fontcolor = fontcolor
-		self.nameColor = nameColor
-    }
-}
-
-public struct EasySCDLayoutBubbles {
-    public var bubbles: [EasySCDLayoutBubble]
-
-    public init(bubbles: [EasySCDLayoutBubble]) {
-        self.bubbles = bubbles
-    }
 }
