@@ -1878,8 +1878,7 @@ public class EasyTemplateRegistration {
 					passTextbox,
 					pass2Textbox,
 					buttonRegister 				
-    			],
-    		)	
+    			])	
     		],
 			useSafeArea: false,
 			backgroundColor: backgroundColor,
