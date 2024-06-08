@@ -1753,7 +1753,18 @@ public class EasyTemplateRegistration {
     public var firstName: String = ""
     public var lastName: String = ""
     public var email: String = "" 
-    public var onClick: () -> Void = { print("Register Button Clicked") }
+    public var onClick: () -> Void = { 
+			print("")
+			print("Register Button Clicked") 
+			print("Username: \(self.username)")
+			print("Password: \(self.password)")
+			print("Password2: \(self.password2)")
+			print("First Name: \(self.firstName)")
+			print("Last Name: \(self.lastName)")
+			print("Email: \(self.email)")
+			print("")
+		}
+
 
 	private func validate() -> Bool {
 		if (username.isEmpty || password.isEmpty || password2.isEmpty || firstName.isEmpty || lastName.isEmpty || email.isEmpty) {
