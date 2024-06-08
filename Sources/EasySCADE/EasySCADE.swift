@@ -1754,6 +1754,18 @@ public class EasyTemplateRegistration {
     public var lastName: String = ""
     public var email: String = "" 
     public var onClick: () -> Void = { print("Register Button Clicked") }
+
+	private func validate() -> Bool {
+		if (username.isEmpty || password.isEmpty || password2.isEmpty || firstName.isEmpty || lastName.isEmpty || email.isEmpty) {
+			EasyAlert(title: "Registration Error", message: "Please fill in all fields.")
+			return false
+		}
+		if (password != password2) {
+			EasyAlert(title: "Registration Error", message: "Passwords do not match.")
+			return false
+		}
+		return true
+	}
 	
 	public init	(
 			_ page: SCDLatticePageAdapter,
@@ -1783,9 +1795,14 @@ public class EasyTemplateRegistration {
    		
    		buttonRegister.onClick( 
    			{	
-   				_ in self.onClick()		
+   				_ in 
+
+				if self.validate() {
+					self.onClick()
+				}
    			}
    		)
+				
    
    		
 		let temp  = EasySCDPage(
