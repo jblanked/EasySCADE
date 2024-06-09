@@ -77,6 +77,12 @@ public class EasyTemplateRegistration {
 
 				if self.validate() {
 					self.onClick()
+					self.username = ""
+					self.email = ""
+					self.firstName = ""
+					self.lastName = ""
+					self.password = ""
+					self.password2 = ""
 				}
    			}
    		)
@@ -204,6 +210,8 @@ public class EasyTemplateLogin {
 
 				if self.validate() {
 					self.onClick()
+					self.username = ""
+					self.password = ""
 				}
    			}
    		)
@@ -302,7 +310,11 @@ public class EasyTemplateLogin {
       						paddingVertical: 0,
       						paddingHorizontal: 0,
       						location: SCDGraphicsPoint(x: 0, y: 0),
-      						action: { self.onClick() }
+      						action: { 
+								self.onClick() 
+								self.username = ""
+								self.password = ""
+							}
     					)
 
     		signIn.cornerRadius = 10
