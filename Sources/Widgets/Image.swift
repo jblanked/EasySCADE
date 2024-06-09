@@ -46,7 +46,11 @@ public func EasySCDImageURL(
 	}
 
 	
-	image.onClick { _ in navigationAction() }
+	image.onClick { 
+		_ in 
+		EasyVibrate()
+		navigationAction() 
+	}
 
 	return image
 }
@@ -85,7 +89,11 @@ public func EasySCDImage(
 		}
 
 
-        image.onClick { _ in navigationAction() }
+        image.onClick { 
+			_ in 
+			EasyVibrate()
+			navigationAction() 
+		}
 
         return image
     }
@@ -130,7 +138,11 @@ public func EasySCDImagePhotoLibrary(
 		}
 
 
-        image.onClick { _ in navigationAction() }
+        image.onClick { 
+			_ in 
+			EasyVibrate()
+			navigationAction() 
+		}
 
         return image
     }
@@ -168,7 +180,11 @@ public func EasySCDImageData(
 		}
 
 
-        image.onClick { _ in navigationAction() }
+        image.onClick { 
+			_ in 
+			EasyVibrate()
+			navigationAction() 
+		}
 
         return image
     }

@@ -7,6 +7,7 @@ import ScadeUI
 #if os(iOS)
 import UIKit 
 import SwiftUI
+import AudioToolbox
 #endif
 
 #if os(Android)
@@ -17,6 +18,14 @@ import AndroidApp
 import AndroidContent
 import AndroidOS
 #endif
+
+public func EasyVibrate() {
+	#if os(iOS)
+	AudioServicesPlaySystemSound(1519) // Actuate "Peek" feedback (weak boom)
+	//AudioServicesPlaySystemSound(1520) // Actuate "Pop" feedback (strong boom)
+	//AudioServicesPlaySystemSound(1521) // Actuate "Nope" feedback (series of three weak booms)
+	#endif
+}
 
 public func EasySCDNavigationBar(
 		backgroundColor: SCDGraphicsRGB = EasyColor.white,
@@ -48,7 +57,7 @@ public func EasySCDNavigationBar(
   	navbar.children = [label]
   	
   	navbar.onClick { _ in
-  		
+  		EasyVibrate()
   		action()
 
   	}
@@ -92,7 +101,7 @@ public func EasySCDNavigationBar(
   	navbar.children = [label]
   	
   	navbar.onClick { _ in
-  		
+  		EasyVibrate()
   		action()
 
   	}

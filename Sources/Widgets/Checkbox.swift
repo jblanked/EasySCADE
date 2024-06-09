@@ -60,6 +60,7 @@ public func EasySCDCheckboxElement(
     
     // Add an onChange listener to the checkbox to handle checked changes
     checkbox.onClick { _ in
+    EasyVibrate()
 		onCheckedChanged(checkbox.checked)
     }
 

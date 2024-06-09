@@ -62,7 +62,7 @@ public func EasySCDToolbar(_ items: [EasySCDToolbarItem], height: Int = 50, back
 				width: 50,
 				location: SCDGraphicsPoint(x: mutli + (div * count), y: 0),
 				navigationAction: {
-					
+					EasyVibrate()
       				i.action()
       				
 				}

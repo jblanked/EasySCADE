@@ -51,6 +51,7 @@ public func EasySCDList(_ list: [EasySCDListElement]) -> SCDWidgetsContainer
 				bold: false,
 				underline: false,
 				action: {
+					EasyVibrate()
 					i.action()
 				}
 			

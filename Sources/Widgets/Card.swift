@@ -45,7 +45,11 @@ public func EasySCDCard	(
         
     customElement.children.append(bubbleContainer)
     
-	customElement.onClick { _ in action() }
+	customElement.onClick { 
+        _ in 
+        EasyVibrate()
+        action() 
+    }
 
 	customElement.size = SCDGraphicsDimension(
 			width: Int(screenInfo.screenSize.width), 

@@ -38,7 +38,11 @@ public func EasySCDButton(
 		button.size = SCDGraphicsDimension(width: width, height: height)
 		button.location = location
 		button.font!.color = color
-		button.onClick { _ in action() }
+		button.onClick { 
+				_ in 
+				EasyVibrate()
+				action() 
+			}
 
 		if paddingHorizontal > 0 {
 			button.paddingLeft = paddingHorizontal
