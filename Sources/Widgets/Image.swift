@@ -28,10 +28,8 @@ public func EasySCDImageURL(
 		location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: 0),
 		navigationAction: @escaping () -> Void = {  }) -> SCDWidgetsImage
 {	
-	let image = EasySCDImageCache(path, path ) { image in
-		image
-	}
-			
+	let image = EasySCDImageCache(path, path)
+	
 	let size = SCDGraphicsDimension()
 	size.height = height
 	size.width = width        
@@ -176,7 +174,7 @@ public func EasySCDImageData(
     }
 
 
-private func EasySCDImageCache(_ key: String, _ value: String, completion: @escaping (SCDWidgetsImage) -> Void) {
+private func EasySCDImageCache(_ key: String, _ value: String) -> SCDWidgetsImage {
     var imageWidget = SCDWidgetsImage()
 
     // Try to read the cached picture from storage
@@ -189,27 +187,20 @@ private func EasySCDImageCache(_ key: String, _ value: String, completion: @esca
         }
     }
 
-    completion(imageWidget)
-
     // Fetch the image from the provided URL if the cached image is not valid or doesn't exist
-    DispatchQueue.global(qos: .background).async {
-        if let profileImageURL = URL(string: value), let newImageData = try? Data(contentsOf: profileImageURL) {
-            // Check if the new image data is different from what's already cached and it's not empty
-            let newImageBase64String = newImageData.base64EncodedString()
-            if appStorage.read(key: key) != newImageBase64String && !newImageData.isEmpty {
-                // Save the new image as a base64 string to cache
-                appStorage.write(key: key, value: newImageBase64String)
-                // Create an image from the newly fetched data and update the widget
-                let newImageWidget = EasySCDImageData(newImageData)
-                
-                DispatchQueue.main.async {
-                    completion(newImageWidget)
-                }
-            }
+    if let profileImageURL = URL(string: value), let newImageData = try? Data(contentsOf: profileImageURL) {
+        // Check if the new image data is different from what's already cached and it's not empty
+        let newImageBase64String = newImageData.base64EncodedString()
+        if appStorage.read(key: key) != newImageBase64String && !newImageData.isEmpty {
+            // Save the new image as a base64 string to cache
+            appStorage.write(key: key, value: newImageBase64String)
+            // Create an image from the newly fetched data and update the widget
+            imageWidget = EasySCDImageData(newImageData)
         }
     }
-}
 
+    return imageWidget
+}
 
 
 private func EasySCDImageCacheLocal(_ key: String, _ filePath: String) -> SCDWidgetsImage {
