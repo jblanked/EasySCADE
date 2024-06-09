@@ -28,7 +28,9 @@ public func EasySCDImageURL(
 		location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: 0),
 		navigationAction: @escaping () -> Void = {  }) -> SCDWidgetsImage
 {	
-	let image = EasySCDImageCache(path, path)
+	let image = EasySCDImageCache(path, path ) { image in
+		image
+	}
 			
 	let size = SCDGraphicsDimension()
 	size.height = height
