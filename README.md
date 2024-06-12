@@ -1,6 +1,6 @@
 # EasySCADE
 
-EasySCADE aims to simplify SCADE mobile app development by providing a set of utilities and wrappers that make it easier to work with the SCADE framework. This library is designed to streamline your development process, allowing you to focus more on building your app and less on boilerplate code.
+EasySCADE aims to simplify SCADE mobile app development by providing a set of utilities and wrappers that make it easier to work with the SCADE framework. This library is designed to streamline your development process, allowing you to focus more on building your app and less on boilerplate code. Full documentation: [https://www.jblanked.com/api/EasySCADE/](https://www.jblanked.com/api/EasySCADE/).
 
 ## Prerequisites
 
@@ -72,7 +72,7 @@ import EasySCADE
 
 ### Step 4: Start Using EasySCADE
 
-You are now ready to simplify your SCADE app development with EasySCADE! Check the [Usage](#usage) section below for examples on how to use EasySCADE in your project.
+You are now ready to simplify your SCADE app development with EasySCADE! Check the [Usage](#usage) section below for examples on how to use EasySCADE in your project. Full documentation: [https://www.jblanked.com/api/EasySCADE/](https://www.jblanked.com/api/EasySCADE/).
 
 ## Usage
 
