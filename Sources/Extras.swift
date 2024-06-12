@@ -118,6 +118,25 @@ public func EasySpinner(_ show: Bool, _ text: String = "Loading...") {
 	}
 }
 
+public func EasySheet(
+    _ title: String = "Title",
+    _ message: String = "Message",
+    _ action: @escaping () -> Void = { }
+    ) {
+  DispatchQueue.main.async {
+    #if os(iOS)
+      let alert = UIAlertController(
+        title: title,
+        message: message,
+        preferredStyle: .actionSheet)
+      
+      alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in action() }))
+
+      SCDApplication.rootViewController?.present(alert, animated: true)
+    #endif
+  }
+}
+
 
 public func EasySpinner(_ seconds: Int, _ text: String = "Loading...", _ action: @escaping () -> Void = { }) {
 	DispatchQueue.main.async {
