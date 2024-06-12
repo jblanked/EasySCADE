@@ -29,13 +29,14 @@ public func EasySCDImageURL(
 		navigationAction: @escaping () -> Void = {  }) -> SCDWidgetsImage
 {	
 	let image = EasySCDImageCache(path, path)
-	image.contentPriority = true
+	
 	let size = SCDGraphicsDimension()
 	size.height = height
 	size.width = width        
 	image.size = size  
 	image.location = location
-	image.name = path
+	image.name = "url"
+	image.contentPriority = true
 
 	if paddingHorizontal > 0 {
 		image.paddingLeft = paddingHorizontal
@@ -72,13 +73,14 @@ public func EasySCDImage(
 		}) -> SCDWidgetsImage
     {	
     	let image = EasySCDImageCacheLocal(path, path)
-        image.contentPriority = false
+        
         let size = SCDGraphicsDimension()
         size.height = height
         size.width = width        
         image.size = size  
 		image.location = location
-		image.name = path
+		image.name = "localPath"
+		image.contentPriority = false
 
 		if paddingHorizontal > 0 {
 		image.paddingLeft = paddingHorizontal
