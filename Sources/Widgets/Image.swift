@@ -81,6 +81,7 @@ public func EasySCDImage(
 		image.location = location
 		image.name = "localPath"
 		image.contentPriority = false
+		image.url = path
 
 		if paddingHorizontal > 0 {
 		image.paddingLeft = paddingHorizontal
