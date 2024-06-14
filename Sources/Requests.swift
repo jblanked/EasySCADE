@@ -1,13 +1,13 @@
 import Foundation
 
-enum NetworkError: Error {
+public enum NetworkError: Error {
     case connectionFailed
     case invalidURL
     case unknownError
     case noData
 }
 
-let requests: EasyRequests = EasyRequests()
+public let requests: EasyRequests = EasyRequests()
 
 public class EasyRequests {
     // get request with async/await, returns a Codable object
