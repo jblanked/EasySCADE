@@ -11,7 +11,7 @@ public let requests: EasyRequests = EasyRequests()
 
 public class EasyRequests {
     // get request with async/await, returns a Codable object
-    public static func get<T: Codable>(url: String, headers: [String: String] = ["Accept": "application/json", "Content-Type": "application/json"], queryItems: [URLQueryItem] = []) async throws -> T {
+    public func get<T: Codable>(url: String, headers: [String: String] = ["Accept": "application/json", "Content-Type": "application/json"], queryItems: [URLQueryItem] = []) async throws -> T {
         guard let url = URL(string: url) else {
             throw NetworkError.invalidURL
         }
@@ -43,7 +43,7 @@ public class EasyRequests {
     }
 
     // post request with async/await, returns a Codable object
-    public static func post<T: Codable>(url: String, body: Data, headers: [String: String] = ["Accept": "application/json", "Content-Type": "application/json"]) async throws -> T {
+    public func post<T: Codable>(url: String, body: Data, headers: [String: String] = ["Accept": "application/json", "Content-Type": "application/json"]) async throws -> T {
         guard let url = URL(string: url) else {
             throw NetworkError.invalidURL
         }
@@ -69,7 +69,7 @@ public class EasyRequests {
     }
 
     // put request with async/await, returns a Codable object
-    public static func put<T: Codable>(url: String, body: Data, headers: [String: String] = ["Accept": "application/json", "Content-Type": "application/json"]) async throws -> T {
+    public func put<T: Codable>(url: String, body: Data, headers: [String: String] = ["Accept": "application/json", "Content-Type": "application/json"]) async throws -> T {
         guard let url = URL(string: url) else {
             throw NetworkError.invalidURL
         }
@@ -95,7 +95,7 @@ public class EasyRequests {
     }
 
     // delete request with async/await, returns a Codable object
-    public static func delete<T: Codable>(url: String, headers: [String: String] = ["Accept": "application/json", "Content-Type": "application/json"]) async throws -> T {
+    public func delete<T: Codable>(url: String, headers: [String: String] = ["Accept": "application/json", "Content-Type": "application/json"]) async throws -> T {
         guard let url = URL(string: url) else {
             throw NetworkError.invalidURL
         }
