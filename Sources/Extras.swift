@@ -195,7 +195,7 @@ public func EasySCDSpacer(_ height: Int = 20) -> SCDWidgetsWidget
 }
 
 
-public func EasySCDSeperator(_ y: Int = 20, _ strokeColor: SCDSvgColor = EasySVGColor.black, _ strokeWidth: Float = 1.0) -> SCDWidgetsWidget
+public func EasySCDSeparator(_ y: Int = 20, _ strokeColor: SCDSvgColor = EasySVGColor.black, _ strokeWidth: Float = 1.0) -> SCDWidgetsWidget
   {
   	let line = SCDSvgLine()
     line.x1 = SCDSvgUnit(integerLiteral: 10)
