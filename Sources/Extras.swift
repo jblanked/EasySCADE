@@ -26,7 +26,7 @@ public func EasyAlert(title:String, message:String,action: @escaping () -> Void 
 	DispatchQueue.main.async {
 
     #if os(iOS)
-
+      // https://stackoverflow.com/questions/42173060/how-to-use-uialertcontroller
       let alert = UIAlertController(
         title: title,
         message: message,
