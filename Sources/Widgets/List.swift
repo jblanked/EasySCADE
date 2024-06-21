@@ -57,7 +57,7 @@ public func EasySCDList(_ list: [EasySCDListElement]) -> SCDWidgetsContainer
 			
     	  )
   	 	textLabel.append(label)
-    	let sec = EasySCDSeperator(10, SCDColor.black, 1.0)
+    	let sec = EasySCDSeparator(10, SCDColor.black, 1.0)
 		sec.size = SCDGraphicsDimension(width: Int(screenInfo.screenSize.width), height: 20)
     	textLabel.append(sec)
   	 	
