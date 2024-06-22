@@ -48,6 +48,7 @@ import UIKit
 public class Easybase
 {
     private let client: SupabaseClient
+    public var title = "New Message"
 
     public init(supabaseURL: String, supabaseKey: String)
     {
@@ -199,9 +200,9 @@ public class Easybase
 
     }
 
-    private func showNotification(_ message: String,_ title: String = "New Message") {
+    private func showNotification(_ message: String) {
     let content = UNMutableNotificationContent()
-    content.title = title
+    content.title = self.title
     content.body = message
     content.sound = UNNotificationSound.default
     
