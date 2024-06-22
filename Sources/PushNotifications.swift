@@ -114,7 +114,7 @@ public class Easybase
     {
         do
         {
-            let message = Message(message: message)
+            let message = EasyPushMessage(message: message)
             let response = try await client.from(table).insert(message).execute()
             return true
         }
@@ -125,11 +125,11 @@ public class Easybase
         }
     }
 
-    public func getMessages(_ table: String = "messages") async -> [Message]
+    public func getMessages(_ table: String = "messages") async -> [EasyPushMessage]
     {
         do
         {
-            let messages: [Message] = try await client.from(table).select().execute().value
+            let messages: [EasyPushMessage] = try await client.from(table).select().execute().value
             return messages
         }
         catch
@@ -222,7 +222,7 @@ public class Easybase
 
 }
 
-private struct Message: Codable
+public struct EasyPushMessage: Codable
 { 
   let id = UUID()
   let message: String
