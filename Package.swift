@@ -20,7 +20,8 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/scade-platform/ScadeExtensions", branch: "main"),
-        .package(url: "https://github.com/scade-platform/swift-android.git", branch: "android/24")
+        .package(url: "https://github.com/scade-platform/swift-android.git", branch: "android/24"),
+        .package(url: "https://github.com/supabase-community/supabase-swift.git", branch: "main"),
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
@@ -37,7 +38,8 @@ let package = Package(
             .product(name: "AndroidMedia", package: "swift-android", condition: .when(platforms: [.android])), 
             .product(name: "AndroidBluetooth", package: "swift-android", condition: .when(platforms: [.android])), 
             .product(name: "AndroidGraphics", package: "swift-android", condition: .when(platforms: [.android])), 
-            .product(name: "AndroidLocation", package: "swift-android", condition: .when(platforms: [.android])) 
+            .product(name: "AndroidLocation", package: "swift-android", condition: .when(platforms: [.android])),
+            .product(name: "Supabase", package: "supabase-swift", condition: .when(platforms: [.iOS])),
             ],
             exclude: ["Sources/EasySCADE/Generated"],
             swiftSettings: [
