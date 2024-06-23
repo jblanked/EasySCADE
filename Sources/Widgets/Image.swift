@@ -206,19 +206,23 @@ private func EasySCDImageCache(_ key: String, _ value: String) -> SCDWidgetsImag
             imageWidget = EasySCDImageData(imageData)
         }
     }
+	else
+	{
 
-    // Fetch the image from the provided URL if the cached image is not valid or doesn't exist
-    if let profileImageURL = URL(string: value), let newImageData = try? Data(contentsOf: profileImageURL) {
-        // Check if the new image data is different from what's already cached and it's not empty
-        let newImageBase64String = newImageData.base64EncodedString()
-        if appStorage.read(key: key) != newImageBase64String && !newImageData.isEmpty {
-            // Save the new image as a base64 string to cache
-            appStorage.write(key: key, value: newImageBase64String)
-            // Create an image from the newly fetched data and update the widget
-            imageWidget = EasySCDImageData(newImageData)
-        }
-    }
+	Task {
+		// Fetch Image Data
+		if let data = try? Data(contentsOf: URL(string: value)!) {
+			let base64String = data.base64EncodedString()
+			appStorage.write(key: key, value: base64String)
 
+			DispatchQueue.main.async {
+			imageWidget = EasySCDImageData(data)
+			}
+
+		}
+	}
+
+	}
     return imageWidget
 }
 
@@ -233,17 +237,23 @@ private func EasySCDImageCacheLocal(_ key: String, _ filePath: String) -> SCDWid
             imageWidget = EasySCDImageData(imageData)
         }
     }
+	else
+	{
 
-    // Check if the local file differs from the cached version or if the cached version is not valid
-    if let newImageData = try? Data(contentsOf: URL(fileURLWithPath: filePath)) {
-        let newImageBase64String = newImageData.base64EncodedString()
-        if appStorage.read(key: key) != newImageBase64String && !newImageData.isEmpty {
-            // Save the new image as a base64 string to cache
-            appStorage.write(key: key, value: newImageBase64String)
-            // Update the image widget with the new image data
-            imageWidget = EasySCDImageData(newImageData)
-        }
-    }
+	Task {
+		// Fetch Image Data
+		if let data = try? Data(contentsOf: URL(fileURLWithPath: filePath)) {
+			let base64String = data.base64EncodedString()
+			appStorage.write(key: key, value: base64String)
+
+			DispatchQueue.main.async {
+			imageWidget = EasySCDImageData(data)
+			}
+
+		}
+	}
+
+	}
 
     return imageWidget
 }
