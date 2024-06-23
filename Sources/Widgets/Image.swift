@@ -250,7 +250,7 @@ private func EasySCDImageCacheLocal(_ key: String, _ filePath: String) -> SCDWid
 
 // Asynchronously fetches and caches image data from a URL
 private func EasySCDImageCacheAsync(_ key: String, _ value: String, completion: @escaping (SCDWidgetsImage) -> Void) {
-    DispatchQueue.global(qos: .background).async {
+    Task {
         var imageWidget = SCDWidgetsImage()
         
         // Attempt to load from cache first
@@ -279,7 +279,7 @@ private func EasySCDImageCacheAsync(_ key: String, _ value: String, completion: 
 
 // Asynchronously fetches and caches local image data
 private func EasySCDImageCacheLocalAsync(_ key: String, _ filePath: String, completion: @escaping (SCDWidgetsImage) -> Void) {
-    DispatchQueue.global(qos: .background).async {
+    Task {
         var imageWidget = SCDWidgetsImage()
         
         // Load from local cache
