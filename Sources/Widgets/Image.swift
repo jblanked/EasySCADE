@@ -317,36 +317,34 @@ public func EasySCDImageURLAsync(
     navigationAction: @escaping () -> Void = {}
 ) -> SCDWidgetsImage {
     let placeholderImage = SCDWidgetsImage()
-	Task
-	{
     EasySCDImageCacheAsync(path, path) { image in
         placeholderImage.content = image.content
+
     }
-	}
+	
 
 	let size = SCDGraphicsDimension()
-        size.height = height
-        size.width = width        
-        placeholderImage.size = size  
-		placeholderImage.location = location
-		placeholderImage.name = "localPath"
-		placeholderImage.contentPriority = false
-		placeholderImage.url = path
+	size.height = height
+	size.width = width        
+	placeholderImage.size = size  
+	placeholderImage.location = location
+	placeholderImage.name = "url"
+	placeholderImage.contentPriority = true
 
-		if paddingHorizontal > 0 {
+	if paddingHorizontal > 0 {
 		placeholderImage.paddingLeft = paddingHorizontal
 		placeholderImage.size.width = width - paddingHorizontal
-		}
-		if paddingVertical > 0 {
-			placeholderImage.paddingTop = paddingVertical
-		}
+	}
+	if paddingVertical > 0 {
+		placeholderImage.paddingTop = paddingVertical
+	}
 
-
-        placeholderImage.onClick { 
-			_ in 
-			EasyVibrate()
-			navigationAction() 
-		}
+	
+	placeholderImage.onClick { 
+		_ in 
+		EasyVibrate()
+		navigationAction() 
+	}
 
        
     return placeholderImage
