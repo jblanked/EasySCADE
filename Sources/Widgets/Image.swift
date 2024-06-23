@@ -72,6 +72,7 @@ public func EasySCDImage(
 		
 		}) -> SCDWidgetsImage
     {	
+		// cache async
     	let image = EasySCDImageCacheLocal(path, path)
         
         let size = SCDGraphicsDimension()
@@ -303,4 +304,47 @@ private func EasySCDImageCacheLocalAsync(_ key: String, _ filePath: String, comp
             }
         }
     }
+}
+
+// Example usage in your existing functions:
+public func EasySCDImageURLAsync(
+    _ path: String,
+    paddingVertical: Int = 0,
+    paddingHorizontal: Int = 10,
+    height: Int = Int(screenInfo.screenSize.width),
+    width: Int = Int(screenInfo.screenSize.width),
+    location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: 0),
+    navigationAction: @escaping () -> Void = {}
+) -> SCDWidgetsImage {
+    let placeholderImage = SCDWidgetsImage()
+    EasySCDImageCacheAsync(path, path) { image in
+        placeholderImage.content = image.content
+    }
+
+	let size = SCDGraphicsDimension()
+        size.height = height
+        size.width = width        
+        placeholderImage.size = size  
+		placeholderImage.location = location
+		placeholderImage.name = "localPath"
+		placeholderImage.contentPriority = false
+		placeholderImage.url = path
+
+		if paddingHorizontal > 0 {
+		placeholderImage.paddingLeft = paddingHorizontal
+		placeholderImage.size.width = width - paddingHorizontal
+		}
+		if paddingVertical > 0 {
+			placeholderImage.paddingTop = paddingVertical
+		}
+
+
+        placeholderImage.onClick { 
+			_ in 
+			EasyVibrate()
+			navigationAction() 
+		}
+
+       
+    return placeholderImage
 }
