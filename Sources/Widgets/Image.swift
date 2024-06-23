@@ -317,9 +317,12 @@ public func EasySCDImageURLAsync(
     navigationAction: @escaping () -> Void = {}
 ) -> SCDWidgetsImage {
     let placeholderImage = SCDWidgetsImage()
+	Task
+	{
     EasySCDImageCacheAsync(path, path) { image in
         placeholderImage.content = image.content
     }
+	}
 
 	let size = SCDGraphicsDimension()
         size.height = height
