@@ -194,7 +194,7 @@ public func EasySCDImageData(
     }
 
 
-@MainActor private func EasySCDImageCache(_ key: String, _ value: String) -> SCDWidgetsImage {
+private func EasySCDImageCache(_ key: String, _ value: String) -> SCDWidgetsImage {
     var imageWidget = SCDWidgetsImage()
 
     // Try to read the cached picture from storage
@@ -209,21 +209,20 @@ public func EasySCDImageData(
 	else
 	{
 
-	Task {
-		// Fetch Image Data
+
 		if let data = try? Data(contentsOf: URL(string: value)!) {
 			let base64String = data.base64EncodedString()
 			appStorage.write(key: key, value: base64String)
 			imageWidget = EasySCDImageData(data)
 		}
-	}
+	
 
 	}
     return imageWidget
 }
 
 
-@MainActor private func EasySCDImageCacheLocal(_ key: String, _ filePath: String) -> SCDWidgetsImage {
+private func EasySCDImageCacheLocal(_ key: String, _ filePath: String) -> SCDWidgetsImage {
     var imageWidget = SCDWidgetsImage()
 
     // Check if the cached version of the file exists and is valid
@@ -235,21 +234,18 @@ public func EasySCDImageData(
     }
 	else
 	{
-
-	Task {
-		// Fetch Image Data
 		if let data = try? Data(contentsOf: URL(fileURLWithPath: filePath)) {
 			let base64String = data.base64EncodedString()
 			appStorage.write(key: key, value: base64String)
 			imageWidget = EasySCDImageData(data)
 		}
-	}
+	
 
 	}
 
     return imageWidget
 }
-actor ImageCacheManager {
+actor ImageCacheManagerURL {
     // Retrieve image from cache or URL
     func loadImage(_ key: String, from url: String) async -> SCDWidgetsImage {
         var imageWidget = SCDWidgetsImage()
@@ -275,15 +271,55 @@ actor ImageCacheManager {
     }
 }
 
+actor ImageCacheManager {
+	// Retrieve image from cache or local path
+	func loadImage(_ key: String, from filePath: String) async -> SCDWidgetsImage {
+		var imageWidget = SCDWidgetsImage()
+
+		// Load from cache
+		if let cachedString = appStorage.read(key: key),
+		   let cachedImageData = Data(base64Encoded: cachedString.replacingOccurrences(of: "data:image/png;base64,", with: "")) {
+			imageWidget = EasySCDImageData(cachedImageData)
+		}
+		else {
+			Task {
+				// Fetch Image Data
+				if let data = try? Data(contentsOf: URL(fileURLWithPath: filePath)) {
+					let base64String = data.base64EncodedString()
+					appStorage.write(key: key, value: base64String)
+					imageWidget = EasySCDImageData(data)
+				}
+			}
+		}
+
+		return imageWidget
+	}
+}
+
+private let imageCacheManagerURL = ImageCacheManagerURL()
+
+// Asynchronously fetch and display the image
+func loadAndDisplayImageURL(key: String, url: String, imageView: SCDWidgetsImage) {
+    Task {
+        let image = await imageCacheManagerURL.loadImage(key, from: url)
+			DispatchQueue.main.async {
+            imageView.content = image.content // Update UI on main thread
+			}
+        
+    }
+}
+
 private let imageCacheManager = ImageCacheManager()
 
 // Asynchronously fetch and display the image
-func loadAndDisplayImage(key: String, url: String, imageView: SCDWidgetsImage) {
-    Task {
-        let image = await imageCacheManager.loadImage(key, from: url)
-            imageView.content = image.content // Update UI on main thread
-        
-    }
+func loadAndDisplayImage(key: String, filePath: String, imageView: SCDWidgetsImage) {
+	Task {
+		let image = await imageCacheManager.loadImage(key, from: filePath)
+			DispatchQueue.main.async {
+			imageView.content = image.content // Update UI on main thread
+			}
+		
+	}
 }
 
 
@@ -300,7 +336,7 @@ public func EasySCDImageURLAsync(
 
     var placeholderImage = SCDWidgetsImage()
 
-	loadAndDisplayImage(key: path, url: path, imageView: placeholderImage)
+	loadAndDisplayImageURL(key: path, url: path, imageView: placeholderImage)
 
 	let size = SCDGraphicsDimension()
 	size.height = height
