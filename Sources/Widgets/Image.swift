@@ -278,9 +278,8 @@ private let imageCacheManager = ImageCacheManager()
 func loadAndDisplayImage(key: String, url: String, imageView: SCDWidgetsImage) {
     Task {
         let image = await imageCacheManager.loadImage(key, from: url)
-        DispatchQueue.main.async {
             imageView.content = image.content // Update UI on main thread
-        }
+        
     }
 }
 
