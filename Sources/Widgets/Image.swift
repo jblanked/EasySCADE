@@ -194,7 +194,7 @@ public func EasySCDImageData(
     }
 
 
-private func EasySCDImageCache(_ key: String, _ value: String) -> SCDWidgetsImage {
+@MainActor private func EasySCDImageCache(_ key: String, _ value: String) -> SCDWidgetsImage {
     var imageWidget = SCDWidgetsImage()
 
     // Try to read the cached picture from storage
@@ -214,18 +214,16 @@ private func EasySCDImageCache(_ key: String, _ value: String) -> SCDWidgetsImag
 		if let data = try? Data(contentsOf: URL(string: value)!) {
 			let base64String = data.base64EncodedString()
 			appStorage.write(key: key, value: base64String)
-			imageWidget.content = data
+			imageWidget = EasySCDImageData(data)
 		}
 	}
-
-	imageWidget = EasySCDImageData(imageWidget.content)
 
 	}
     return imageWidget
 }
 
 
-private func EasySCDImageCacheLocal(_ key: String, _ filePath: String) -> SCDWidgetsImage {
+@MainActor private func EasySCDImageCacheLocal(_ key: String, _ filePath: String) -> SCDWidgetsImage {
     var imageWidget = SCDWidgetsImage()
 
     // Check if the cached version of the file exists and is valid
@@ -243,13 +241,9 @@ private func EasySCDImageCacheLocal(_ key: String, _ filePath: String) -> SCDWid
 		if let data = try? Data(contentsOf: URL(fileURLWithPath: filePath)) {
 			let base64String = data.base64EncodedString()
 			appStorage.write(key: key, value: base64String)
-			imageWidget.content = data
-			
-
+			imageWidget = EasySCDImageData(data)
 		}
 	}
-
-	imageWidget = EasySCDImageData(imageWidget.content)
 
 	}
 
@@ -271,12 +265,10 @@ actor ImageCacheManager {
 				if let data = try? Data(contentsOf: URL(string: url)!) {
 					let base64String = data.base64EncodedString()
 					appStorage.write(key: key, value: base64String)
-					imageWidget.content = data
-				
+					imageWidget = EasySCDImageData(data)
+
 				}
 			}
-
-			imageWidget = EasySCDImageData(imageWidget.content)
 		}
 
         return imageWidget
