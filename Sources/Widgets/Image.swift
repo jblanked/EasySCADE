@@ -247,8 +247,9 @@ private func EasySCDImageCacheLocal(_ key: String, _ filePath: String) -> SCDWid
 }
 actor ImageCacheManagerURL {
     // Retrieve image from cache or URL
+	var imageWidget = SCDWidgetsImage()
     func loadImage(_ key: String, from url: String) async -> SCDWidgetsImage {
-        var imageWidget = SCDWidgetsImage()
+        
 
         // Load from cache
         if let picString = appStorage.read(key: key),
@@ -273,8 +274,9 @@ actor ImageCacheManagerURL {
 
 actor ImageCacheManager {
 	// Retrieve image from cache or local path
+	var imageWidget = SCDWidgetsImage()
 	func loadImage(_ key: String, from filePath: String) async -> SCDWidgetsImage {
-		var imageWidget = SCDWidgetsImage()
+		
 
 		// Load from cache
 		if let cachedString = appStorage.read(key: key),
