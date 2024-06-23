@@ -247,68 +247,55 @@ private func EasySCDImageCacheLocal(_ key: String, _ filePath: String) -> SCDWid
 
     return imageWidget
 }
-import ScadeKit
-import Dispatch
-
+private var tempImage = SCDWidgetsImage()
 // Asynchronously fetches and caches image data from a URL
-private func EasySCDImageCacheAsync(_ key: String, _ value: String, imageWidget: SCDWidgetsImage) {
+private func EasySCDImageCacheAsync(_ key: String, _ value: String) -> SCDWidgetsImage {
     Task {
-        var tempImageData: Data?
-        var tempBase64String: String?
-
+    	 tempImage = SCDWidgetsImage()
         // Attempt to load from cache first
         if let picString = appStorage.read(key: key),
            let imageData = Data(base64Encoded: picString.replacingOccurrences(of: "data:image/png;base64,", with: "")) {
-            tempImageData = imageData
+            tempImage = EasySCDImageData(imageData)
         }
         
         // Load from URL if cache is missing or invalid
-        if tempImageData == nil, let profileImageURL = URL(string: value), let newImageData = try? Data(contentsOf: profileImageURL) {
-            tempBase64String = newImageData.base64EncodedString()
-            tempImageData = newImageData
-        }
-        
-        // Pass the data to the main thread to update UI
-        await MainActor.run {
-            if let validImageData = tempImageData {
-                if let newBase64String = tempBase64String, appStorage.read(key: key) != newBase64String && !validImageData.isEmpty {
-                    appStorage.write(key: key, value: "data:image/png;base64," + newBase64String)
-                }
-                imageWidget.content = validImageData
+        if let profileImageURL = URL(string: value), let newImageData = try? Data(contentsOf: profileImageURL) {
+            let newImageBase64String = newImageData.base64EncodedString()
+            if appStorage.read(key: key) != newImageBase64String && !newImageData.isEmpty {
+                appStorage.write(key: key, value: "data:image/png;base64," + newImageBase64String)
+                tempImage = EasySCDImageData(newImageData)
             }
         }
     }
+
+	return tempImage
 }
 
-// Similarly, update for local cache
-private func EasySCDImageCacheLocalAsync(_ key: String, _ filePath: String, imageWidget: SCDWidgetsImage) {
-    Task {
-        var tempImageData: Data?
-        var tempBase64String: String?
+// Asynchronously fetches and caches local image data
+private func EasySCDImageCacheLocalAsync(_ key: String, _ filePath: String) -> SCDWidgetsImage {
 
+    Task {
+         tempImage = SCDWidgetsImage()
         // Load from local cache
         if let cachedString = appStorage.read(key: key),
            let imageData = Data(base64Encoded: cachedString.replacingOccurrences(of: "data:image/png;base64,", with: "")) {
-            tempImageData = imageData
+            tempImage = EasySCDImageData(imageData)
+            
         }
         
         // Load new data if local file changed
-        if tempImageData == nil, let newImageData = try? Data(contentsOf: URL(fileURLWithPath: filePath)) {
-            tempBase64String = newImageData.base64EncodedString()
-            tempImageData = newImageData
-        }
-        
-        await MainActor.run {
-            if let validImageData = tempImageData {
-                if let newBase64String = tempBase64String, appStorage.read(key: key) != newBase64String && !validImageData.isEmpty {
-                    appStorage.write(key: key, value: "data:image/png;base64," + newBase64String)
-                }
-                imageWidget.content = validImageData
+        if let newImageData = try? Data(contentsOf: URL(fileURLWithPath: filePath)) {
+            let newImageBase64String = newImageData.base64EncodedString()
+            if appStorage.read(key: key) != newImageBase64String && !newImageData.isEmpty {
+                appStorage.write(key: key, value: "data:image/png;base64," + newImageBase64String)
+                tempImage = EasySCDImageData(newImageData)
             }
         }
+		
     }
-}
 
+	return tempImage
+}
 
 // Example usage in your existing functions:
 public func EasySCDImageURLAsync(
