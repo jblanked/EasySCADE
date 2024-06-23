@@ -214,13 +214,11 @@ private func EasySCDImageCache(_ key: String, _ value: String) -> SCDWidgetsImag
 		if let data = try? Data(contentsOf: URL(string: value)!) {
 			let base64String = data.base64EncodedString()
 			appStorage.write(key: key, value: base64String)
-
-			DispatchQueue.main.async {
-			imageWidget = EasySCDImageData(data)
-			}
-
+			imageWidget.content = data
 		}
 	}
+
+	imageWidget = EasySCDImageData(imageWidget.content)
 
 	}
     return imageWidget
@@ -245,13 +243,13 @@ private func EasySCDImageCacheLocal(_ key: String, _ filePath: String) -> SCDWid
 		if let data = try? Data(contentsOf: URL(fileURLWithPath: filePath)) {
 			let base64String = data.base64EncodedString()
 			appStorage.write(key: key, value: base64String)
-
-			DispatchQueue.main.async {
-			imageWidget = EasySCDImageData(data)
-			}
+			imageWidget.content = data
+			
 
 		}
 	}
+
+	imageWidget = EasySCDImageData(imageWidget.content)
 
 	}
 
@@ -273,13 +271,12 @@ actor ImageCacheManager {
 				if let data = try? Data(contentsOf: URL(string: url)!) {
 					let base64String = data.base64EncodedString()
 					appStorage.write(key: key, value: base64String)
-
-					DispatchQueue.main.async {
-					imageWidget = EasySCDImageData(data)
-					}
+					imageWidget.content = data
 				
 				}
 			}
+
+			imageWidget = EasySCDImageData(imageWidget.content)
 		}
 
         return imageWidget
