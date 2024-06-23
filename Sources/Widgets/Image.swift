@@ -249,18 +249,14 @@ private func EasySCDImageCacheLocal(_ key: String, _ filePath: String) -> SCDWid
 }
 
 // Asynchronously fetches and caches image data from a URL
-private func EasySCDImageCacheAsync(_ key: String, _ value: String, completion: @escaping (SCDWidgetsImage) -> Void) {
+private func EasySCDImageCacheAsync(_ key: String, _ value: String) -> SCDWidgetsImage {
+    var imageWidget = SCDWidgetsImage()
     Task {
-        var imageWidget = SCDWidgetsImage()
         
         // Attempt to load from cache first
         if let picString = appStorage.read(key: key),
            let imageData = Data(base64Encoded: picString.replacingOccurrences(of: "data:image/png;base64,", with: "")) {
             imageWidget = EasySCDImageData(imageData)
-            DispatchQueue.main.async {
-                completion(imageWidget)
-            }
-            return
         }
         
         // Load from URL if cache is missing or invalid
@@ -270,26 +266,22 @@ private func EasySCDImageCacheAsync(_ key: String, _ value: String, completion: 
                 appStorage.write(key: key, value: "data:image/png;base64," + newImageBase64String)
                 imageWidget = EasySCDImageData(newImageData)
             }
-            DispatchQueue.main.async {
-                completion(imageWidget)
-            }
         }
     }
+
+	return imageWidget
 }
 
 // Asynchronously fetches and caches local image data
-private func EasySCDImageCacheLocalAsync(_ key: String, _ filePath: String, completion: @escaping (SCDWidgetsImage) -> Void) {
+private func EasySCDImageCacheLocalAsync(_ key: String, _ filePath: String) -> SCDWidgetsImage {
+    var imageWidget = SCDWidgetsImage()
     Task {
-        var imageWidget = SCDWidgetsImage()
         
         // Load from local cache
         if let cachedString = appStorage.read(key: key),
            let imageData = Data(base64Encoded: cachedString.replacingOccurrences(of: "data:image/png;base64,", with: "")) {
             imageWidget = EasySCDImageData(imageData)
-            DispatchQueue.main.async {
-                completion(imageWidget)
-            }
-            return
+            
         }
         
         // Load new data if local file changed
@@ -299,11 +291,10 @@ private func EasySCDImageCacheLocalAsync(_ key: String, _ filePath: String, comp
                 appStorage.write(key: key, value: "data:image/png;base64," + newImageBase64String)
                 imageWidget = EasySCDImageData(newImageData)
             }
-            DispatchQueue.main.async {
-                completion(imageWidget)
-            }
         }
     }
+
+	return imageWidget
 }
 
 // Example usage in your existing functions:
@@ -316,11 +307,9 @@ public func EasySCDImageURLAsync(
     location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: 0),
     navigationAction: @escaping () -> Void = {}
 ) -> SCDWidgetsImage {
-    let placeholderImage = SCDWidgetsImage()
-    EasySCDImageCacheAsync(path, path) { image in
-        placeholderImage.content = image.content
 
-    }
+    let placeholderImage = EasySCDImageCacheAsync(path, path)
+   
 	
 
 	let size = SCDGraphicsDimension()
