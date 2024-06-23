@@ -268,7 +268,8 @@ private func EasySCDImageCacheAsync(_ key: String, _ value: String) -> SCDWidget
             }
         }
 
-		imageWidget = tempImage
+		let newImage = tempImage
+		imageWidget = newImage
     }
 
 	return imageWidget
@@ -294,8 +295,8 @@ private func EasySCDImageCacheLocalAsync(_ key: String, _ filePath: String) -> S
                 tempImage = EasySCDImageData(newImageData)
             }
         }
-
-		imageWidget = tempImage
+		let newImage = tempImage
+		imageWidget = newImage
     }
 
 	return imageWidget
