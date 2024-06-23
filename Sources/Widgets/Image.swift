@@ -256,17 +256,18 @@ actor ImageCacheManager {
         if let picString = appStorage.read(key: key),
            let imageData = Data(base64Encoded: picString.replacingOccurrences(of: "data:image/png;base64,", with: "")) {
             imageWidget = EasySCDImageData(imageData)
-            return imageWidget
         }
-
-        // Fetch from URL if not in cache
-        if let profileImageURL = URL(string: url), let newImageData = try? Data(contentsOf: profileImageURL) {
-            let newBase64String = newImageData.base64EncodedString()
-            if appStorage.read(key: key) != newBase64String {
-                appStorage.write(key: key, value: "data:image/png;base64," + newBase64String)
-            }
-            imageWidget = EasySCDImageData(newImageData)
-        }
+		else {
+			Task {
+				// Fetch Image Data
+				if let data = try? Data(contentsOf: URL(string: url)!) {
+					let base64String = data.base64EncodedString()
+					appStorage.write(key: key, value: base64String)
+					imageWidget = EasySCDImageData(data)
+				
+				}
+			}
+		}
 
         return imageWidget
     }
