@@ -296,7 +296,7 @@ public func EasySCDImageURLAsync(
     navigationAction: @escaping () -> Void = {}
 ) -> SCDWidgetsImage {
 
-    let placeholderImage = SCDWidgetsImage()
+    var placeholderImage = SCDWidgetsImage()
 
 	loadAndDisplayImage(key: path, url: path, imageView: placeholderImage)
 
