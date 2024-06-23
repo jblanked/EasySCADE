@@ -1,7 +1,7 @@
 /*
 This uses Supabase and UserNotifications to show a notification when a new message is inserted into the messages table.
 
-You will need to have a Supabase account and create a table called messages with a column called message.
+You will need a Supabase account and create a table called messages with a column called message.
 
 You will also need to enable push notifications in your app via the Apple Developer Portal.
 
@@ -9,7 +9,7 @@ Within Supabase, you will need your Supabase URL and Supabase Key. You can find 
 
 This code is currently for iOS only.
 
-To use add this in start.swift
+To use it, add this in your start.swift:
 
 // top of start.swift
 #if os(iOS)
@@ -21,7 +21,6 @@ import UIKit
 // in onFinishLaunching()
 #if os(iOS)
 @UIApplicationDelegateAdaptor(EasyAppDelegate.self) var appDelegate
-#endif
 
 Task
 {
@@ -33,6 +32,7 @@ Task
     await supabase.subscribeToInserts(roomName: "general")
     
 }
+#endif
 
 */
 
@@ -201,23 +201,41 @@ public class Easybase
     }
 
     private func showNotification(_ message: String) {
-    let content = UNMutableNotificationContent()
-    content.title = self.title
-    content.body = message
-    content.sound = UNNotificationSound.default
-    
+        let content = UNMutableNotificationContent()
+        content.title = self.title
+        content.body = message
+        content.sound = UNNotificationSound.default
+        
 
-    let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
-    let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
-    
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
+        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+        
 
-    UNUserNotificationCenter.current().add(request) { error in
-        if let error = error {
-            print("Error scheduling notification: \(error)")
+        UNUserNotificationCenter.current().add(request) { error in
+            if let error = error {
+                print("Error scheduling notification: \(error)")
+            }
+
         }
-
-    }
     
+    }
+    public func notify(title: String, message: String) {
+        let content = UNMutableNotificationContent()
+        content.title = title
+        content.body = message
+        content.sound = UNNotificationSound.default
+        
+
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 1, repeats: false)
+        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+        
+
+        UNUserNotificationCenter.current().add(request) { error in
+            if let error = error {
+                print("Error scheduling notification: \(error)")
+            }
+
+        }
     
     }
 
