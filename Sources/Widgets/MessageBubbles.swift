@@ -172,14 +172,14 @@ func splitTextIntoLines(_ text: String, _ fontSize: Int = 20) -> [String] {
     let components = formattedText.components(separatedBy: .newlines)
     
     // Calculate maximum letters per line based on font size and screen width
-    var chracterWidth = 10
+    var chracterWidth: Int = 10
 
     if fontSize > 0 {
         let adjustment = fontSize / 20
-        chracterWidth = 10 / adjustment
+        chracterWidth = Int(10 / adjustment)
     }
 
-    let maxLettersPerLine = Int(screenInfo.screenSize.width / CGFloat(chracterWidth))
+    let maxLettersPerLine = (Int(screenInfo.screenSize.width) / Int(chracterWidth))
 
     var lines: [String] = []
     
