@@ -306,7 +306,7 @@ private let imageCacheManager = ImageCacheManager()
 // Asynchronously fetch and display the image
 func loadAndDisplayImage(key: String, filePath: String, imageView: SCDWidgetsImage) {
 	Task {
-		let image = await imageCacheManager.loadImageFromLocalPath(key, from: filePath)
+		let image = await imageCacheManager.loadImageFromLocalPath(key, filePath: filePath)
 			DispatchQueue.main.async {
 			imageView.content = image.content // Update UI on main thread
 			}
