@@ -250,6 +250,7 @@ actor ImageCacheManager {
 
     // Retrieve image from cache or URL
     func loadImageFromURL(_ key: String, url: String) async -> SCDWidgetsImage {
+		var tempData = Data()
         // Load from cache
         if let picString = appStorage.read(key: key),
            let imageData = Data(base64Encoded: picString.replacingOccurrences(of: "data:image/png;base64,", with: "")) {
@@ -259,29 +260,30 @@ actor ImageCacheManager {
             if let newImageData = try? Data(contentsOf: URL(string: url)!) {
                 let base64String = newImageData.base64EncodedString()
                 appStorage.write(key: key, value: "data:image/png;base64," + base64String)
-                await MainActor.run {
-                    self.imageWidget = EasySCDImageData(newImageData)
-                }
+				tempData = newImageData
             }
+
+			self.imageWidget = EasySCDImageData(tempData)
         }
         return self.imageWidget
     }
 
     // Retrieve image from cache or local path
-    func loadImageFromLocalPath(_ key: String, filePath: URL) async -> SCDWidgetsImage {
+    func loadImageFromLocalPath(_ key: String, filePath: String) async -> SCDWidgetsImage {
         // Load from cache
+		var tempData = Data()
         if let cachedString = appStorage.read(key: key),
            let cachedImageData = Data(base64Encoded: cachedString.replacingOccurrences(of: "data:image/png;base64,", with: "")) {
             self.imageWidget = EasySCDImageData(cachedImageData)
         } else {
             // Fetch image data asynchronously
-            if let newImageData = try? Data(contentsOf: filePath) {
+            if let newImageData = try? Data(contentsOf: URL(fileURLWithPath: filePath)) {
                 let base64String = newImageData.base64EncodedString()
                 appStorage.write(key: key, value: "data:image/png;base64," + base64String)
-                await MainActor.run {
-                    self.imageWidget = EasySCDImageData(newImageData)
-                }
+                tempData = newImageData
             }
+
+			self.imageWidget = EasySCDImageData(tempData)
         }
         return self.imageWidget
     }
