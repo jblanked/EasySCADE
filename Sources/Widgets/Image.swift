@@ -252,6 +252,12 @@ actor ImageCacheManager {
 
     // Retrieve image from cache or URL
     func loadImageFromURL(_ key: String, url: String) async -> SCDWidgetsImage {
+
+		guard let url = URL(string: urlString) else {
+            // Handle invalid URL case appropriately, perhaps logging the error or using a placeholder image
+            return SCDWidgetsImage() // Placeholder or error image
+        }
+
         var imageData: Data?
 
         // Load from cache
@@ -274,6 +280,9 @@ actor ImageCacheManager {
 
     // Retrieve image from cache or local path
     func loadImageFromLocalPath(_ key: String, filePath: String) async -> SCDWidgetsImage {
+		guard let fileURL = URL(string: filePath) else {
+            return SCDWidgetsImage() // Placeholder or error image
+        }
         var imageData: Data?
 
         // Load from cache
