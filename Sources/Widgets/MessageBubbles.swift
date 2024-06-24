@@ -167,7 +167,8 @@ private struct BubbleInfo {
 }
 
 public func splitTextIntoLines(_ text: String, _ fontsize: Int = 20) -> [String] {
-    let components = text.components(separatedBy: .whitespacesAndNewlines)
+    let formattedText = text.replacingOccurrences(of: "  ", with: "\n")
+    let components = formattedText.components(separatedBy: .whitespacesAndNewlines)
     let words = components.filter { !$0.isEmpty }
 
     // Calculate adjustment factor based on fontsize changes, inversely proportional
