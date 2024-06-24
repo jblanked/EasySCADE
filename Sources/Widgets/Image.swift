@@ -249,12 +249,12 @@ actor ImageCacheManager {
     var imageWidget = SCDWidgetsImage()  // This property is managed by the actor
 
     // Retrieve image from cache or URL
-    @MainActor func loadImageFromURL(_ key: String, url: String) async -> SCDWidgetsImage {
+    func loadImageFromURL(_ key: String, url: String) async -> SCDWidgetsImage {
 		var tempData = Data()
         // Load from cache
         if let picString = appStorage.read(key: key),
            let imageData = Data(base64Encoded: picString.replacingOccurrences(of: "data:image/png;base64,", with: "")) {
-            self.imageWidget = EasySCDImageData(imageData)
+			tempData = imageData
         } else {
             // Fetch image data asynchronously
             if let newImageData = try? Data(contentsOf: URL(string: url)!) {
@@ -262,21 +262,22 @@ actor ImageCacheManager {
                 appStorage.write(key: key, value: "data:image/png;base64," + base64String)
 				tempData = newImageData
             }
-
-			await MainActor.run {
-			self.imageWidget = EasySCDImageData(tempData)
-			}
         }
+
+		await MainActor.run {
+		self.imageWidget = EasySCDImageData(tempData)
+		}
+
         return self.imageWidget
     }
 
     // Retrieve image from cache or local path
-    @MainActor func loadImageFromLocalPath(_ key: String, filePath: String) async -> SCDWidgetsImage {
+    func loadImageFromLocalPath(_ key: String, filePath: String) async -> SCDWidgetsImage {
         // Load from cache
 		var tempData = Data()
         if let cachedString = appStorage.read(key: key),
            let cachedImageData = Data(base64Encoded: cachedString.replacingOccurrences(of: "data:image/png;base64,", with: "")) {
-            self.imageWidget = EasySCDImageData(cachedImageData)
+			tempData = cachedImageData
         } else {
             // Fetch image data asynchronously
             if let newImageData = try? Data(contentsOf: URL(fileURLWithPath: filePath)) {
@@ -284,10 +285,11 @@ actor ImageCacheManager {
                 appStorage.write(key: key, value: "data:image/png;base64," + base64String)
                 tempData = newImageData
             }
-			await MainActor.run {
-			self.imageWidget = EasySCDImageData(tempData)
-			}
         }
+
+		await MainActor.run {
+		self.imageWidget = EasySCDImageData(tempData)
+		}
         return self.imageWidget
     }
 }
