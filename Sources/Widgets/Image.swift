@@ -253,7 +253,7 @@ actor ImageCacheManager {
     // Retrieve image from cache or URL
     func loadImageFromURL(_ key: String, url: String) async -> SCDWidgetsImage {
 
-		guard let url = URL(string: url) else {
+		guard let finalURL = URL(string: url) else {
             // Handle invalid URL case appropriately, perhaps logging the error or using a placeholder image
             return SCDWidgetsImage() // Placeholder or error image
         }
@@ -264,7 +264,7 @@ actor ImageCacheManager {
         if let picString = appStorage.read(key: key),
            let cachedData = Data(base64Encoded: picString.replacingOccurrences(of: "data:image/png;base64,", with: "")) {
             imageData = cachedData
-        } else if let newImageData = try? Data(contentsOf: URL(string: url)!) {
+        } else if let newImageData = try? Data(contentsOf: finalURL) {
             // Fetch image data asynchronously and update cache
             let base64String = newImageData.base64EncodedString()
             appStorage.write(key: key, value: "data:image/png;base64," + base64String)
