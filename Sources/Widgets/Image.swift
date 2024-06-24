@@ -263,7 +263,9 @@ actor ImageCacheManager {
 				tempData = newImageData
             }
 
+			DispatchQueue.main.async {
 			self.imageWidget = EasySCDImageData(tempData)
+			}
         }
         return self.imageWidget
     }
@@ -282,8 +284,9 @@ actor ImageCacheManager {
                 appStorage.write(key: key, value: "data:image/png;base64," + base64String)
                 tempData = newImageData
             }
-
+			DispatchQueue.main.async {
 			self.imageWidget = EasySCDImageData(tempData)
+			}
         }
         return self.imageWidget
     }
