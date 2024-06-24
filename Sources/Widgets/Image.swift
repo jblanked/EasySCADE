@@ -249,7 +249,7 @@ actor ImageCacheManager {
     var imageWidget = SCDWidgetsImage()  // This property is managed by the actor
 
     // Retrieve image from cache or URL
-    func loadImageFromURL(_ key: String, url: String) async -> SCDWidgetsImage {
+    @MainActor func loadImageFromURL(_ key: String, url: String) async -> SCDWidgetsImage {
 		var tempData = Data()
         // Load from cache
         if let picString = appStorage.read(key: key),
@@ -271,7 +271,7 @@ actor ImageCacheManager {
     }
 
     // Retrieve image from cache or local path
-    func loadImageFromLocalPath(_ key: String, filePath: String) async -> SCDWidgetsImage {
+    @MainActor func loadImageFromLocalPath(_ key: String, filePath: String) async -> SCDWidgetsImage {
         // Load from cache
 		var tempData = Data()
         if let cachedString = appStorage.read(key: key),
