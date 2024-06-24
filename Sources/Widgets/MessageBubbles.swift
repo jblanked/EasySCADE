@@ -173,7 +173,7 @@ func splitTextIntoLines(_ text: String, _ fontSize: Int = 20) -> [String] {
 
     // Calculate adjustment factor based on fontsize changes, inversely proportional
     let baseFontSize = 20
-    let adjustmentFactor = Double(baseFontSize) / Double(fontsize == 0 ? baseFontSize : fontsize)
+    let adjustmentFactor = Double(baseFontSize) / Double(fontSize == 0 ? baseFontSize : fontSize)
 
     // Adjust maxWordsPerLine and maxLettersPerLine based on fontsize
     let maxLettersPerLine = Int(Double(Int(screenInfo.screenSize.width) / 10) * adjustmentFactor)
