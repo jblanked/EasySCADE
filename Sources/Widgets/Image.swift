@@ -287,12 +287,11 @@ actor ImageCacheManager {
     }
 }
 
-private let imageCacheManagerURL = ImageCacheManagerURL()
 
 // Asynchronously fetch and display the image
 func loadAndDisplayImageURL(key: String, url: String, imageView: SCDWidgetsImage) {
     Task {
-        let image = await imageCacheManagerURL.loadImage(key, from: url)
+        let image = await imageCacheManager.loadImageFromURL(key, url: URL(string: url)!)
 			DispatchQueue.main.async {
             imageView.content = image.content // Update UI on main thread
 			}
@@ -305,7 +304,7 @@ private let imageCacheManager = ImageCacheManager()
 // Asynchronously fetch and display the image
 func loadAndDisplayImage(key: String, filePath: String, imageView: SCDWidgetsImage) {
 	Task {
-		let image = await imageCacheManager.loadImage(key, from: filePath)
+		let image = await imageCacheManager.loadImageFromLocalPath(key, from: filePath)
 			DispatchQueue.main.async {
 			imageView.content = image.content // Update UI on main thread
 			}
