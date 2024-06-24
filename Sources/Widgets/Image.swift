@@ -245,51 +245,52 @@ private func EasySCDImageCacheLocal(_ key: String, _ filePath: String) -> SCDWid
 
     return imageWidget
 }
+
+
 actor ImageCacheManager {
-    var imageWidget = SCDWidgetsImage()  // This property is managed by the actor
+    private var imageWidget = SCDWidgetsImage()
 
     // Retrieve image from cache or URL
     func loadImageFromURL(_ key: String, url: String) async -> SCDWidgetsImage {
-		var tempData = Data()
+        var imageData: Data?
+
         // Load from cache
         if let picString = appStorage.read(key: key),
-           let imageData = Data(base64Encoded: picString.replacingOccurrences(of: "data:image/png;base64,", with: "")) {
-			tempData = imageData
-        } else {
-            // Fetch image data asynchronously
-            if let newImageData = try? Data(contentsOf: URL(string: url)!) {
-                let base64String = newImageData.base64EncodedString()
-                appStorage.write(key: key, value: "data:image/png;base64," + base64String)
-				tempData = newImageData
-            }
+           let cachedData = Data(base64Encoded: picString.replacingOccurrences(of: "data:image/png;base64,", with: "")) {
+            imageData = cachedData
+        } else if let newImageData = try? Data(contentsOf: URL(string: url)!) {
+            // Fetch image data asynchronously and update cache
+            let base64String = newImageData.base64EncodedString()
+            appStorage.write(key: key, value: "data:image/png;base64," + base64String)
+            imageData = newImageData
         }
 
-		await MainActor.run {
-		self.imageWidget = EasySCDImageData(tempData)
-		}
-
+        // Update image widget within the actor to ensure thread safety
+        if let validImageData = imageData {
+            self.imageWidget = EasySCDImageData(validImageData)
+        }
         return self.imageWidget
     }
 
     // Retrieve image from cache or local path
     func loadImageFromLocalPath(_ key: String, filePath: String) async -> SCDWidgetsImage {
+        var imageData: Data?
+
         // Load from cache
-		var tempData = Data()
         if let cachedString = appStorage.read(key: key),
-           let cachedImageData = Data(base64Encoded: cachedString.replacingOccurrences(of: "data:image/png;base64,", with: "")) {
-			tempData = cachedImageData
-        } else {
-            // Fetch image data asynchronously
-            if let newImageData = try? Data(contentsOf: URL(fileURLWithPath: filePath)) {
-                let base64String = newImageData.base64EncodedString()
-                appStorage.write(key: key, value: "data:image/png;base64," + base64String)
-                tempData = newImageData
-            }
+           let cachedData = Data(base64Encoded: cachedString.replacingOccurrences(of: "data:image/png;base64,", with: "")) {
+            imageData = cachedData
+        } else if let newImageData = try? Data(contentsOf: URL(fileURLWithPath: filePath)) {
+            // Fetch image data asynchronously and update cache
+            let base64String = newImageData.base64EncodedString()
+            appStorage.write(key: key, value: "data:image/png;base64," + base64String)
+            imageData = newImageData
         }
 
-		await MainActor.run {
-		self.imageWidget = EasySCDImageData(tempData)
-		}
+        // Update image widget within the actor to ensure thread safety
+        if let validImageData = imageData {
+            self.imageWidget = EasySCDImageData(validImageData)
+        }
         return self.imageWidget
     }
 }
