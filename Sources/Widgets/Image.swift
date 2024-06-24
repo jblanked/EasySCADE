@@ -263,7 +263,7 @@ actor ImageCacheManagerURL {
 					let base64String = data.base64EncodedString()
 					appStorage.write(key: key, value: base64String)
 					DispatchQueue.main.async {
-					imageWidget = EasySCDImageData(data)
+					self.imageWidget = EasySCDImageData(data)
 					}
 
 				}
@@ -292,7 +292,7 @@ actor ImageCacheManager {
 					let base64String = data.base64EncodedString()
 					appStorage.write(key: key, value: base64String)
 					DispatchQueue.main.async {
-					imageWidget = EasySCDImageData(data)
+					self.imageWidget = EasySCDImageData(data)
 					}
 				}
 			}
