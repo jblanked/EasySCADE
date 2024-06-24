@@ -278,7 +278,7 @@ actor ImageCacheManager {
 
         // Load from cache
         if let cachedString = appStorage.read(key: key),
-           let cachedData = Data(base64Encoded: cachedString replacingOccurrences(of: "data:image/png;base64,", with: "")) {
+           let cachedData = Data(base64Encoded: cachedString.replacingOccurrences(of: "data:image/png;base64,", with: "")) {
             imageData = cachedData
         } else if let newImageData = try? Data(contentsOf: URL(fileURLWithPath: filePath)) {
             // Fetch image data asynchronously and update cache
