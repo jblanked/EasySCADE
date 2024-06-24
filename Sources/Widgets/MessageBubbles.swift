@@ -172,8 +172,14 @@ func splitTextIntoLines(_ text: String, _ fontSize: Int = 20) -> [String] {
     let components = formattedText.components(separatedBy: .newlines)
     
     // Calculate maximum letters per line based on font size and screen width
-    let averageCharacterWidth = fontSize == 0 ? 10 : (10 / (20 / fontSize))
-    let maxLettersPerLine = Int(screenInfo.screenSize.width / CGFloat(averageCharacterWidth))
+    var chracterWidth = 10
+
+    if fontSize > 0 {
+        let adjustment = fontSize / 20
+        chracterWidth = 10 / adjustment
+    }
+
+    let maxLettersPerLine = Int(screenInfo.screenSize.width / CGFloat(chracterWidth))
 
     var lines: [String] = []
     
@@ -205,7 +211,6 @@ func splitTextIntoLines(_ text: String, _ fontSize: Int = 20) -> [String] {
 
     return lines
 }
-
 private func createBubbleContainer(
     text: String, 
     color: SCDSvgRGBColor, 
