@@ -206,15 +206,20 @@ private func EasySCDImageCache(_ key: String, _ value: String) -> SCDWidgetsImag
             imageWidget = EasySCDImageData(imageData)
         }
     }
-
-
-		if let data = try? Data(contentsOf: URL(string: value)!) {
+	else
+	{
+if let data = try? Data(contentsOf: URL(string: value)!) {
 			let base64String = data.base64EncodedString()
-			if appStorage.read(key: key) != base64String && !data.isEmpty {
+			if !data.isEmpty {
 			appStorage.write(key: key, value: base64String)
 			imageWidget = EasySCDImageData(data)
 			}
 		}
+
+	}
+
+
+		
 	
 
 	
@@ -233,14 +238,17 @@ private func EasySCDImageCacheLocal(_ key: String, _ filePath: String) -> SCDWid
         }
     }
 
-		if let data = try? Data(contentsOf: URL(fileURLWithPath: filePath)) {
+		else
+	{
+if let data = try? Data(contentsOf: URL(string: value)!) {
 			let base64String = data.base64EncodedString()
-			 if appStorage.read(key: key) != base64String && !data.isEmpty {
+			if !data.isEmpty {
 			appStorage.write(key: key, value: base64String)
 			imageWidget = EasySCDImageData(data)
-			 }
+			}
 		}
-	
+
+	}
 
 	
 
