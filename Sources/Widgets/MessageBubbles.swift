@@ -166,11 +166,14 @@ private struct BubbleInfo {
     var size: SCDSize
 }
 
-func splitTextIntoLines(_ text: String) -> [String] {
+func splitTextIntoLines(_ text: String, _ fontSize: Int = 20) -> [String] {
     // Replace double spaces with a newline character to handle them as explicit line breaks
     let formattedText = text.replacingOccurrences(of: "  ", with: "\n")
     let components = formattedText.components(separatedBy: .newlines)
-    let maxLettersPerLine = (Int(screenInfo.screenSize.width) / 10)
+    
+    // Calculate maximum letters per line based on font size and screen width
+    let averageCharacterWidth = fontSize * 0.6 // Approximate average width of a character at given font size
+    let maxLettersPerLine = Int(screenInfo.screenSize.width / averageCharacterWidth)
 
     var lines: [String] = []
     
@@ -202,6 +205,7 @@ func splitTextIntoLines(_ text: String) -> [String] {
 
     return lines
 }
+
 private func createBubbleContainer(
     text: String, 
     color: SCDSvgRGBColor, 
