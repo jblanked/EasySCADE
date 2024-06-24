@@ -267,7 +267,9 @@ actor ImageCacheManager {
 
         // Update image widget within the actor to ensure thread safety
         if let validImageData = imageData {
+			DispatchQueue.main.async {
             self.imageWidget = EasySCDImageData(validImageData)
+			}
         }
         return self.imageWidget
     }
@@ -289,7 +291,9 @@ actor ImageCacheManager {
 
         // Update image widget within the actor to ensure thread safety
         if let validImageData = imageData {
+			DispatchQueue.main.async {
             self.imageWidget = EasySCDImageData(validImageData)
+			}
         }
         return self.imageWidget
     }
