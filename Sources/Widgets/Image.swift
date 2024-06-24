@@ -248,7 +248,7 @@ private func EasySCDImageCacheLocal(_ key: String, _ filePath: String) -> SCDWid
 
 
 actor ImageCacheManager {
-    private var imageWidget = SCDWidgetsImage()
+    private var imageWidget = SCDWidgetsImage() 
 
     // Retrieve image from cache or URL
     func loadImageFromURL(_ key: String, url: String) async -> SCDWidgetsImage {
@@ -267,9 +267,7 @@ actor ImageCacheManager {
 
         // Update image widget within the actor to ensure thread safety
         if let validImageData = imageData {
-			await MainActor.run { 
             self.imageWidget = EasySCDImageData(validImageData)
-			}
         }
         return self.imageWidget
     }
@@ -280,7 +278,7 @@ actor ImageCacheManager {
 
         // Load from cache
         if let cachedString = appStorage.read(key: key),
-           let cachedData = Data(base64Encoded: cachedString.replacingOccurrences(of: "data:image/png;base64,", with: "")) {
+           let cachedData = Data(base64Encoded: cachedString replacingOccurrences(of: "data:image/png;base64,", with: "")) {
             imageData = cachedData
         } else if let newImageData = try? Data(contentsOf: URL(fileURLWithPath: filePath)) {
             // Fetch image data asynchronously and update cache
@@ -291,13 +289,12 @@ actor ImageCacheManager {
 
         // Update image widget within the actor to ensure thread safety
         if let validImageData = imageData {
-			await MainActor.run { 
             self.imageWidget = EasySCDImageData(validImageData)
-			}
         }
         return self.imageWidget
     }
 }
+
 
 
 // Asynchronously fetch and display the image
