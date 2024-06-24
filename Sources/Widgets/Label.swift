@@ -32,7 +32,7 @@ public func EasySCDTextLabel(_ text: String,
 							action: @escaping () -> Void = { }
 							)-> SCDWidgetsContainer
     {	
-		let paragraph = splitTextIntoLines(text)
+		let paragraph = splitTextIntoLines(text, fontsize)
 		var elements = [SCDWidgetsWidget]()
 		var count = 1
 		var yOffset = 0
