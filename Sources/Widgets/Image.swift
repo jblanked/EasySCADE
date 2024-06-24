@@ -249,14 +249,14 @@ actor ImageCacheManager {
     var imageWidget = SCDWidgetsImage()  // This property is managed by the actor
 
     // Retrieve image from cache or URL
-    func loadImageFromURL(_ key: String, url: URL) async -> SCDWidgetsImage {
+    func loadImageFromURL(_ key: String, url: String) async -> SCDWidgetsImage {
         // Load from cache
         if let picString = appStorage.read(key: key),
            let imageData = Data(base64Encoded: picString.replacingOccurrences(of: "data:image/png;base64,", with: "")) {
             self.imageWidget = EasySCDImageData(imageData)
         } else {
             // Fetch image data asynchronously
-            if let newImageData = try? Data(contentsOf: url) {
+            if let newImageData = try? Data(contentsOf: URL(string: url)!) {
                 let base64String = newImageData.base64EncodedString()
                 appStorage.write(key: key, value: "data:image/png;base64," + base64String)
                 await MainActor.run {
@@ -291,7 +291,7 @@ actor ImageCacheManager {
 // Asynchronously fetch and display the image
 func loadAndDisplayImageURL(key: String, url: String, imageView: SCDWidgetsImage) {
     Task {
-        let image = await imageCacheManager.loadImageFromURL(key, url: URL(string: url)!)
+        let image = await imageCacheManager.loadImageFromURL(key, url: url)
 			DispatchQueue.main.async {
             imageView.content = image.content // Update UI on main thread
 			}
