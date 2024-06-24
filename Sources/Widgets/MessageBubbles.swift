@@ -170,17 +170,14 @@ func splitTextIntoLines(_ text: String, _ fontSize: Int = 20) -> [String] {
     // Replace double spaces with a newline character to handle them as explicit line breaks
     let formattedText = text.replacingOccurrences(of: "  ", with: "\n")
     let components = formattedText.components(separatedBy: .newlines)
+
+    // Calculate adjustment factor based on fontsize changes, inversely proportional
+    let baseFontSize = 20
+    let adjustmentFactor = Double(baseFontSize) / Double(fontsize == 0 ? baseFontSize : fontsize)
+
+    // Adjust maxWordsPerLine and maxLettersPerLine based on fontsize
+    let maxLettersPerLine = Int(Double(Int(screenInfo.screenSize.width) / 10) * adjustmentFactor)
     
-    // Calculate maximum letters per line based on font size and screen width
-    var chracterWidth: Int = 10
-
-    // if fontSize > 0 {
-    //     let adjustment = fontSize / 20
-    //     chracterWidth = Int(10 / adjustment)
-    // }
-
-    let maxLettersPerLine = (Int(screenInfo.screenSize.width) / chracterWidth)
-
     var lines: [String] = []
     
     for (index, component) in components.enumerated() {
