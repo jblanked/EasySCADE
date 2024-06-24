@@ -166,45 +166,42 @@ private struct BubbleInfo {
     var size: SCDSize
 }
 
-public func splitTextIntoLines(_ text: String, _ fontsize: Int = 20) -> [String] {
+func splitTextIntoLines(_ text: String) -> [String] {
+    // Replace double spaces with a newline character to handle them as explicit line breaks
     let formattedText = text.replacingOccurrences(of: "  ", with: "\n")
-    let components = formattedText.components(separatedBy: .whitespacesAndNewlines)
-    let words = components.filter { !$0.isEmpty }
-
-    // Calculate adjustment factor based on fontsize changes, inversely proportional
-    let baseFontSize = 20
-    let adjustmentFactor = Double(baseFontSize) / Double(fontsize == 0 ? baseFontSize : fontsize)
-
-    // Adjust maxWordsPerLine and maxLettersPerLine based on fontsize
-    let maxLettersPerLine = Int(Double(Int(screenInfo.screenSize.width) / 10) * adjustmentFactor)
+    let components = formattedText.components(separatedBy: .newlines)
+    let maxLettersPerLine = (Int(screenInfo.screenSize.width) / 10)
 
     var lines: [String] = []
-    var currentLine = ""
-    var currentLineLetterCount = 0
-
-    for word in words {
-        let wouldExceedLetterLimit = (currentLineLetterCount + word.count + 1) > maxLettersPerLine // +1 for space
-
-        if wouldExceedLetterLimit {
-            // Start a new line
-            lines.append(currentLine.trimmingCharacters(in: .whitespaces))
-            currentLine = word + " "
-            currentLineLetterCount = word.count + 1 // Reset count, +1 for space
-        } else {
-            // Add word to the current line
-            currentLine += word + " "
-            currentLineLetterCount += word.count + 1 // Include current word and space
+    
+    for (index, component) in components.enumerated() {
+        if index > 0 && !lines.isEmpty {
+            // Add an extra line to create a double line break effect between segments
+            lines.append("")
         }
-    }
+        
+        var line = ""
+        let words = component.split(whereSeparator: { $0.isWhitespace }).map(String.init)
+        
+        for word in words {
+            if line.count + word.count + 1 > maxLettersPerLine {
+                // If the line exceeds the length, store it and start a new line
+                lines.append(line.trimmingCharacters(in: .whitespaces))
+                line = word 
+            } else {
+                // Otherwise, add the word to the current line
+                line += (line.isEmpty ? "" : " ") + word
+            }
+        }
 
-    // Add the final line if it's not empty
-    if !currentLine.isEmpty {
-        lines.append(currentLine.trimmingCharacters(in: .whitespaces))
+        // Add the last processed line if not empty
+        if !line.isEmpty {
+            lines.append(line.trimmingCharacters(in: .whitespaces))
+        }
     }
 
     return lines
 }
-
 private func createBubbleContainer(
     text: String, 
     color: SCDSvgRGBColor, 
