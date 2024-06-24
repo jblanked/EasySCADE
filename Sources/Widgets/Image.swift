@@ -238,9 +238,9 @@ private func EasySCDImageCacheLocal(_ key: String, _ filePath: String) -> SCDWid
         }
     }
 
-		else
+	else
 	{
-if let data = try? Data(contentsOf: URL(string: filePath)!) {
+if let data = try? Data(contentsOf: URL(fileURLWithPath: filePath)) {
 			let base64String = data.base64EncodedString()
 			if !data.isEmpty {
 			appStorage.write(key: key, value: base64String)
