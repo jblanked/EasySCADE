@@ -160,7 +160,7 @@ public class EasyTextbox {
 			textView.textAlignment = newValue
 		}
 	}
-	}
+	
 	public var placeholderLabel: UILabel = UILabel()
 	public var fontColor: UIColor {
 		get {
