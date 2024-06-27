@@ -185,7 +185,7 @@ public class EasyTextbox {
         return UIApplication.shared.windows.first(where: { $0.isKeyWindow })?.rootViewController
     }
 
-	public remove() {
+	public func remove() {
 		self.textView.removeFromSuperview()
 	}
     
