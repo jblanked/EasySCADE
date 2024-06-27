@@ -154,7 +154,8 @@ public class EasyTextbox {
     public var text: String = ""
     public var alignment: NSTextAlignment = .left
 	public var placeholderLabel: UILabel = UILabel()
-	
+	public var fontColor: UIColor = .black
+	public var backgroundColor: UIColor = .white
 	
 	public var placeholder: String {
 		get {
@@ -202,12 +203,13 @@ public class EasyTextbox {
         self.textView.layer.borderWidth = 1
         self.textView.layer.borderColor = UIColor.systemGray.cgColor
         self.textView.font = UIFont.systemFont(ofSize: self.fontSize)
-        self.textView.textColor = UIColor.black
+        self.textView.textColor = self.fontColor
         self.textView.textAlignment = self.alignment
         self.textView.dataDetectorTypes = .all
         self.textView.layer.shadowOpacity = 0.5
         self.textView.isEditable = true
 		self.textView.text = text
+		self.textView.backgroundColor = self.backgroundColor
 
 		self.placeholderLabel = UILabel()
         self.placeholderLabel.text = "Type your message here..."
