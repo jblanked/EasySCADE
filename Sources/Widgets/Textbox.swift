@@ -134,10 +134,10 @@ private class TextViewDelegateHandler: NSObject, UITextViewDelegate {
 
     func textViewDidChange(_ textView: UITextView) {
         easyTextbox?.text = textView.text ?? ""  // Update the text property of EasyTextbox
-		easyTextbox?.placeholderLabel.isHidden = !textView.text.isEmpty
+		easyTextbox?.updatePlaceholderVisibility()
     }
     func textViewDidEndEditing(_ textView: UITextView) {         
-        easyTextbox?.placeholderLabel.isHidden = !textView.text.isEmpty     
+        easyTextbox?.updatePlaceholderVisibility()    
     }  
     func textViewDidBeginEditing(_ textView: UITextView) {         
         easyTextbox?.placeholderLabel.isHidden = true     
@@ -186,13 +186,14 @@ public class EasyTextbox {
 		self.placeholderLabel.isHidden = self.text.isEmpty
         
         // Set the delegate to handle text changes
-        self.textView.delegate = self.textViewDelegate
+        self.textView.delegate = textViewDelegate
 		self.textViewDelegate.easyTextbox = self
 
         // Automatically add the textView to the current view controller's view
         if let currentVC = getCurrentViewController() {
             currentVC.view.addSubview(self.textView)
         }
+		
 		
     }
 
@@ -204,6 +205,10 @@ public class EasyTextbox {
 	public func remove() {
 		self.textView.removeFromSuperview()
 	}
+
+	public func updatePlaceholderVisibility() {
+        self.placeholderLabel.isHidden = !self.textView.text.isEmpty
+    }
     
 }
 #endif
