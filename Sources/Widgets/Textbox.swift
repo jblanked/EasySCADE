@@ -176,10 +176,16 @@ public class EasyTextbox {
         self.textView.isEditable = true
 		self.textView.text = text
 
+        
         // Set the delegate to handle text changes
         self.textView.delegate = self.textViewDelegate
-        
+		self.textViewDelegate.easyTextbox = self
 
+        // Automatically add the textView to the current view controller's view
+        if let currentVC = getCurrentViewController() {
+            currentVC.view.addSubview(self.textView)
+        }
+		
 		self.placeholderLabel = UILabel()
         self.placeholderLabel.text = "Type your message here..."
         self.placeholderLabel.font = .italicSystemFont(ofSize: (self.textView.font?.pointSize)!)
@@ -188,13 +194,6 @@ public class EasyTextbox {
         self.placeholderLabel.frame.origin = CGPoint(x: 5, y: (self.textView.font?.pointSize)! / 2)
         self.placeholderLabel.textColor = .tertiaryLabel
 		self.placeholderLabel.isHidden = self.text.isEmpty
-
-        // Automatically add the textView to the current view controller's view
-        if let currentVC = getCurrentViewController() {
-            currentVC.view.addSubview(self.textView)
-        }
-
-		self.textViewDelegate.easyTextbox = self
     }
 
     // Helper function to retrieve the current view controller
