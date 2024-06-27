@@ -153,6 +153,7 @@ public class EasyTextbox {
     private var oldText: String = ""
     public var text: String = ""
     public var alignment: NSTextAlignment = .left
+	private var placeholderLabel: UILabel
 
     public init(
         _ placeholder: String = "Type Here",
