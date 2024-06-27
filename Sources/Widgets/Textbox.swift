@@ -134,6 +134,13 @@ private class TextViewDelegateHandler: NSObject, UITextViewDelegate {
 
     func textViewDidChange(_ textView: UITextView) {
         easyTextbox?.text = textView.text ?? ""  // Update the text property of EasyTextbox
+		placeholderLabel?.isHidden = !textView.text.isEmpty
+    }
+    func textViewDidEndEditing(_ textView: UITextView) {         
+        placeholderLabel?.isHidden = !textView.text.isEmpty     
+    }  
+    func textViewDidBeginEditing(_ textView: UITextView) {         
+        placeholderLabel?.isHidden = true     
     }
 }
 
@@ -166,13 +173,21 @@ public class EasyTextbox {
         textView.dataDetectorTypes = .all
         textView.layer.shadowOpacity = 0.5
         textView.isEditable = true
-        textView.text = placeholder
-        
+
+		laceholderLabel = UILabel()
+        placeholderLabel.text = "Type your message here..."
+        placeholderLabel.font = .italicSystemFont(ofSize: (textView.font?.pointSize)!)
+        placeholderLabel.sizeToFit()
+		textView.addSubview(placeholderLabel)
+        placeholderLabel.frame.origin = CGPoint(x: 5, y: (textView.font?.pointSize)! / 2)
+        placeholderLabel.textColor = .tertiaryLabel
+		placeholderLabel.isHidden = self.text.isEmpty
+
         self.text = textView.text
 
         // Set the delegate to handle text changes
         textView.delegate = textViewDelegate
-        textViewDelegate.easyTextbox = self  // Set the reference to self in delegate
+        textViewDelegate.easyTextbox = self
 
         // Automatically add the textView to the current view controller's view
         if let currentVC = getCurrentViewController() {
