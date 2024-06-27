@@ -154,21 +154,52 @@ public class EasyTextbox {
     public var text: String = ""
     public var alignment: NSTextAlignment = .left
 	public var placeholderLabel: UILabel
+	public var placeholder: String {
+		get {
+			return placeholderLabel.text ?? ""
+		}
+		set {
+			placeholderLabel.text = newValue
+			placeholderLabel.sizeToFit()
+		}
+	}
+	public var fontSize: CGFloat {
+		get {
+			return textView.font?.pointSize ?? 20
+		}
+		set {
+			textView.font = UIFont.systemFont(ofSize: newValue)
+			placeholderLabel.font = .italicSystemFont(ofSize: newValue)
+			placeholderLabel.sizeToFit()
+		}
+	}
+	public var location: SCDGraphicsPoint {
+		get {
+			return SCDGraphicsPoint(x: textView.frame.origin.x, y: textView.frame.origin.y)
+		}
+		set {
+			textView.frame.origin = CGPoint(x: newValue.x, y: newValue.y)
+			placeholderLabel.frame.origin = CGPoint(x: 5, y: (self.textView.font?.pointSize)! / 2)
+		}
+	}
+	public var size: SCDGraphicsDimension {
+		get {
+			return SCDGraphicsDimension(width: Int(textView.frame.size.width), height: Int(textView.frame.size.height))
+		}
+		set {
+			textView.frame.size = CGSize(width: CGFloat(newValue.width), height: CGFloat(newValue.height))
+		}
+	}
 
-    public init(
-        _ text: String = "Type Here",
-        fontSize: CGFloat = 20,
-        location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: 0),
-        size: SCDGraphicsDimension = SCDGraphicsDimension(width: Int(UIScreen.main.bounds.width), height: 50)
-    ) {
-        self.textView = UITextView(frame: CGRect(x: Int(location.x), y: Int(location.y), width: Int(size.width), height: Int(size.height)))
+    public init(_ text: String = "Type Here") {
+        self.textView = UITextView(frame: CGRect(x: Int(self.location.x), y: Int(self.location.y), width: Int(self.size.width), height: Int(self.size.height)))
 
         // Configure the appearance and properties of the textView
         self.textView.layer.masksToBounds = true
         self.textView.layer.cornerRadius = self.cornerRadius
         self.textView.layer.borderWidth = 1
         self.textView.layer.borderColor = UIColor.systemGray.cgColor
-        self.textView.font = UIFont.systemFont(ofSize: fontSize)
+        self.textView.font = UIFont.systemFont(ofSize: self.fontSize)
         self.textView.textColor = UIColor.black
         self.textView.textAlignment = self.alignment
         self.textView.dataDetectorTypes = .all
