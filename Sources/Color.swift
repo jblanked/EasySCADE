@@ -160,3 +160,50 @@ public func EasySCDSvgRGBColorToRGB(_ svgColor: SCDSvgRGBColor) -> SCDGraphicsRG
 {
    return SCDGraphicsRGB.init(red: svgColor.red, green: svgColor.green, blue: svgColor.blue)
 }
+
+#if os(iOS)
+// convert EasyColor to UIColor
+public func EasyColorToUIColor(_ color: SCDGraphicsRGB) -> UIColor {
+	
+	var color2: UIColor
+
+	switch(color)
+	{
+		case EasyColor.white: 	color2 = UIColor.white
+		case EasyColor.red:		color2 = UIColor.red
+		case EasyColor.green: 	color2 = UIColor.green
+		case EasyColor.black: 	color2 = UIColor.black
+		case EasyColor.pink: 	color2 = UIColor.systemPink
+		case EasyColor.orange: 	color2 = UIColor.orange
+		case EasyColor.blue: 	color2 = UIColor.blue
+		case EasyColor.gray:	color2 = UIColor.systemGray
+		case EasyColor.yellow: 	color2 = UIColor.systemYellow
+		case EasyColor.purple: 	color2 = UIColor.systemPurple
+		
+		default: color2 = UIColor.init(red: CGFloat(color.red), green: CGFloat(color.green), blue: CGFloat(color.blue), alpha: 1.0)
+	}
+}
+
+// convert UIColor to EasyColor
+public func UIColorToEasyColor(_ color: UIColor) -> SCDGraphicsRGB {
+	
+	var color2: SCDGraphicsRGB
+
+	switch(color)
+	{
+		case UIColor.white: 	color2 = EasyColor.white
+		case UIColor.red:		color2 = EasyColor.red
+		case UIColor.green: 	color2 = EasyColor.green
+		case UIColor.black: 	color2 = EasyColor.black
+		case UIColor.systemPink: 	color2 = EasyColor.pink
+		case UIColor.orange: 	color2 = EasyColor.orange
+		case UIColor.blue: 	color2 = EasyColor.blue
+		case UIColor.systemGray:	color2 = EasyColor.gray
+		case UIColor.systemYellow: 	color2 = EasyColor.yellow
+		case UIColor.systemPurple: 	color2 = EasyColor.purple
+		
+		default: color2 = SCDGraphicsRGB.init(red: Int(color.redValue), green: Int(color.greenValue), blue: Int(color.blueValue))
+	}
+}
+
+#endif
