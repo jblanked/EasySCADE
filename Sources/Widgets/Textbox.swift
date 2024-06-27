@@ -154,8 +154,23 @@ public class EasyTextbox {
     public var text: String = ""
     public var alignment: NSTextAlignment = .left
 	public var placeholderLabel: UILabel = UILabel()
-	public var fontColor: UIColor = .black
-	public var backgroundColor: UIColor = .white
+	public var fontColor: UIColor {
+		get {
+			return textView.textColor ?? .black
+		}
+		set {
+			textView.textColor = newValue
+		}
+	
+	}
+	public var backgroundColor: UIColor {
+		get {
+			return textView.backgroundColor ?? .white
+		}
+		set {
+			textView.backgroundColor = newValue
+		}
+	}
 	
 	public var placeholder: String {
 		get {
@@ -223,13 +238,6 @@ public class EasyTextbox {
         // Set the delegate to handle text changes
         self.textView.delegate = textViewDelegate
 		self.textViewDelegate.easyTextbox = self
-
-        // Automatically add the textView to the current view controller's view
-        if let currentVC = getCurrentViewController() {
-            currentVC.view.addSubview(self.textView)
-        }
-		
-		
     }
 
     // Helper function to retrieve the current view controller
@@ -237,7 +245,13 @@ public class EasyTextbox {
         return UIApplication.shared.windows.first(where: { $0.isKeyWindow })?.rootViewController
     }
 
-	public func remove() {
+	public func show() {
+		if let currentVC = getCurrentViewController() {
+			currentVC.view.addSubview(self.textView)
+		}
+	}
+
+	public func hide() {
 		self.textView.removeFromSuperview()
 	}
 
