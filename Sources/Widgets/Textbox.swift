@@ -156,7 +156,7 @@ public class EasyTextbox {
 	public var placeholderLabel: UILabel
 
     public init(
-        _ placeholder: String = "Type Here",
+        _ text: String = "Type Here",
         fontSize: CGFloat = 20,
         location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: 0),
         size: SCDGraphicsDimension = SCDGraphicsDimension(width: Int(UIScreen.main.bounds.width), height: 50)
@@ -174,6 +174,7 @@ public class EasyTextbox {
         self.textView.dataDetectorTypes = .all
         self.textView.layer.shadowOpacity = 0.5
         self.textView.isEditable = true
+		self.textView.text = text
 
         // Set the delegate to handle text changes
         self.textView.delegate = self.textViewDelegate
