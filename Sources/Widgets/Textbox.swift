@@ -152,7 +152,15 @@ public class EasyTextbox {
     public var cornerRadius: CGFloat = 0.0
     private var oldText: String = ""
     public var text: String = ""
-    public var alignment: NSTextAlignment = .left
+    public var alignment: NSTextAlignment {
+		get {
+			return textView.textAlignment ?? .left
+		}
+		set {
+			textView.textAlignment = newValue
+		}
+	}
+	}
 	public var placeholderLabel: UILabel = UILabel()
 	public var fontColor: UIColor {
 		get {
