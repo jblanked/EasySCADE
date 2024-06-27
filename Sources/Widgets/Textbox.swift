@@ -175,7 +175,7 @@ public class EasyTextbox {
 	}
 	public var location: SCDGraphicsPoint {
 		get {
-			return SCDGraphicsPoint(x: textView.frame.origin.x, y: textView.frame.origin.y)
+			return SCDGraphicsPoint(x: Int(textView.frame.origin.x), y: Int(textView.frame.origin.y))
 		}
 		set {
 			textView.frame.origin = CGPoint(x: newValue.x, y: newValue.y)
