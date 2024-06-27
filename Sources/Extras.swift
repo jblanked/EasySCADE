@@ -290,10 +290,27 @@ public func getWindowScreenSize() -> EasyScreenInfo {
     let size = SCDRuntime.system.getScreenSize()
     let statusBarVisible = SCDRuntime.system.statusBarVisible
     let statusBarsize = SCDRuntime.system.getScreenSafeArea()
-    
-    return EasyScreenInfo(
+
+    var screenInfo: EasyScreenInfo = EasyScreenInfo(
         screenSize: CGSize(width: size!.width, height: size!.height),
         statusBarVisible: statusBarVisible,
         statusBarsize: CGSize(width: statusBarsize!.bounds.width, height: statusBarsize!.bounds.height)
     )
+
+    #if os(iOS)
+     	
+     	let iPhoneSEDevices: [Device] = [.simulator(.iPhoneSE), .simulator(.iPhoneSE2), .simulator(.iPhoneSE3), .iPhoneSE, .iPhoneSE2, .iPhoneSE3]
+     	
+     	let device = Device.current
+     	
+		  if device.isOneOf(iPhoneSEDevices) {
+  			
+        screenInfo.statusBarVisible = true
+        screenInfo.statusBarsize = CGSize(width: size!.width, height: 5)
+  			
+		  }
+
+		#endif
+
+    return screenInfo
 }
