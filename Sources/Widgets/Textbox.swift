@@ -184,6 +184,10 @@ public class EasyTextbox {
     private func getCurrentViewController() -> UIViewController? {
         return UIApplication.shared.windows.first(where: { $0.isKeyWindow })?.rootViewController
     }
+
+	public remove() {
+		self.textView.removeFromSuperview()
+	}
     
 }
 #endif
