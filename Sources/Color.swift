@@ -182,6 +182,8 @@ public func EasyColorToUIColor(_ color: SCDGraphicsRGB) -> UIColor {
 		
 		default: color2 = UIColor.init(red: CGFloat(color.red), green: CGFloat(color.green), blue: CGFloat(color.blue), alpha: 1.0)
 	}
+
+	return color2
 }
 
 // convert UIColor to EasyColor
@@ -204,6 +206,8 @@ public func UIColorToEasyColor(_ color: UIColor) -> SCDGraphicsRGB {
 		
 		default: color2 = SCDGraphicsRGB.init(red: Int(color.redComponent), green: Int(color.greenComponent), blue: Int(color.blueComponent))
 	}
+
+	return color2
 }
 
 extension UIColor {
