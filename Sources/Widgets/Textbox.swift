@@ -146,14 +146,16 @@ private class TextViewDelegateHandler: NSObject, UITextViewDelegate {
 
 // EasyTextbox Class
 public class EasyTextbox {
-    public let textView: UITextView
+    public let textView: UITextView = UITextView()
     private let textViewDelegate = TextViewDelegateHandler()
     
     public var cornerRadius: CGFloat = 0.0
     private var oldText: String = ""
     public var text: String = ""
     public var alignment: NSTextAlignment = .left
-	public var placeholderLabel: UILabel
+	public var placeholderLabel: UILabel = UILabel()
+	
+	
 	public var placeholder: String {
 		get {
 			return placeholderLabel.text ?? ""
