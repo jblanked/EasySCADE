@@ -7,6 +7,7 @@ import ScadeUI
 #if os(iOS)
 import UIKit 
 import SwiftUI
+import DeviceKit
 #endif
 
 #if os(Android)
