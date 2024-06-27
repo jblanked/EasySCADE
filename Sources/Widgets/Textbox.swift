@@ -177,7 +177,7 @@ public class EasyTextbox {
 
         // Set the delegate to handle text changes
         self.textView.delegate = self.textViewDelegate
-        self.textViewDelegate.easyTextbox = self
+        
 
 		self.placeholderLabel = UILabel()
         self.placeholderLabel.text = "Type your message here..."
@@ -192,6 +192,8 @@ public class EasyTextbox {
         if let currentVC = getCurrentViewController() {
             currentVC.view.addSubview(self.textView)
         }
+
+		self.textViewDelegate.easyTextbox = self
     }
 
     // Helper function to retrieve the current view controller
