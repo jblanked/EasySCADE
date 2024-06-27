@@ -202,8 +202,49 @@ public func UIColorToEasyColor(_ color: UIColor) -> SCDGraphicsRGB {
 		case UIColor.systemYellow: 	color2 = EasyColor.yellow
 		case UIColor.systemPurple: 	color2 = EasyColor.purple
 		
-		default: color2 = SCDGraphicsRGB.init(red: Int(color.redValue), green: Int(color.greenValue), blue: Int(color.blueValue))
+		default: color2 = SCDGraphicsRGB.init(red: Int(color.redComponent), green: Int(color.greenComponent), blue: Int(color.blueComponent))
 	}
+}
+
+extension UIColor {
+
+    var rgba: (red: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat) {
+        var red: CGFloat = 0.0
+        var green: CGFloat = 0.0
+        var blue: CGFloat = 0.0
+        var alpha: CGFloat = 0.0
+        getRed(&red, green: &green, blue: &blue, alpha: &alpha)
+
+        return (red: red, green: green, blue: blue, alpha: alpha)
+    }
+
+    var redComponent: CGFloat {
+        var red: CGFloat = 0.0
+        getRed(&red, green: nil, blue: nil, alpha: nil)
+
+        return red
+    }
+
+    var greenComponent: CGFloat {
+        var green: CGFloat = 0.0
+        getRed(nil, green: &green, blue: nil, alpha: nil)
+
+        return green
+    }
+
+    var blueComponent: CGFloat {
+        var blue: CGFloat = 0.0
+        getRed(nil, green: nil, blue: &blue, alpha: nil)
+
+        return blue
+    }
+
+    var alphaComponent: CGFloat {
+        var alpha: CGFloat = 0.0
+        getRed(nil, green: nil, blue: nil, alpha: &alpha)
+
+        return alpha
+    }
 }
 
 #endif
