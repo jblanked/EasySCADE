@@ -134,13 +134,13 @@ private class TextViewDelegateHandler: NSObject, UITextViewDelegate {
 
     func textViewDidChange(_ textView: UITextView) {
         easyTextbox?.text = textView.text ?? ""  // Update the text property of EasyTextbox
-		placeholderLabel?.isHidden = !textView.text.isEmpty
+		easyTextbox?.placeholderLabel.isHidden = !textView.text.isEmpty
     }
     func textViewDidEndEditing(_ textView: UITextView) {         
-        placeholderLabel?.isHidden = !textView.text.isEmpty     
+        easyTextbox?.placeholderLabel.isHidden = !textView.text.isEmpty     
     }  
     func textViewDidBeginEditing(_ textView: UITextView) {         
-        placeholderLabel?.isHidden = true     
+        easyTextbox?.placeholderLabel.isHidden = true     
     }
 }
 
