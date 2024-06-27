@@ -139,7 +139,7 @@ private class TextViewDelegateHandler: NSObject, UITextViewDelegate {
 
 // EasyTextbox Class
 public class EasyTextbox {
-    private let textView: UITextView
+    public let textView: UITextView
     private let textViewDelegate = TextViewDelegateHandler()
     
     public var cornerRadius: CGFloat = 0.0
