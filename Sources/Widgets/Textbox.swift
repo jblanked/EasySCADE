@@ -153,7 +153,7 @@ public class EasyTextbox {
     private var oldText: String = ""
     public var text: String = ""
     public var alignment: NSTextAlignment = .left
-	private var placeholderLabel: UILabel
+	public var placeholderLabel: UILabel
 
     public init(
         _ placeholder: String = "Type Here",
@@ -161,38 +161,38 @@ public class EasyTextbox {
         location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: 0),
         size: SCDGraphicsDimension = SCDGraphicsDimension(width: Int(UIScreen.main.bounds.width), height: 50)
     ) {
-        textView = UITextView(frame: CGRect(x: Int(location.x), y: Int(location.y), width: Int(size.width), height: Int(size.height)))
+        self.textView = UITextView(frame: CGRect(x: Int(location.x), y: Int(location.y), width: Int(size.width), height: Int(size.height)))
 
         // Configure the appearance and properties of the textView
-        textView.layer.masksToBounds = true
-        textView.layer.cornerRadius = self.cornerRadius
-        textView.layer.borderWidth = 1
-        textView.layer.borderColor = UIColor.systemGray.cgColor
-        textView.font = UIFont.systemFont(ofSize: fontSize)
-        textView.textColor = UIColor.black
-        textView.textAlignment = self.alignment
-        textView.dataDetectorTypes = .all
-        textView.layer.shadowOpacity = 0.5
-        textView.isEditable = true
+        self.textView.layer.masksToBounds = true
+        self.textView.layer.cornerRadius = self.cornerRadius
+        self.textView.layer.borderWidth = 1
+        self.textView.layer.borderColor = UIColor.systemGray.cgColor
+        self.textView.font = UIFont.systemFont(ofSize: fontSize)
+        self.textView.textColor = UIColor.black
+        self.textView.textAlignment = self.alignment
+        self.textView.dataDetectorTypes = .all
+        self.textView.layer.shadowOpacity = 0.5
+        self.textView.isEditable = true
 
-		laceholderLabel = UILabel()
-        placeholderLabel.text = "Type your message here..."
-        placeholderLabel.font = .italicSystemFont(ofSize: (textView.font?.pointSize)!)
-        placeholderLabel.sizeToFit()
-		textView.addSubview(placeholderLabel)
-        placeholderLabel.frame.origin = CGPoint(x: 5, y: (textView.font?.pointSize)! / 2)
-        placeholderLabel.textColor = .tertiaryLabel
-		placeholderLabel.isHidden = self.text.isEmpty
+		self.placeholderLabel = UILabel()
+        self.placeholderLabel.text = "Type your message here..."
+        self.placeholderLabel.font = .italicSystemFont(ofSize: (self.textView.font?.pointSize)!)
+        self.placeholderLabel.sizeToFit()
+		self.textView.addSubview(self.placeholderLabel)
+        self.placeholderLabel.frame.origin = CGPoint(x: 5, y: (self.textView.font?.pointSize)! / 2)
+        self.placeholderLabel.textColor = .tertiaryLabel
+		self.placeholderLabel.isHidden = self.text.isEmpty
 
-        self.text = textView.text
+        self.text = self.textView.text
 
         // Set the delegate to handle text changes
-        textView.delegate = textViewDelegate
-        textViewDelegate.easyTextbox = self
+        self.textView.delegate = self.textViewDelegate
+        self.textViewDelegate.easyTextbox = self
 
         // Automatically add the textView to the current view controller's view
         if let currentVC = getCurrentViewController() {
-            currentVC.view.addSubview(textView)
+            currentVC.view.addSubview(self.textView)
         }
     }
 
