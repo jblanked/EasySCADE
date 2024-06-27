@@ -1,5 +1,6 @@
 // Import necessary modules and conditionally import platform-specific ones
 import ScadeKit
+import EasySCADE
 import Dispatch
 import Foundation
 import ScadeUI
@@ -7,6 +8,7 @@ import ScadeUI
 #if os(iOS)
 import UIKit 
 import SwiftUI
+import DeviceKit
 #endif
 
 #if os(Android)
@@ -122,3 +124,67 @@ public func EasySCDTextForm(
 		}
 		return EasySCDVStack(elements, location: location)
 	}
+
+
+#if os(iOS)
+
+// Delegate Handler Class
+private class TextViewDelegateHandler: NSObject, UITextViewDelegate {
+    weak var easyTextbox: EasyTextbox?
+
+    func textViewDidChange(_ textView: UITextView) {
+        easyTextbox?.text = textView.text ?? ""  // Update the text property of EasyTextbox
+    }
+}
+
+// EasyTextbox Class
+public class EasyTextbox {
+    private let textView: UITextView
+    private let textViewDelegate = TextViewDelegateHandler()
+    
+    public var cornerRadius: CGFloat = 0.0
+    private var oldText: String = ""
+    public var text: String = ""
+    public var alignment: NSTextAlignment = .left
+
+    public init(
+        _ placeholder: String = "Type Here",
+        fontSize: CGFloat = 20,
+        location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: 0),
+        size: SCDGraphicsDimension = SCDGraphicsDimension(width: Int(UIScreen.main.bounds.width), height: 50)
+    ) {
+        textView = UITextView(frame: CGRect(x: Int(location.x), y: Int(location.y), width: Int(size.width), height: Int(size.height)))
+
+        // Configure the appearance and properties of the textView
+        textView.layer.masksToBounds = true
+        textView.layer.cornerRadius = self.cornerRadius
+        textView.layer.borderWidth = 1
+        textView.layer.borderColor = UIColor.systemGray.cgColor
+        textView.font = UIFont.systemFont(ofSize: fontSize)
+        textView.textColor = UIColor.black
+        textView.textAlignment = self.alignment
+        textView.dataDetectorTypes = .all
+        textView.layer.shadowOpacity = 0.5
+        textView.isEditable = true
+        textView.text = placeholder
+        
+        self.text = textView.text
+
+        // Set the delegate to handle text changes
+        textView.delegate = textViewDelegate
+        textViewDelegate.easyTextbox = self  // Set the reference to self in delegate
+
+        // Automatically add the textView to the current view controller's view
+        if let currentVC = getCurrentViewController() {
+            currentVC.view.addSubview(textView)
+        }
+    }
+
+    // Helper function to retrieve the current view controller
+    private func getCurrentViewController() -> UIViewController? {
+        return UIApplication.shared.windows.first(where: { $0.isKeyWindow })?.rootViewController
+    }
+    
+}
+#endif
+
