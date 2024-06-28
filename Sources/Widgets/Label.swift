@@ -29,7 +29,8 @@ public func EasySCDTextLabel(_ text: String,
 							y_location: Int = 0,
 							bold: Bool = false,
 							underline: Bool = false,
-							action: @escaping () -> Void = { }
+							action: @escaping () -> Void = { },
+							alignment: SCDLayoutHorizontalAlignment = SCDLayoutHorizontalAlignment.left
 							)-> SCDWidgetsContainer
     {	
 		let paragraph = splitTextIntoLines(text, fontsize)
@@ -49,7 +50,7 @@ public func EasySCDTextLabel(_ text: String,
 			label.font!.color = fontcolor
 			label.font!.bold = bold
 			label.font!.underline = underline
-			label.horizontalAlignment = SCDLayoutHorizontalAlignment.left    
+			label.horizontalAlignment = alignment   
     		label.baselineAlignment = SCDWidgetsBaselineAlignment.auto
     		label.verticalAlignment = SCDLayoutVerticalAlignment.middle
 			label.layoutData = SCDLayoutAutoLayoutData()
