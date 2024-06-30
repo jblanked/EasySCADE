@@ -241,7 +241,7 @@ public class EasyTextbox {
 		self.textView.addSubview(self.placeholderLabel)
         self.placeholderLabel.frame.origin = CGPoint(x: 5, y: (self.textView.font?.pointSize)! / 2)
         self.placeholderLabel.textColor = .tertiaryLabel
-		self.placeholderLabel.isHidden = self.text.isEmpty
+		self.placeholderLabel.isHidden = self.text.isEmpty || self.text == "" ? false : true
         
         // Set the delegate to handle text changes
         self.textView.delegate = textViewDelegate
