@@ -3,6 +3,7 @@ import ScadeKit
 import Dispatch
 import Foundation
 import ScadeUI
+import OpenCombine
 
 #if os(iOS)
 import UIKit 
@@ -358,3 +359,48 @@ public func getWindowScreenSize() -> EasyScreenInfo {
 
     return screenInfo
 }
+
+// Model for a task
+public struct EasyTask: Identifiable {
+    public let id: Int
+    public let title: String
+    public var data: Any = Any.self // hold any additional data
+}
+
+// ViewModel to manage tasks
+public class EasyCombine {
+    public static let shared = EasyCombine()
+    private init() {}
+
+    public var tasks: [EasyTask] = [] 
+    public let tasksPublisher = CurrentValueSubject<[EasyTask], Never>([])
+
+    private var cancellables: [AnyCancellable] = []
+
+    public func updateTasks(_ newTasks: [EasyTask]) {
+        self.tasks = newTasks
+    }
+
+    public func addTask(_ task: EasyTask) {
+        tasks.append(task)
+    
+        tasksPublisher.send(tasks)
+    }
+
+    public func removeTask(_ task: EasyTask) {
+        if let index = tasks.firstIndex(where: { $0.id == task.id }) {
+            tasks.remove(at: index)
+  
+            tasksPublisher.send(tasks)
+        }
+    }
+
+     public func subscribeToChanges(handler: @escaping ([EasyTask]) -> Void) {
+        tasksPublisher
+            .sink { tasks in
+                handler(tasks)
+            }
+            .store(in: &cancellables)
+    }
+}
+ 
