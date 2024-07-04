@@ -365,6 +365,12 @@ public struct EasyTask: Identifiable {
     public let id: Int
     public let title: String
     public var data: Any = Any.self // hold any additional data
+    
+    public init(id: Int, title: String, data: Any = Any.self) {
+        self.id = id
+        self.title = title
+        self.data = data
+    }
 }
 
 // ViewModel to manage tasks
