@@ -118,6 +118,49 @@ public func EasySpinner(_ show: Bool, _ text: String = "Loading...") {
 
 	}
 }
+// Creates a Loading Spinner
+public func EasySpinner(_ text: String = "Loading...", _ show: Bool = true) {
+    #if os(iOS)
+        guard let rootView = SCDApplication.rootViewController?.view else { return }
+
+        let tag = 999 // Arbitrary unique identifier for the spinner view
+        if let existingSpinner = rootView.viewWithTag(tag) as? UIActivityIndicatorView {
+            if !show {
+                existingSpinner.stopAnimating()
+                existingSpinner.removeFromSuperview()
+            }
+            return
+        }
+
+        if show {
+            var spinner: UIActivityIndicatorView
+            if #available(iOS 13.0, *) {
+                spinner = UIActivityIndicatorView(style: .large)
+            } else {
+                spinner = UIActivityIndicatorView(style: .whiteLarge)
+            }
+            spinner.color = .white 
+            spinner.center = rootView.center
+            spinner.tag = tag
+            rootView.addSubview(spinner)
+            spinner.startAnimating()
+            spinner.backgroundColor = UIColor(white: 0, alpha: 0.6)         
+            spinner.layer.cornerRadius = 10
+        }
+    #endif
+
+    #if os(Android)
+        easyProgress.setProgressStyle(style: ProgressDialog.STYLE_SPINNER)
+        easyProgress.incrementProgressBy(diff: 1)
+        easyProgress.setMessage(message: text)
+        if show {
+            easyProgress.show()  // Show spinner
+        } else {
+            easyProgress.dismiss()  // Hide spinner
+        }
+    #endif
+}
+
 
 public func EasySheet(
     _ title: String = "Title",
