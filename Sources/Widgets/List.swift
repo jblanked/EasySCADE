@@ -24,12 +24,14 @@ public struct EasySCDListElement {
   	 public var fontsize: Int
   	 public var fontcolor: SCDGraphicsRGB
   	 public var action: () -> Void
+	 public var linecolor: SCDSvgColor
 
-	public init(item: String, fontsize: Int = 15, fontcolor: SCDGraphicsRGB = EasyColor.black, action: @escaping () -> Void = {}) {
+	public init(item: String, fontsize: Int = 15, fontcolor: SCDGraphicsRGB = EasyColor.black, action: @escaping () -> Void = {}, linecolor: SCDSvgColor = EasySVGColor.black) {
 		self.item = item
 		self.fontsize = fontsize
 		self.fontcolor = fontcolor
 		self.action = action
+		self.linecolor = linecolor
 	}
   }
   
@@ -57,7 +59,7 @@ public func EasySCDList(_ list: [EasySCDListElement]) -> SCDWidgetsContainer
 			
     	  )
   	 	textLabel.append(label)
-    	let sec = EasySCDSeparator(10, SCDColor.black, 1.0)
+    	let sec = EasySCDSeparator(10, i.linecolor, 1.0)
 		sec.size = SCDGraphicsDimension(width: Int(screenInfo.screenSize.width), height: 20)
     	textLabel.append(sec)
   	 	
