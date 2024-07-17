@@ -254,7 +254,7 @@ public class EasyAppDelegate: UIResponder, UIApplicationDelegate, UNUserNotifica
 
         
         // Request permission to show alerts, play sounds, and set badges
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge, .provideAppNotificationSettings]) { granted, error in
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge, .providesAppNotificationSettings]) { granted, error in
             if !granted {
                 print("Permission for push notifications denied.")
             }
