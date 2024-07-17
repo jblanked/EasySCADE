@@ -174,7 +174,7 @@ public class Easybase
     let insertions = await channel.postgresChange(InsertAction.self, schema: "public", table: table)
     await channel.subscribe()
 
-    Task {
+    Task.detached {
         for await insert in insertions {
 
            if let messageJSON = insert.record["message"] as? AnyJSON {
