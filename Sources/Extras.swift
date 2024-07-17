@@ -472,14 +472,14 @@ public class EasyViewLister {
     }
     
     public func getCurrentSCDPageView() -> UIView {
-        if let secondView = self.getUIView(atIndex: 2) {
+        if let secondView = self.getUIView(atIndex: 3) {
             return secondView
         }
         return UIView()
     }
 
     public func getCurrentSCDContainer(index: Int = 0) -> UIView {
-        if let containerView = self.getUIView(atIndex: 2 + index) {
+        if let containerView = self.getUIView(atIndex: 4 + index) {
             return containerView
         }
         return self.getCurrentSCDPageView()
