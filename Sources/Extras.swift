@@ -410,3 +410,79 @@ public class EasyCombine {
     }
 }
  
+#if os(iOS)
+public class EasyViewLister {
+
+    public init() {}
+
+    public func listAllViews() -> [UIView] {
+        var allViews: [UIView] = []
+
+        // Iterate through all windows
+        for window in UIApplication.shared.windows {
+            // Get all subviews for each window
+            allViews.append(contentsOf: getAllSubviews(of: window))
+        }
+
+        return allViews
+    }
+
+    private func getAllSubviews(of view: UIView) -> [UIView] {
+        var subviews = [view]
+
+        for subview in view.subviews {
+            subviews.append(contentsOf: getAllSubviews(of: subview))
+        }
+
+        return subviews
+    }
+
+    public func findViews<T: UIView>(ofType type: T.Type) -> [T] {
+        let allViews = listAllViews()
+        return allViews.compactMap { $0 as? T }
+    }
+
+    public func getViewTypes() -> [String] {
+        let allViews = listAllViews()
+        return allViews.map { String(describing: type(of: $0)) }
+    }
+
+    public func printViewHierarchy(showAdditionalInfo: Bool = false) {
+        for window in UIApplication.shared.windows {
+            printViewHierarchy(of: window, level: 0, showAdditionalInfo: showAdditionalInfo)
+        }
+    }
+
+    private func printViewHierarchy(of view: UIView, level: Int, showAdditionalInfo: Bool) {
+        let indent = String(repeating: "  ", count: level)
+        if showAdditionalInfo {
+            print("\(indent)\(type(of: view)) - \(view)")
+        } else {
+            print("\(indent)\(type(of: view))")
+        }
+
+        for subview in view.subviews {
+            printViewHierarchy(of: subview, level: level + 1, showAdditionalInfo: showAdditionalInfo)
+        }
+    }
+
+    public func getUIView(atIndex index: Int) -> UIView? {
+        let allViews = listAllViews()
+        return index < allViews.count ? allViews[index] : nil
+    }
+    
+    public func getCurrentSCDPageView() -> UIView {
+        if let secondView = self.getUIView(atIndex: 2) {
+            return secondView
+        }
+        return UIView()
+    }
+
+    public func getCurrentSCDContainer(index: Int = 0) -> UIView {
+        if let containerView = self.getUIView(atIndex: 2 + index) {
+            return containerView
+        }
+        return self.getCurrentSCDPageView()
+    }
+}
+#endif
