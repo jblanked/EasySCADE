@@ -408,6 +408,11 @@ public class EasyCombine {
             }
             .store(in: &cancellables)
     }
+
+    public func clearTasks() {
+        tasks.removeAll()
+        tasksPublisher.send(tasks)
+    }
 }
  
 #if os(iOS)
