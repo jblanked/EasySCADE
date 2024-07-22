@@ -33,11 +33,19 @@ public class EasyAppStorage {
         #endif
     }
     
-    public func write(key: String, value: String) {
+    public func write(key: String, value: String, debug: Bool = false) {
         #if os(Android)
-        let editor = sharedPreferences?.edit()
-        editor?.putString(key: key, value: value)
-        editor?.apply()
+        if let editor = sharedPreferences?.edit() {
+            editor.putString(key: key, value: value)
+            editor.apply()
+            if debug {
+                print("Saved value for key: \(key)")
+            }
+        } else {
+            if debug {
+                print("Failed to get SharedPreferences editor")
+            }
+        }
         #else
         UserDefaults.standard.set(value, forKey: key)
         #endif
