@@ -43,9 +43,13 @@ public class EasyAppStorage {
         #endif
     }
     
-    public func read(key: String) -> String? {
+    public func read(key: String, debug: Bool = false) -> String? {
         #if os(Android)
-        return sharedPreferences?.getString(key: key, defValue: "")
+        let value = sharedPreferences?.getString(key: key, defValue: "")
+        if debug {
+            print("Read value for key: \(key), value: \(value ?? "nil")")
+        }
+        return value
         #else
         return UserDefaults.standard.string(forKey: key)
         #endif
