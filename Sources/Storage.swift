@@ -39,7 +39,7 @@ public class EasyAppStorage {
             editor.putString(key: key, value: value)
             editor.apply()
             if debug {
-                print("Saved value for key: \(key)")
+                print("Wrote value for key: \(key), value: \(value)")
             }
         } else {
             if debug {
