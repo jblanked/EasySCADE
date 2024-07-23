@@ -491,3 +491,78 @@ public class EasyViewLister {
     }
 }
 #endif
+
+
+#if os(iOS)
+public class EasyRefresh {
+    
+    private var scrollView = UIScrollView()
+    private var refreshControl = UIRefreshControl()
+    
+    public init() {
+        // Configure the scroll view
+        setupScrollView()
+        // Configure the refresh control
+        setupRefreshControl()
+    }
+    
+   private func setupScrollView() {
+        // Get the current page's UIView
+        let lister = EasyViewLister()
+        let pageView = lister.getCurrentSCDPageView()
+        
+        // Find all UIScrollView instances within the page view
+        let scrollViews = lister.findViews(ofType: UIScrollView.self)
+        
+        if let targetScrollView = scrollViews.first {
+            // Use the found UIScrollView for refresh control
+            self.scrollView = targetScrollView
+        } else {
+            // If no UIScrollView is found, use the default scrollView and add it to the page view
+            pageView.addSubview(scrollView)
+            setupConstraints(for: scrollView, in: pageView)
+        }
+    }
+
+    private func setupConstraints(for view: UIView, in superview: UIView) {
+        view.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            view.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
+            view.trailingAnchor.constraint(equalTo: superview.trailingAnchor),
+            view.topAnchor.constraint(equalTo: superview.topAnchor),
+            view.bottomAnchor.constraint(equalTo: superview.bottomAnchor)
+        ])
+    }
+
+    private func setupRefreshControl() {
+        self.refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
+        self.scrollView.refreshControl = refreshControl
+    }
+    
+    @objc public func refreshData() {
+        // Handle the refresh action to reload your data
+        print("Data is being refreshed...")
+    }
+    
+    public func end() {
+        self.refreshControl.endRefreshing()
+    }
+    
+    public func start() {
+        self.refreshControl.beginRefreshing()
+    }
+    
+    public func isRefreshing() -> Bool {
+        return self.refreshControl.isRefreshing
+    }
+    
+    public func addToView(_ view: UIView) {
+        view.addSubview(scrollView)
+        setupConstraints(for: scrollView, in: view)
+    }
+
+    public func removeFromView() {
+        self.scrollView.removeFromSuperview()
+    }
+}
+#endif
