@@ -3,6 +3,7 @@ import ScadeKit
 import Dispatch
 import Foundation
 import ScadeUI
+import OpenCombine
 
 #if os(iOS)
 import UIKit 
@@ -192,7 +193,7 @@ public class EasySCDTextManager {
 public class SCDWidgetsLabelCombine
 {
 	public var label: SCDWidgetsLabel
-	private var cancellables: Set<AnyCancellable> = []
+	private var cancellables: [AnyCancellable] = []
     private var lastTask: EasyTask = EasyTask(id: 0, title: "")
 
 	
