@@ -190,56 +190,98 @@ public class EasySCDTextManager {
 
 
 
-public class SCDWidgetsLabelCombine
-{
-	public var label: SCDWidgetsLabel
-	private var cancellables: [AnyCancellable] = []
+
+@propertyWrapper
+public struct SCDLabelPublisher {
+    private var labelState: SCDLabelState
+    static let didChangeNotification = Notification.Name("SCDLabelStatePublisherDidChange")
+    private var debounceWorkItem: DispatchWorkItem?
+    
+    public var wrappedValue: SCDLabelState {
+        get { labelState }
+        set {
+            labelState = newValue
+            debounceWorkItem?.cancel()
+            let workItem = DispatchWorkItem { [weak labelState] in
+                guard let labelState = labelState else { return }
+                NotificationCenter.default.post(name: SCDLabelPublisher.didChangeNotification, object: labelState)
+            }
+            debounceWorkItem = workItem
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3, execute: workItem)
+        }
+    }
+
+    public init(wrappedValue: SCDLabelState) {
+        self.labelState = wrappedValue
+        NotificationCenter.default.addObserver(forName: SCDLabelPublisher.didChangeNotification, object: nil, queue: .main) { notification in
+            guard let labelState = notification.object as? SCDLabelState else { return }
+            labelState.updateLabel()
+        }
+    }
+}
+
+public class SCDWidgetsLabelCombine: SCDLabelState {
+    public var label: SCDWidgetsLabel
+    private var cancellables: [OpenCombine.AnyCancellable] = []
     private var lastTask: EasyTask = EasyTask(id: 0, title: "")
 
-	
-	public init(
-		_ text: String, 
-		fontSize: Int = 20, 
-		_ fontColor: SCDGraphicsRGB = EasyColor.black,
-		_ font: String = "ArialMT",
-		_ location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: 0),
-		_ size: SCDGraphicsDimension = SCDGraphicsDimension(width: Int(screenInfo.screenSize.width), height: 50),
-		_ alignment: SCDLayoutHorizontalAlignment = SCDLayoutHorizontalAlignment.left
-	)
-	{
-		label = SCDWidgetsLabel()
+    public var text: String {
+        get { label.text ?? "" }
+        set { label.text = newValue }
+    }
+
+    public init(
+        _ text: String,
+        fontSize: Int = 20,
+        fontColor: SCDGraphicsRGB = EasyColor.black,
+        font: String = "ArialMT",
+        location: SCDGraphicsPoint = SCDGraphicsPoint(x: 0, y: 0),
+        size: SCDGraphicsDimension = SCDGraphicsDimension(width: Int(screenInfo.screenSize.width), height: 50),
+        alignment: SCDLayoutHorizontalAlignment = SCDLayoutHorizontalAlignment.left
+    ) {
+        label = SCDWidgetsLabel()
         label.location = location
         label.font!.fontFamily = font
         label.font!.size = fontSize
         label.font!.color = fontColor
         label.size = size
-        label.horizontalAlignment = alignment  
+        label.horizontalAlignment = alignment
         label.baselineAlignment = SCDWidgetsBaselineAlignment.auto
         label.verticalAlignment = SCDLayoutVerticalAlignment.middle
         label.layoutData = SCDLayoutAutoLayoutData()
-        
-        self.subscribe()      
-        
-        label.text = text
-        
-	}
-	
-	private func subscribe()
-	{
-		// Subscribe to changes in the task list to update label
+
+        self.subscribe()
+
+        self.text = text
+    }
+
+    private func subscribe() {
+        // Subscribe to changes in the task list to update label
         EasyCombine.shared.subscribeToChanges { [weak label] tasks in
             let text = tasks.map { $0.title }.joined()
             label?.text = text
         }
-	}
-	
-	public func update(_ newText: String)
-	{
-		if self.lastTask.title != "" {
-                EasyCombine.shared.removeTask(self.lastTask)
-            }
-            
-            self.lastTask = EasyTask(id: EasyCombine.shared.tasks.count, title: newText)
-            EasyCombine.shared.addTask(self.lastTask)
-	}
+    }
+
+    public func update(_ newText: String) {
+        if self.lastTask.title != "" {
+            EasyCombine.shared.removeTask(self.lastTask)
+        }
+
+        self.lastTask = EasyTask(id: EasyCombine.shared.tasks.count, title: newText)
+        EasyCombine.shared.addTask(self.lastTask)
+    }
 }
+
+public protocol SCDLabelState: AnyObject {
+    var label: SCDWidgetsLabel { get }
+    var text: String { get set }
+    func updateLabel()
+}
+
+public extension SCDLabelState {
+    func updateLabel() {
+        self.label.text = self.text
+    }
+}
+
