@@ -111,8 +111,7 @@ public struct EasyTextPublisher {
 public class EasySCDTextManager {
     public var label: SCDWidgetsContainer
     private var fontSize: Int
-    
-    public var text: String {
+    public var scdLabel: SCDWidgetsLabel {
         get {
             for item in self.label.children {
                 guard let tempContainer = item as? SCDWidgetsContainer else {
@@ -123,12 +122,12 @@ public class EasySCDTextManager {
                     continue
                 }
                 
-                return tempLabel.text ?? ""
+                return tempLabel
             }
             
-            return ""
+            return SCDWidgetsLabel()
         }
-        
+
         set {
             for item in self.label.children {
                 guard let tempContainer = item as? SCDWidgetsContainer else {
@@ -139,9 +138,35 @@ public class EasySCDTextManager {
                     continue
                 }
                 
-                tempLabel.text = newValue
-                tempLabel.font!.size = self.fontSize
+                tempLabel.text = newValue.text
+                tempLabel.font!.size = newValue.font!.size
+                tempLabel.font!.color = newValue.font!.color
+                tempLabel.font!.fontFamily = newValue.font!.fontFamily
+                tempLabel.font!.bold = newValue.font!.bold
+                tempLabel.font!.underline = newValue.font!.underline
+                tempLabel.horizontalAlignment = newValue.horizontalAlignment
+                tempLabel.baselineAlignment = newValue.baselineAlignment
+                tempLabel.verticalAlignment = newValue.verticalAlignment
+                tempLabel.layoutData = newValue.layoutData
+                tempLabel.size = newValue.size
+                tempLabel.paddingLeft = newValue.paddingLeft
+                tempLabel.paddingTop = newValue.paddingTop
+
+                self.fontSize = newValue.font!.size
+
+                break
             }
+        }
+    }
+    
+    public var text: String {
+        get {
+            return self.scdLabel.text ?? ""
+        }
+        
+        set {  
+            self.scdLabel.text = newValue
+            self.scdLabel.font!.size = self.fontSize
         }
     }
     
@@ -175,18 +200,8 @@ public class EasySCDTextManager {
     }
 
     public func updateLabel() {
-        for item in self.label.children {
-            guard let tempContainer = item as? SCDWidgetsContainer else {
-                continue
-            }
-            
-            guard let tempLabel = tempContainer.children.first as? SCDWidgetsLabel else {
-                continue
-            }
-            
-            tempLabel.text = self.text
-            tempLabel.font!.size = self.fontSize
-        }
+        self.scdLabel.text = self.text
+        self.scdLabel.font!.size = self.fontSize
     }
 }
 
