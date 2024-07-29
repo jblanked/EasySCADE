@@ -566,3 +566,36 @@ public class EasyRefresh {
     }
 }
 #endif
+
+public protocol SCDStateWrapper {
+    associatedtype Value
+    var value: Value { get set }
+}
+
+
+public class SCDStatePublisher<Value>: SCDStateWrapper {
+    public var value: Value {
+        didSet {
+            self.objectWillChange.send()
+        }
+    }
+    public var objectWillChange = OpenCombine.PassthroughSubject<Void, Never>()
+
+    public init(_ value: Value) {
+        self.value = value
+    }
+}
+
+@propertyWrapper
+public struct SCDState<Value> {
+    private var state: SCDStatePublisher<Value>
+    
+    public var wrappedValue: Value {
+        get { state.value }
+        set { state.value = newValue }
+    }
+
+    public init(wrappedValue: Value) {
+        self.state = SCDStatePublisher(wrappedValue)
+    }
+}
