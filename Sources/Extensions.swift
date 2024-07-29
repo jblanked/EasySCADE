@@ -149,6 +149,17 @@ extension SCDWidgetsContainer {
     }
 }
 
+// redraw the SCDWidgetsContainer
+extension SCDWidgetsContainer {
+	
+	public func refresh(_ newChildren: [SCDWidgetsWidget]) {
+		DispatchQueue.main.async {
+			self.children.removeAll()
+			self.children = newChildren
+		}
+	}
+}
+
 #if os(iOS) 
 // extension to SCDWidgetsContainer to add a SwiftUI view
 extension SCDApplication {
