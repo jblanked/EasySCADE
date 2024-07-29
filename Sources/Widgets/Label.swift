@@ -110,6 +110,7 @@ public struct EasyTextPublisher {
 
 public class EasySCDTextManager {
     public var label: SCDWidgetsContainer
+    private var fontSize: Int
     
     public var text: String {
         get {
@@ -139,6 +140,7 @@ public class EasySCDTextManager {
                 }
                 
                 tempLabel.text = newValue
+                tempLabel.font!.size = self.fontSize
             }
         }
     }
@@ -169,6 +171,7 @@ public class EasySCDTextManager {
             action: action,
             alignment: alignment
         )
+        self.fontSize = fontsize
     }
 
     public func updateLabel() {
@@ -182,6 +185,7 @@ public class EasySCDTextManager {
             }
             
             tempLabel.text = self.text
+            tempLabel.font!.size = self.fontSize
         }
     }
 }
