@@ -95,72 +95,101 @@ public struct EasySCDLayoutBubbles {
     }
 }
 
-
 private func Bubble(
     _ text: String, 
     color: SCDSvgRGBColor = SCDSvgRGBColor(red: 10, green: 132, blue: 255),
     fontcolor: SCDSvgRGBColor = SCDSvgColor.white
 ) -> BubbleInfo {
-    // Create a rectangle
     let rectangle = SCDSvgRect()
-    
-    let components = text.components(separatedBy: .whitespacesAndNewlines)
-    let words = components.filter { !$0.isEmpty }
-    let totalCharacters = words.reduce(0) { $0 + $1.count } // Sum of all characters in words
-    var width: Int
-    var height: Int
-
-    let characterWidth = 20 // Approximate width of each character
-    let lineHeight = 30 // Height of each line
-    let padding = 10 // Padding inside the bubble
-
-    // Set a maximum number of characters per line to avoid overly wide bubbles
-    let screenWidth = Int(screenInfo.screenSize.width)
-    let maxCharactersPerLine = (screenWidth - 2 * padding) / characterWidth
-
-    // Calculate width and height
-    if totalCharacters > maxCharactersPerLine {
-        let lines = (totalCharacters / maxCharactersPerLine) + (totalCharacters % maxCharactersPerLine > 0 ? 1 : 0)
-        width = screenWidth - 20 // Use maximum available width
-        height = lines * lineHeight + 2 * padding // Adjust height based on the number of lines
-    } else {
-        width = min(totalCharacters * characterWidth, screenWidth - 20) // Adjust width based on total characters
-        height = lineHeight + 2 * padding // Single line height plus padding
-    }
-
-    // Set the corner radius
-    rectangle.rx = 20 // Radius for x-axis corners
-    rectangle.ry = 20 // Radius for y-axis corners
-
     let group = SCDSvgGroup()
     rectangle.fill = color
     group.children.append(rectangle)
-    
-    let lines = splitTextIntoLines(text)
 
-    // Create and add each line of text to the group
+    let padding = 20 // Padding inside the bubble
+    let lineHeight = 30 // Height of each line
+    let fontSize = 20
+    let fontName = "ArialMT"
+    let maxWidth = Int(screenInfo.screenSize.width) - 40 // Max width with some margin
+
+    // Function to estimate text width
+    func estimateTextWidth(_ text: String) -> Int {
+        let charCount = text.filter { !$0.isWhitespace }.count
+        let wordCount = text.components(separatedBy: .whitespacesAndNewlines).count
+        
+        // Adjust character width based on text length and word count
+        let averageCharWidth: Double
+        if charCount <= 10 {
+            averageCharWidth = 12.0 // Wider for very short texts
+        } else if charCount <= 20 {
+            averageCharWidth = 11.0 // Still wider for short texts
+        } else {
+            averageCharWidth = 10.0 // Normal width for longer texts
+        }
+
+        // Adjust space width based on word count
+        let spaceWidth: Double = wordCount <= 2 ? 4.0 : 3.0
+
+        let estimatedWidth = Double(charCount) * averageCharWidth + Double(wordCount - 1) * spaceWidth
+        
+        // Apply a small adjustment factor for fine-tuning
+        let adjustmentFactor = charCount > 15 ? 1.02 : 0.98
+        
+        return Int(estimatedWidth * adjustmentFactor)
+    }
+
+    // Function to wrap text
+    func wrapText(_ text: String) -> [String] {
+        var lines: [String] = []
+        var currentLine = ""
+        
+        for word in text.components(separatedBy: .whitespacesAndNewlines) {
+            let testLine = currentLine.isEmpty ? word : "\(currentLine) \(word)"
+            if estimateTextWidth(testLine) <= maxWidth - padding {
+                currentLine = testLine
+            } else {
+                if !currentLine.isEmpty {
+                    lines.append(currentLine)
+                }
+                currentLine = word
+            }
+        }
+        if !currentLine.isEmpty {
+            lines.append(currentLine)
+        }
+        return lines
+    }
+
+    let lines = wrapText(text)
+    var maxLineWidth = 0
+
     for (index, line) in lines.enumerated() {
         let svgText = SCDSvgText()
         svgText.text = line
-        svgText.x = 10 // Adjust as needed
-        svgText.y = SCDSvgUnit(integerLiteral: Int(25 + (index * 30))) // Adjust y based on line number
+        svgText.x = SCDSvgUnit(integerLiteral: padding / 2)
+        svgText.y = SCDSvgUnit(integerLiteral: lineHeight + (index * lineHeight))
         svgText.fill = fontcolor
-        svgText.fontSize = 20
+        svgText.fontSize = fontSize
         svgText.anchor = SCDSvgTextAnchor.start
         svgText.alignment = SCDSvgTextAlignment.left
         svgText.alignmentBaseline = SCDSvgTextAlignmentBaseline.auto
-        svgText.fontName = "ArialMT"
-        height = Int(25 + (index * 30)) + 10
+        svgText.fontName = fontName
         group.children.append(svgText)
+
+        let lineWidth = estimateTextWidth(line)
+        maxLineWidth = max(maxLineWidth, lineWidth)
     }
 
-    // Translate width/height into SCDSvgUnits
+    let width = min(maxLineWidth + padding, maxWidth)
+    let height = lines.count * lineHeight + padding
+
     rectangle.width = SCDSvgUnit(integerLiteral: width)
     rectangle.height = SCDSvgUnit(integerLiteral: height)
-    
+    rectangle.rx = 20
+    rectangle.ry = 20
+
     return BubbleInfo(group: group, size: SCDSize(width: Double(width), height: Double(height)))
 }
-
+ 
 private struct BubbleInfo {
     var group: SCDSvgGroup
     var size: SCDSize
@@ -223,7 +252,7 @@ private func createBubbleContainer(
     // Use the bubble size directly from bubbleDrawing.size
     bubbleContainer.children.append(label)
     bubbleContainer.size = SCDGraphicsDimension(width: Int(bubbleDrawing.size.width), height: Int(bubbleDrawing.size.height)) // Use the actual size of the bubble
-    bubbleContainer.location = SCDGraphicsPoint(x: 0, y: yPos)
+    bubbleContainer.location = SCDGraphicsPoint(x: 5, y: yPos)
     
     return bubbleContainer 
 }
