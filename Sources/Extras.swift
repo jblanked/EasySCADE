@@ -64,61 +64,92 @@ public func EasyAlert(title:String, message:String,action: @escaping () -> Void 
 
   }
 
-// creates a Loading Spinner
-public func EasySpinner(_ show: Bool, _ text: String = "Loading...") {
-	DispatchQueue.main.async {
-    #if os(iOS)
+public func EasySpinner(_ show: Bool, text: String = "Loading...", spinner: Bool = true, _ progress: Double = 0) {
+    DispatchQueue.main.async {
+        #if os(iOS)
         guard let rootView = SCDApplication.rootViewController?.view else { return }
-
-        // Look for an existing spinner
-        let tag = 999 // Arbitrary unique identifier for the spinner view
-        if let existingSpinner = rootView.viewWithTag(tag) as? UIActivityIndicatorView {
+        
+        // Look for an existing spinner or progress view
+        let tag = 999 // Arbitrary unique identifier for the spinner/progress view
+        if let existingView = rootView.viewWithTag(tag) {
             if !show {
-                // Stop and remove existing spinner
-                existingSpinner.stopAnimating()
-                existingSpinner.removeFromSuperview()
+                // Stop and remove existing spinner or progress view
+                if let activityIndicator = existingView as? UIActivityIndicatorView {
+                    activityIndicator.stopAnimating()
+                }
+                // For UIProgressView, we don't need to stop anything explicitly
+                existingView.removeFromSuperview()
             }
-            // If a spinner is found and `show` is true, do nothing because it's already visible
+            // If a view is found and `show` is true, do nothing because it's already visible
             return
         }
-
+        
         if show {
-            // Initialize and configure the spinner
-			var spinner: UIActivityIndicatorView
-			if #available(iOS 13.0, *) {
-         	spinner = UIActivityIndicatorView(style: .large)
-			} else {
-			 spinner = UIActivityIndicatorView(style: .whiteLarge)
-			}
-            spinner.color = .white 
-            spinner.center = rootView.center
-            spinner.tag = tag
-            rootView.addSubview(spinner)
-            spinner.startAnimating()
-
-            // Optionally set a background to make it more visible
-            spinner.backgroundColor = UIColor(white: 0, alpha: 0.6)         
-            spinner.layer.cornerRadius = 10
+            if spinner {
+                // Initialize and configure the spinner
+                let activityIndicator: UIActivityIndicatorView
+                if #available(iOS 13.0, *) {
+                    activityIndicator = UIActivityIndicatorView(style: .large)
+                } else {
+                    activityIndicator = UIActivityIndicatorView(style: .whiteLarge)
+                }
+                activityIndicator.color = .white
+                activityIndicator.center = rootView.center
+                activityIndicator.tag = tag
+                rootView.addSubview(activityIndicator)
+                activityIndicator.startAnimating()
+                
+                // Optionally set a background to make it more visible
+                activityIndicator.backgroundColor = UIColor(white: 0, alpha: 0.6)
+                activityIndicator.layer.cornerRadius = 10
+                
+                // Add label for text if needed
+                let label = UILabel()
+                label.text = text
+                label.textColor = .white
+                label.textAlignment = .center
+                label.frame = CGRect(x: 0, y: activityIndicator.frame.maxY + 10, width: rootView.frame.width, height: 20)
+                rootView.addSubview(label)
+            } else {
+                // Initialize and configure a progress view
+                let progressView = UIProgressView(progressViewStyle: .default)
+                progressView.progress = Float(progress)
+                progressView.center = rootView.center
+                progressView.tag = tag
+                rootView.addSubview(progressView)
+                
+                // Add label for text
+                let label = UILabel()
+                label.text = text
+                label.textAlignment = .center
+                label.frame = CGRect(x: 0, y: progressView.frame.maxY + 10, width: rootView.frame.width, height: 20)
+                rootView.addSubview(label)
+            }
         }
-    
-    #endif
-
-    #if os(Android)
-    // Android-specific spinner code
-    
-    easyProgress.setProgressStyle(style: ProgressDialog.STYLE_SPINNER)
-    easyProgress.incrementProgressBy(diff: 1)
-    easyProgress.setMessage(message: text)
-    if show {
-        easyProgress.show()  // Show spinner
-    } else {
-        easyProgress.dismiss()  // Hide spinner
+        #endif
+        
+        #if os(Android)
+        // Android-specific spinner code
+        if spinner {
+            easyProgress.setProgressStyle(style: ProgressDialog.STYLE_SPINNER)
+            easyProgress.incrementProgressBy(diff: 1)
+            easyProgress.setMessage(message: text)
+        } else {
+            easyProgress.setProgressStyle(style: ProgressDialog.STYLE_HORIZONTAL)
+            easyProgress.setMax(max: 100)
+            easyProgress.setProgress(progress: Int(progress * 100))
+            easyProgress.setMessage(message: text)
+        }
+        
+        if show {
+            easyProgress.show() // Show spinner or progress bar
+        } else {
+            easyProgress.dismiss() // Hide spinner or progress bar
+        }
+        #endif
     }
-     
-    #endif
-
-	}
 }
+
 // Creates a Loading Spinner
 public func EasySpinner(_ text: String = "Loading...", _ show: Bool = true) {
     #if os(iOS)
