@@ -64,7 +64,7 @@ public func EasyAlert(title:String, message:String,action: @escaping () -> Void 
 
   }
 
-public func EasySpinner(_ show: Bool, text: String = "Loading...", spinner: Bool = true, _ progress: Double = 0) {
+public func EasySpinner(_ show: Bool, _ text: String = "Loading...", _ spinner: Bool = true, _ progress: Double = 0) {
     DispatchQueue.main.async {
         #if os(iOS)
         guard let rootView = SCDApplication.rootViewController?.view else { return }
