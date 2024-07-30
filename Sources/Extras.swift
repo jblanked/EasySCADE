@@ -137,7 +137,7 @@ public func EasySpinner(_ show: Bool, _ text: String = "Loading...", _ spinner: 
         } else {
             easyProgress.setProgressStyle(style: ProgressDialog.STYLE_HORIZONTAL)
             easyProgress.setMax(max: 100)
-            easyProgress.setProgress(progress: Int(progress * 100))
+            easyProgress.setProgress(value: Int32(progress * 100))
             easyProgress.setMessage(message: text)
         }
         
