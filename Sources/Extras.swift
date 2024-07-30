@@ -213,18 +213,6 @@ public func EasySheet(
   }
 }
 
-
-public func EasySpinner(_ seconds: Int, _ text: String = "Loading...", _ action: @escaping () -> Void = { }) {
-	DispatchQueue.main.async {
-		EasySpinner(true, text)
-		DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(seconds)) {
-    		EasySpinner(false)
-			action()
-		}
-	}
-}
-
-
 public func EasySwipeGesture(
 		_ page: SCDWidgetsPage,
 		_ direction: SCDSvgSwipeDirection = .right,
