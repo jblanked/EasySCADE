@@ -102,14 +102,6 @@ public func EasySpinner(_ show: Bool, _ text: String = "Loading...", _ spinner: 
                 // Optionally set a background to make it more visible
                 activityIndicator.backgroundColor = UIColor(white: 0, alpha: 0.6)
                 activityIndicator.layer.cornerRadius = 10
-                
-                // Add label for text if needed
-                let label = UILabel()
-                label.text = text
-                label.textColor = .white
-                label.textAlignment = .center
-                label.frame = CGRect(x: 0, y: activityIndicator.frame.maxY + 10, width: rootView.frame.width, height: 20)
-                rootView.addSubview(label)
             } else {
                 // Initialize and configure a progress view
                 let progressView = UIProgressView(progressViewStyle: .default)
@@ -117,13 +109,6 @@ public func EasySpinner(_ show: Bool, _ text: String = "Loading...", _ spinner: 
                 progressView.center = rootView.center
                 progressView.tag = tag
                 rootView.addSubview(progressView)
-                
-                // Add label for text
-                let label = UILabel()
-                label.text = text
-                label.textAlignment = .center
-                label.frame = CGRect(x: 0, y: progressView.frame.maxY + 10, width: rootView.frame.width, height: 20)
-                rootView.addSubview(label)
             }
         }
         #endif
@@ -149,7 +134,7 @@ public func EasySpinner(_ show: Bool, _ text: String = "Loading...", _ spinner: 
         easyProgress.show() // Show spinner or progress bar
 
         #endif
-        
+
     }
 }
 
