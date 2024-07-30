@@ -104,8 +104,8 @@ public func EasySpinner(_ show: Bool, _ text: String = "Loading...", _ spinner: 
                 activityIndicator.layer.cornerRadius = 10
             } else {
                 // Initialize and configure a progress view
-                let progressView = UIProgressView(progressViewStyle: .default)
-                progressView.progress = Float(progress)
+                let progressView = UIProgressView(progressViewStyle: .bar)
+                progressView.setProgress(Float(progress), animated: true)
                 progressView.center = rootView.center
                 progressView.tag = tag
                 rootView.addSubview(progressView)
