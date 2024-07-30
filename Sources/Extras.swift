@@ -129,6 +129,11 @@ public func EasySpinner(_ show: Bool, _ text: String = "Loading...", _ spinner: 
         #endif
         
         #if os(Android)
+
+        if !show {
+            easyProgress.dismiss() // Hide spinner or progress bar
+            return
+        }
         // Android-specific spinner code
         if spinner {
             easyProgress.setProgressStyle(style: ProgressDialog.STYLE_SPINNER)
@@ -141,12 +146,10 @@ public func EasySpinner(_ show: Bool, _ text: String = "Loading...", _ spinner: 
             easyProgress.setMessage(message: text)
         }
         
-        if show {
-            easyProgress.show() // Show spinner or progress bar
-        } else {
-            easyProgress.dismiss() // Hide spinner or progress bar
-        }
+        easyProgress.show() // Show spinner or progress bar
+
         #endif
+        
     }
 }
 
