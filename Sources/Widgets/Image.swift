@@ -140,7 +140,7 @@ public func EasySCDImage(
 
     // Asynchronously load the local image
     Task {
-        if let imageData = await imageCacheManager.loadLocalImage(key: path, filePath: path) {
+        if let imageData = await imageCacheManager.loadLocalImage(key: path, filePath: "Assets/" + path) {
             DispatchQueue.main.async {
                 image.content = imageData
             }
