@@ -1,0 +1,86 @@
+{
+  "pins" : [
+    {
+      "identity" : "devicekit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/devicekit/DeviceKit.git",
+      "state" : {
+        "branch" : "master",
+        "revision" : "5757447e9f92c476ee2ca41ead7eb6db07936430"
+      }
+    },
+    {
+      "identity" : "opencombine",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/OpenCombine/OpenCombine.git",
+      "state" : {
+        "branch" : "master",
+        "revision" : "1c6f02c7ed8140c0ba7a783aaddb6e0685a0037b"
+      }
+    },
+    {
+      "identity" : "scadeextensions",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/scade-platform/ScadeExtensions",
+      "state" : {
+        "branch" : "main",
+        "revision" : "744c233f8b316899e2229546df08efea39b22a8f"
+      }
+    },
+    {
+      "identity" : "supabase-swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/supabase-community/supabase-swift.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "6a88cc5916c01c12507e18da413461fe7d8a21fc"
+      }
+    },
+    {
+      "identity" : "swift-android",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/scade-platform/swift-android.git",
+      "state" : {
+        "branch" : "android/24",
+        "revision" : "510ee0dacb085c532c330377d25dff6ad23c3b5f"
+      }
+    },
+    {
+      "identity" : "swift-concurrency-extras",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/pointfreeco/swift-concurrency-extras",
+      "state" : {
+        "revision" : "bb5059bde9022d69ac516803f4f227d8ac967f71",
+        "version" : "1.1.0"
+      }
+    },
+    {
+      "identity" : "swift-crypto",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-crypto.git",
+      "state" : {
+        "revision" : "46072478ca365fe48370993833cb22de9b41567f",
+        "version" : "3.5.2"
+      }
+    },
+    {
+      "identity" : "swift-java",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/scade-platform/swift-java.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "6b2cf43f63cc5959978caee931c487d07f7d9c03"
+      }
+    },
+    {
+      "identity" : "xctest-dynamic-overlay",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/pointfreeco/xctest-dynamic-overlay",
+      "state" : {
+        "revision" : "357ca1e5dd31f613a1d43320870ebc219386a495",
+        "version" : "1.2.2"
+      }
+    }
+  ],
+  "version" : 2
+}

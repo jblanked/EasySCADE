@@ -25,13 +25,25 @@ public struct EasySCDListElement {
   	 public var fontcolor: SCDGraphicsRGB
   	 public var action: () -> Void
 	 public var linecolor: SCDSvgColor
+	 public var backPage: String
+	 public var navigate: Bool
 
-	public init(item: String, fontsize: Int = 15, fontcolor: SCDGraphicsRGB = EasyColor.black, action: @escaping () -> Void = {}, linecolor: SCDSvgColor = EasySVGColor.black) {
+	public init(
+			item: String, 
+			fontsize: Int = 15, 
+			fontcolor: SCDGraphicsRGB = EasyColor.black, 
+			action: @escaping () -> Void = {}, 
+			linecolor: SCDSvgColor = EasySVGColor.black,
+			backPage: String = "",
+			navigate: Bool = false
+		) {
 		self.item = item
 		self.fontsize = fontsize
 		self.fontcolor = fontcolor
 		self.action = action
 		self.linecolor = linecolor
+		self.backPage = backPage
+		self.navigate = navigate
 	}
   }
   
