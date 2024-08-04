@@ -27,6 +27,7 @@ public struct EasySCDListElement {
 	 public var linecolor: SCDSvgColor
 	 public var backPage: String
 	 public var navigate: Bool
+	 public var forwardPage: String
 
 	public init(
 			item: String, 
@@ -35,7 +36,8 @@ public struct EasySCDListElement {
 			action: @escaping () -> Void = {}, 
 			linecolor: SCDSvgColor = EasySVGColor.black,
 			backPage: String = "",
-			navigate: Bool = false
+			navigate: Bool = false,
+			forwardPage: String = ""
 		) {
 		self.item = item
 		self.fontsize = fontsize
@@ -44,6 +46,7 @@ public struct EasySCDListElement {
 		self.linecolor = linecolor
 		self.backPage = backPage
 		self.navigate = navigate
+		self.forwardPage = forwardPage
 	}
   }
   
