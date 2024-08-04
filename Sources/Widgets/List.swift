@@ -19,7 +19,7 @@ import AndroidOS
 #endif
 
 
-public struct EasySCDListElement {
+public class EasySCDListElement {
   	 public var item: String
   	 public var fontsize: Int
   	 public var fontcolor: SCDGraphicsRGB
